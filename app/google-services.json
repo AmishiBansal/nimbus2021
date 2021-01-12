@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "359817213483",
+    "firebase_url": "https://nimbus2020-f2e15.firebaseio.com",
+    "project_id": "nimbus2020-f2e15",
+    "storage_bucket": "nimbus2020-f2e15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359817213483:android:058c94b1cdacdaf5295c6e",
+        "android_client_info": {
+          "package_name": "com.nith.appteam.nimbus2020"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359817213483-6oq2hqqb1jocp4u282lfgoj0ug1gmvph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-bB0CmW80G2yFXb8wfEzo53G3KjgCsB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359817213483-6oq2hqqb1jocp4u282lfgoj0ug1gmvph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

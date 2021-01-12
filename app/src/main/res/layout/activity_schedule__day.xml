@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Schedule_Day">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="393dp"
+        android:layout_height="396dp"
+        android:paddingTop="10dp"
+        app:contentPaddingLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.425">
+
+        <Button
+            android:id="@+id/Day1ID"
+            android:layout_width="328dp"
+            android:layout_height="97dp"
+            android:layout_gravity="center_horizontal"
+
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/dat"
+            android:text="Day - 1"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/Day2ID"
+            android:layout_width="328dp"
+            android:layout_height="97dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/dat"
+            android:text="Day -2 "
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/Day3ID"
+            android:layout_width="328dp"
+            android:layout_height="97dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/dat"
+            android:text="Day - 3"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

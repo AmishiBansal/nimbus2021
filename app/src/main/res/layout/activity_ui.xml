@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.UI">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/dashboard_tab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/psitalic"
+            android:gravity="center"
+            android:text="Dashboard"
+            android:textAllCaps="true"
+            android:textColor="@color/greyLight" />
+
+        <TextView
+            android:id="@+id/sponsor_tab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/psitalic"
+            android:gravity="center"
+            android:text="Sponsors"
+            android:textAllCaps="true"
+            android:textColor="@color/greyLight" />
+
+        <TextView
+            android:id="@+id/team_tab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/psitalic"
+            android:gravity="center"
+            android:text="team"
+            android:textAllCaps="true"
+            android:textColor="@color/greyLight" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:src="@drawable/white_gradient" />
+
+        <FrameLayout
+            android:id="@+id/fragment_holder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</LinearLayout>

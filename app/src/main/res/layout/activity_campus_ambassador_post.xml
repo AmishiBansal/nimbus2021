@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".Activities.CampusAmbassadorPost">
+
+    <com.nith.appteam.nimbus2020.Utils.GradientTextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/psb"
+        android:gravity="center"
+        android:text="a m b a s s a d o r"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="48dp">
+
+            <TextView
+                android:id="@+id/text_lable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:fontFamily="@font/psregular"
+                android:text="Enter link of social media here"
+                android:textColor="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_lable"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="16dp"
+                android:backgroundTint="@color/white"
+                android:hint="https://www.facebook.com/something"
+                android:textColor="@color/white"
+                android:textColorHint="#80BDBDBD"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/imageUpload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/link"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+
+            <Button
+                android:id="@+id/upload_picture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageUpload"
+                android:layout_gravity="center"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/black_round_corner"
+                android:text="Upload Picture"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/submit_post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/upload_picture"
+                android:layout_gravity="center"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/black_round_corner"
+                android:text="Submit Post"
+                android:textColor="@color/white"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/post_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:elevation="2dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#55000000"
+        android:elevation="20dp"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <include layout="@layout/custom_dialog" />
+    </LinearLayout>
+</RelativeLayout>

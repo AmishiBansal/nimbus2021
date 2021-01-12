@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTalk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="@dimen/cardRadius"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+
+        <RelativeLayout
+            android:id="@+id/contTalk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background">
+
+            <ImageView
+                android:id="@+id/round_big"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:elevation="0dp"
+                android:src="@drawable/bg_round_dark"
+                android:translationX="-75dp" />
+
+            <ImageView
+                android:id="@+id/round_small"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/bg_round_dark"
+                android:tint="@color/black"
+                android:translationX="-50dp" />
+
+            <ImageView
+                android:id="@+id/speakerImageID"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@drawable/round_outline"
+                android:scaleType="fitXY"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="16dp"
+                android:layout_toRightOf="@id/round_small"
+                android:orientation="vertical">
+
+                <com.nith.appteam.nimbus2020.Utils.GradientTextView
+                    android:id="@+id/speakerNameID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/psb"
+                    android:gravity="end"
+                    android:text="Event Name"
+                    android:textAllCaps="true"
+                    android:textColor="@color/blueLight"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/speakerVenueID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/psitalic"
+                    android:gravity="end"
+                    android:lines="1"
+                    android:text="Location"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/SpeakerDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/psitalic"
+                    android:gravity="end"
+                    android:lines="1"
+                    android:text="Time"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

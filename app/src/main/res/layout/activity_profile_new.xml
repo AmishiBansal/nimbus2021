@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/psregular"
+            android:text="&lt; BACK"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <com.nith.appteam.nimbus2020.Utils.GradientTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/psb"
+            android:text="P R O F I L E"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/background"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_pic"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@color/md_grey_100"
+                    app:civ_border_color="@color/colorAccent"
+                    app:civ_border_width="3dp" />
+
+                <ImageView
+                    android:id="@+id/profile_pic_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignRight="@+id/profile_pic"
+                    android:layout_alignBottom="@+id/profile_pic"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/photo_camera" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_title_24px" />
+
+                <TextView
+                    android:id="@+id/name_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:text="Name"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="13sp" />
+
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name_label"
+                    android:layout_marginStart="45dp"
+                    android:backgroundTint="@color/white"
+                    android:nextFocusDown="@id/rollno"
+                    android:singleLine="true"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_email_24px" />
+
+                <TextView
+                    android:id="@+id/email_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:text="Mobile Number"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/email_label"
+                    android:layout_marginStart="@dimen/profileEditTextLeft"
+                    android:backgroundTint="@color/white"
+                    android:inputType="none"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_numeric_24px" />
+
+                <TextView
+                    android:id="@+id/rno_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:text="Roll Number"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/rollno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rno_label"
+                    android:layout_marginStart="@dimen/profileEditTextLeft"
+                    android:backgroundTint="@color/white"
+                    android:singleLine="true"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_school_24px" />
+
+                <TextView
+                    android:id="@+id/branch_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:text="College Name"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/college"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/branch_label"
+                    android:layout_marginStart="@dimen/profileEditTextLeft"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ca"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="Are you a Campus Ambassador?"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="13sp" />
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/ca_yes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Yes"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp" />
+
+                    <RadioButton
+                        android:id="@+id/ca_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="No"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/submit_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="36dp"
+                android:background="@drawable/black_round_corner"
+                android:text="Submit"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/profile_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:elevation="2dp"
+        android:visibility="gone" />
+</RelativeLayout>

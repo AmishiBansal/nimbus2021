@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Quiz">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/quizTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape1"
+        android:gravity="center"
+        android:text="30s"
+        android:textSize="16.0sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/quizquestionnumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape2"
+        android:gravity="center"
+
+        android:text="Q1"
+        android:textSize="16.0sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/quizquestion"
+        style="@style/TextAppearance.AppCompat.Display4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+
+        android:layout_marginBottom="8dp"
+
+
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="If questions don't appear click any button below"
+        android:textSize="21.0sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quizquestionnumber" />
+
+    <Button
+        android:id="@+id/option1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button"
+        android:elevation="10dp"
+        android:fontFamily="sans-serif"
+        android:text="Button1"
+        app:layout_constraintBottom_toTopOf="@+id/option2"
+        app:layout_constraintCircleRadius="12.0dip"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/leftguide"
+        app:layout_constraintTop_toBottomOf="@+id/topguide" />
+
+    <Button
+        android:id="@+id/option4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button"
+        android:elevation="10dp"
+        android:fontFamily="sans-serif"
+        android:text="Button4"
+        app:layout_constraintBottom_toTopOf="@+id/option3"
+        app:layout_constraintCircleRadius="12.0dip"
+        app:layout_constraintEnd_toStartOf="@+id/rightguide"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/topguide" />
+
+    <Button
+        android:id="@+id/option2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button"
+        android:elevation="10dp"
+        android:fontFamily="sans-serif"
+        android:text="Button2"
+        app:layout_constraintBottom_toTopOf="@+id/bottomguide"
+        app:layout_constraintCircleRadius="12.0dip"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/leftguide"
+        app:layout_constraintTop_toBottomOf="@+id/option1" />
+
+    <Button
+        android:id="@+id/option3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button"
+        android:elevation="10dp"
+        android:fontFamily="sans-serif"
+        android:text="Button3"
+
+        app:layout_constraintBottom_toTopOf="@+id/bottomguide"
+        app:layout_constraintCircleRadius="12.0dip"
+        app:layout_constraintEnd_toStartOf="@+id/rightguide"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/option4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightguide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.94" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftguide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomguide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topguide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.56" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.42" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

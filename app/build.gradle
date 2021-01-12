@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.nith.appteam.nimbus2020"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
+    implementation 'com.cloudinary:cloudinary-android:1.24.0'
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'com.krsticdragan:autotypetextview:1.1'
+    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.github.didikk:sticky-nestedscrollview:1.0.1'
+
+    implementation 'org.sufficientlysecure:html-textview:3.9'
+    implementation 'com.github.tarek360.RichPath:animator:0.1.1'
+}

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="@dimen/cardRadius"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background">
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/round_big"-->
+        <!--            android:layout_width="150dp"-->
+        <!--            android:layout_height="150dp"-->
+        <!--            android:layout_alignParentLeft="true"-->
+        <!--            android:layout_centerVertical="true"-->
+        <!--            android:elevation="0dp"-->
+        <!--            android:src="@drawable/bg_round_dark"-->
+        <!--            android:translationX="-75dp" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/round_small"-->
+        <!--            android:layout_width="100dp"-->
+        <!--            android:layout_height="100dp"-->
+        <!--            android:layout_alignParentLeft="true"-->
+        <!--            android:layout_centerVertical="true"-->
+        <!--            android:src="@drawable/bg_round_dark"-->
+        <!--            android:tint="@color/black"-->
+        <!--            android:translationX="-50dp" />-->
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:scaleX="2.3"
+            android:scaleY="2.3"
+            android:src="@drawable/bg_round_dark"
+            android:translationY="-48dp" />
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:src="@drawable/bg_round_light"
+            android:translationY="-48dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userImageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="16dp"
+            android:src="@color/white" />
+
+        <TextView
+            android:id="@+id/Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/userImageView"
+            android:layout_marginTop="25dp"
+            android:layout_toLeftOf="@+id/nameTextView"
+            android:fontFamily="@font/psregular"
+            android:text="Name: "
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Name"
+            android:layout_alignLeft="@+id/Name"
+            android:layout_alignBottom="@+id/userImageView"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/psregular"
+            android:gravity="bottom"
+            android:text="Score: "
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userImageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/psb"
+            android:singleLine="true"
+            android:text="SHUBHAM"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/scoreTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/psregular"
+            android:singleLine="true"
+            android:text="100"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
