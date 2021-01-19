@@ -26,7 +26,7 @@
             android:textColor="@android:color/white"
             android:textSize="13sp" />
 
-        <com.nith.appteam.nimbus2020.Utils.GradientTextView
+        <com.nith.appteam.nimbus2021.Utils.GradientTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -106,7 +106,7 @@
                                 android:gravity="start"
                                 android:orientation="vertical">
 
-                                <com.nith.appteam.nimbus2020.Utils.GradientTextView
+                                <com.nith.appteam.nimbus2021.Utils.GradientTextView
                                     android:id="@+id/NameIDDetEventsD"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -195,7 +195,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <com.nith.appteam.nimbus2020.Utils.GradientTextView
+                            <com.nith.appteam.nimbus2021.Utils.GradientTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
@@ -234,7 +234,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                            <com.nith.appteam.nimbus2020.Utils.GradientTextView
+                            <com.nith.appteam.nimbus2021.Utils.GradientTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"

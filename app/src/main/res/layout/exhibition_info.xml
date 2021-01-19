@@ -56,7 +56,7 @@
                 android:layout_toRightOf="@id/round_small"
                 android:orientation="vertical">
 
-                <com.nith.appteam.nimbus2020.Utils.GradientTextView
+                <com.nith.appteam.nimbus2021.Utils.GradientTextView
                     android:id="@+id/exhibtionNameID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

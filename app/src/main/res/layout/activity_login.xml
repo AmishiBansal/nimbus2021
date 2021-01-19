@@ -57,7 +57,7 @@
         android:layout_height="300dp"
         app:vector="@drawable/nimbus_svg" />
 
-    <com.nith.appteam.nimbus2020.Utils.GradientTextView
+    <com.nith.appteam.nimbus2021.Utils.GradientTextView
         android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

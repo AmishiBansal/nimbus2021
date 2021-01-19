@@ -19,7 +19,7 @@
             android:padding="4dp"
             android:src="@drawable/ic_scanner" />
 
-        <com.nith.appteam.nimbus2020.Utils.GradientTextView
+        <com.nith.appteam.nimbus2021.Utils.GradientTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

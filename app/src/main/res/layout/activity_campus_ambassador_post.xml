@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".Activities.CampusAmbassadorPost">
 
-    <com.nith.appteam.nimbus2020.Utils.GradientTextView
+    <com.nith.appteam.nimbus2021.Utils.GradientTextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
