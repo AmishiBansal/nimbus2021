@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background">
+
+    <ImageView
+        android:id="@+id/e_n"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:src="@drawable/bg_round_dark"
+        android:translationX="-130dp"
+        android:translationY="-130dp" />
+
+    <ImageView
+        android:id="@+id/e_k"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/bg_round_dark"
+        android:tint="@color/background"
+        android:translationX="-100dp"
+        android:translationY="-100dp" />
+
+    <ImageView
+        android:id="@+id/t_n"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/bg_round_dark"
+        android:translationX="130dp"
+        android:translationY="130dp" />
+
+    <ImageView
+        android:id="@+id/t_k"
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/bg_round_dark"
+        android:tint="@color/background"
+        android:translationX="100dp"
+        android:translationY="100dp" />
+
+    <com.richpath.RichPathView
+        android:id="@+id/nimbus1"
+        android:layout_centerInParent="true"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:vector="@drawable/nimbus_svg1" />
+
+    <com.richpath.RichPathView
+        android:id="@+id/nimbus"
+        android:layout_centerInParent="true"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:vector="@drawable/nimbus_svg" />
+
+    <com.nith.appteam.nimbus2021.Utils.GradientTextView
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="72dp"
+        android:background="@drawable/black_round_corner1"
+        android:fontFamily="@font/psb"
+        android:gravity="center"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="Login"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <ProgressBar
+        android:id="@+id/login_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:theme="@style/AppTheme"
+        android:visibility="gone" />
+
+</RelativeLayout>
+

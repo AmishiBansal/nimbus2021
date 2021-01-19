@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/psregular"
+            android:text="&lt; BACK"
+            android:textColor="@android:color/white"
+            android:textSize="13sp" />
+
+        <com.nith.appteam.nimbus2021.Utils.GradientTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/psregular"
+            android:text="D E P A R T M E N T A L  E V E N T S"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/corner"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/linear_layout_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/corner"
+            android:background="@android:color/white" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/event_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        app:cardBackgroundColor="@color/background"
+                        app:cardCornerRadius="@dimen/cardCornerRadius"
+                        app:cardElevation="0dp"
+                        app:cardPreventCornerOverlap="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/e_n"
+                                android:layout_width="260dp"
+                                android:layout_height="260dp"
+                                android:src="@drawable/bg_round_dark"
+                                android:translationX="180dp"
+                                android:translationY="120dp" />
+
+                            <ImageView
+                                android:id="@+id/e_k"
+                                android:layout_width="200dp"
+                                android:layout_height="200dp"
+                                android:src="@drawable/bg_round_dark"
+                                android:tint="@color/background"
+                                android:translationX="200dp"
+                                android:translationY="140dp" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerInParent="true"
+                                android:layout_margin="16dp"
+                                android:gravity="start"
+                                android:orientation="vertical">
+
+                                <com.nith.appteam.nimbus2021.Utils.GradientTextView
+                                    android:id="@+id/NameIDDetEventsD"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="-8dp"
+                                    android:fontFamily="@font/psb"
+                                    android:gravity="start"
+                                    android:maxLines="1"
+                                    android:text="event name"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/blueLight"
+                                    android:textSize="70sp" />
+
+                                <TextView
+                                    android:id="@+id/DateDetEventsD"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/psb"
+                                    android:gravity="start"
+                                    android:maxLines="1"
+                                    android:text="date"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/white"
+                                    android:textSize="20sp" />
+
+
+                                <TextView
+                                    android:id="@+id/VenueIDDetEventsD"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/psb"
+                                    android:gravity="start"
+                                    android:maxLines="1"
+                                    android:text="venue"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/white"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/InfoIDDetEventsD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/event_card"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:fontFamily="@font/psregular"
+                        android:text="info"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/abstractIDDetEventsD"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_below="@+id/InfoIDDetEventsD"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_marginStart="32dp"-->
+<!--                        android:layout_marginTop="16dp"-->
+<!--                        android:layout_marginEnd="32dp"-->
+<!--                        android:fontFamily="@font/psregular"-->
+<!--                        android:text="abstract"-->
+<!--                        android:textAllCaps="true"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="20sp" />-->
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/abstractIDDetEventsD"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/InfoIDDetEventsD"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/background"
+                        app:cardCornerRadius="@dimen/cardCornerRadius"
+                        app:cardElevation="0dp"
+                        app:cardPreventCornerOverlap="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.nith.appteam.nimbus2021.Utils.GradientTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_margin="16dp"
+                                android:autoSizeMaxTextSize="20sp"
+                                android:autoSizeMinTextSize="10sp"
+                                android:autoSizeTextType="uniform"
+                                android:fontFamily="@font/psb"
+                                android:gravity="center_horizontal"
+                                android:maxLines="1"
+                                android:paddingTop="8dp"
+                                android:paddingBottom="8dp"
+                                android:text="Abstract"
+                                android:textAllCaps="true"
+                                android:textColor="@android:color/white"
+                                android:textSize="20sp"
+                                app:autoSizeStepGranularity="1sp" />
+
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/registerDetEventsD"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/abstractIDDetEventsD"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/background"
+                        app:cardCornerRadius="@dimen/cardCornerRadius"
+                        app:cardElevation="0dp"
+                        app:cardPreventCornerOverlap="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.nith.appteam.nimbus2021.Utils.GradientTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_margin="16dp"
+                                android:autoSizeMaxTextSize="20sp"
+                                android:autoSizeMinTextSize="10sp"
+                                android:autoSizeTextType="uniform"
+                                android:fontFamily="@font/psb"
+                                android:gravity="center_horizontal"
+                                android:maxLines="1"
+                                android:paddingTop="8dp"
+                                android:paddingBottom="8dp"
+                                android:text="register"
+                                android:textAllCaps="true"
+                                android:textColor="@android:color/white"
+                                android:textSize="20sp"
+                                app:autoSizeStepGranularity="1sp" />
+
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</LinearLayout>
