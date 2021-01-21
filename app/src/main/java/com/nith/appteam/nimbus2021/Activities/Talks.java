@@ -108,7 +108,7 @@ public class Talks extends AppCompatActivity {
 
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,
-                Constant.Url + searchTerm, null, new Response.Listener<JSONArray>() {
+                Constant.Url + "events/?type="+ "talk", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 loadwall.setVisibility(View.GONE);
@@ -123,11 +123,11 @@ public class Talks extends AppCompatActivity {
 //                        talk.setInfo("HE is veryhlhfeldijvoikbfewkjbkfjwkejfkjwejeovijoeijvoeijdvoijeoijeovjioejioeijvovjoeidjvlkdsnlkvn jsndoviejoiejvoljkdlkjvoeijvoiejovijdokjdeoivjolj");
 //                        talk.setDate("19 2022002345453453453450 2");
                         talk.setName(talkObj.getString("name"));
-                        talk.setDate(talkObj.getString("date"));
+                        talk.setDate(talkObj.getString("start"));
                         talk.setImage(talkObj.getString("image"));
-                        talk.setIdTalk(talkObj.getString("_id"));
+                        talk.setIdTalk(talkObj.getString("id"));
                         talk.setInfo(talkObj.getString("info"));
-                        talk.setRegURL(talkObj.getString("regUrl"));
+                        talk.setRegURL(talkObj.getString("regURL"));
                         talk.setVenue("Venue: " + talkObj.getString("venue"));
                         // Log.d("Talk",talk.getName());
                         talkList.add(talk);
@@ -142,7 +142,7 @@ public class Talks extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Error", error.getMessage());
+             //   Log.d("Error", error.getMessage());
 
             }
         });

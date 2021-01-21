@@ -117,16 +117,17 @@ public class DepartmentEvents extends Fragment {
 
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,
-                Constant.Url + searchTerm, null, new Response.Listener<JSONArray>() {
+                Constant.Url + "events/?type="+ "departmental", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 loadWall.setVisibility(View.GONE);
-                Log.d("Response", response.toString());
                 for (int i = 0; i < response.length(); i++) {
                     try {
 
                         JSONObject talkObj = response.getJSONObject(i);
                         departmentEvent eventD = new departmentEvent();
+                        Log.d("Response", talkObj.toString());
+
 //                        talk.setName("Aysuh
 //                        KAusnldjhlkhfkllnewlfnlwenflkjewlkjfljwhekjksdjkjhkuhkjhkjsdhlehlkjhalhldhll");
 //                        talk.setVenue("LEcture
@@ -137,11 +138,11 @@ public class DepartmentEvents extends Fragment {
 
 //                        talk.setDate("19 2022002345453453453450 2");
                         eventD.setNameDEVE(talkObj.getString("name"));
-                        eventD.setDateDEVE(talkObj.getString("date"));
+                        eventD.setDateDEVE(talkObj.getString("start"));
                         eventD.setImageDEVE(talkObj.getString("image"));
                         eventD.setInfoDEVE(talkObj.getString("info"));
 
-                        eventD.setRegURLDEVE(talkObj.getString("regUrl"));
+                        eventD.setRegURLDEVE(talkObj.getString("regURL"));
                         eventD.setVenueDEVE("Venue: " + talkObj.getString("venue"));
                         eventD.setAbstractDEVE(talkObj.getString("abstract"));
 
@@ -160,7 +161,7 @@ public class DepartmentEvents extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Error", error.getMessage());
+//                Log.d("Error", error.getMessage());
 
             }
         });
