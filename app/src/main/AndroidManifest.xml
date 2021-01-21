@@ -6,11 +6,17 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.nith.appteam.nimbus2021.Activities.Nimbus2020"
+        android:name=".Activities.Nimbus2020"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,88 +24,99 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.UI"></activity>
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Web" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.CoreTeamActivity" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.CampusAmbassador" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Schedule" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Schedule_Day" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Event_Choose" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.contributorsActivity" />
+        <activity android:name=".Activities.VideoCallActivity"></activity>
+        <activity android:name=".Activities.Videocall_Joining" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.UI" />
+        <activity android:name=".Activities.Web" />
+        <activity android:name=".Activities.CoreTeamActivity" />
+        <activity android:name=".Activities.CampusAmbassador" />
+        <activity android:name=".Activities.Schedule" />
+        <activity android:name=".Activities.Schedule_Day" />
+        <activity android:name=".Activities.Event_Choose" />
+        <activity android:name=".Activities.contributorsActivity" />
         <activity
-            android:name="com.nith.appteam.nimbus2021.Activities.SplashScreen"
+            android:name=".Activities.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Add_D_Events" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Add_I_Events" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Add_institute_Activity_Detail" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Add_deptEvents_detail" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Add_exhibition_details" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Add_workshop_details" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Add_talk_details" />
+        <activity android:name=".Activities.Add_D_Events" />
+        <activity android:name=".Activities.Add_I_Events" />
+        <activity android:name=".Activities.Add_institute_Activity_Detail" />
+        <activity android:name=".Activities.Add_deptEvents_detail" />
+        <activity android:name=".Activities.Add_exhibition_details" />
+        <activity android:name=".Activities.Add_workshop_details" />
+        <activity android:name=".Activities.Add_talk_details" />
         <activity
-            android:name="com.nith.appteam.nimbus2021.Activities.Add_Exhibition"
+            android:name=".Activities.Add_Exhibition"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.nith.appteam.nimbus2021.Activities.QRScanner"
+            android:name=".Activities.QRScanner"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.nith.appteam.nimbus2021.Activities.department_Events"
+            android:name=".Activities.department_Events"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.nith.appteam.nimbus2021.Activities.Institute_Events"
+            android:name=".Activities.Institute_Events"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.nith.appteam.nimbus2021.Activities.Add_Workshop"
+            android:name=".Activities.Add_Workshop"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.nith.appteam.nimbus2021.Activities.Add_Talk"
+            android:name=".Activities.Add_Talk"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.nith.appteam.nimbus2021.Activities.Exhhibition"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name="com.nith.appteam.nimbus2021.Activities.Workshops"
+            android:name=".Activities.Exhhibition"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.nith.appteam.nimbus2021.Activities.Talks"
+            android:name=".Activities.Workshops"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.CampusAmbassadorPost" />
         <activity
-            android:name="com.nith.appteam.nimbus2021.Activities.QuizScoreActivity"
+            android:name=".Activities.Talks"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.CampusAmbassadorPost" />
+        <activity
+            android:name=".Activities.QuizScoreActivity"
             android:launchMode="singleTop" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.LeaderBoardActivity" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.QuizInstructionsActivity" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.ProfileMain" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.ProfileNew" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Login" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.SponsorsActivity" />
+        <activity android:name=".Activities.LeaderBoardActivity" />
+        <activity android:name=".Activities.QuizInstructionsActivity" />
+        <activity android:name=".Activities.ProfileMain" />
+        <activity android:name=".Activities.ProfileNew" />
+        <activity android:name=".Activities.Login" />
+        <activity android:name=".Activities.SponsorsActivity" />
         <activity
-            android:name="com.nith.appteam.nimbus2021.Activities.MainActivity"
+            android:name=".Activities.MainActivity"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.Quiz" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.DepartmentQuiz" />
-        <activity android:name="com.nith.appteam.nimbus2021.Activities.QuizMainActivity" />
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activities.Quiz" />
+        <activity android:name=".Activities.DepartmentQuiz" />
+        <activity android:name=".Activities.QuizMainActivity" >
+
+        </activity>
 
         <meta-data
             android:name="CLOUDINARY_URL"
             android:value="cloudinary://256963859891119:w4WXsRRz58DN3eVbGK1g6JvcjJY@duutozrvz" />
 
         <service
-            android:name="com.nith.appteam.nimbus2021.Services.GeofenceRegistrationService"
+            android:name=".Services.GeofenceRegistrationService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
     </application>
-
 
 </manifest>
