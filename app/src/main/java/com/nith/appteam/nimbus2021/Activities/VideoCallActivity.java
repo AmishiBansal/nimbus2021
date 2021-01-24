@@ -1,10 +1,5 @@
 package com.nith.appteam.nimbus2021.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,6 +14,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.nith.appteam.nimbus2021.R;
 
 import io.agora.rtc.IRtcEngineEventHandler;
@@ -31,6 +31,10 @@ public class VideoCallActivity extends AppCompatActivity {
     private static final String TAG = VideoCallActivity.class.getSimpleName();
 
     private static final int PERMISSION_REQ_ID = 22;
+
+    //
+    String channelName;
+    String tokenId;
 
     // Permission WRITE_EXTERNAL_STORAGE is not mandatory
     // for Agora RTC SDK, just in case if you wanna save
@@ -183,6 +187,14 @@ public class VideoCallActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_call);
+
+        Intent i = getIntent();
+
+        channelName = i.getStringExtra("channel");
+        tokenId = i.getStringExtra("token");
+        Log.e("VideoCall Channel", channelName);
+        Log.e("VideoCall Token", tokenId);
+
         initUI();
 
         // Ask for permissions at runtime.
@@ -305,12 +317,13 @@ public class VideoCallActivity extends AppCompatActivity {
         // 2. One token is only valid for the channel name that
         // you use to generate this token.
 
-        String token = "0065497f890ee75460d9e5bb8cb45180ef7IAAXcE8z552e312HAL0KFmIA0bU5mdnEd53A4+s8h9mXcuLcsooAAAAAEADaDPibP80KYAEAAQAAAAAA";
+//        String token = "0065497f890ee75460d9e5bb8cb45180ef7IAAXcE8z552e312HAL0KFmIA0bU5mdnEd53A4+s8h9mXcuLcsooAAAAAEADaDPibP80KYAEAAQAAAAAA";
 //        String token = getString(R.string.agora_access_token);
 //        if (TextUtils.isEmpty(token) || TextUtils.equals(token, String.valueOf(R.string.agora_access_token))) {
 //            token = getString(R.string.agora_access_token); // default, no token
 //        }
-        mRtcEngine.joinChannel(token, "test1", "Extra Optional Data", 0);
+
+        mRtcEngine.joinChannel(tokenId, channelName, "Extra Optional Data", 0);
     }
 
     @Override

@@ -115,7 +115,7 @@ public class InstituteEvents extends Fragment {
 
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,
-                Constant.Url + searchTerm, null, new Response.Listener<JSONArray>() {
+                Constant.Url + "events/?type="+ "institutional", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 loadWall.setVisibility(View.GONE);
@@ -133,10 +133,10 @@ public class InstituteEvents extends Fragment {
 //                        veryhlhfeldijvoikbfewkjbkfjwkejfkjwejeovijoeijvoeijdvoijeoijeovjioejioeijvovjoeidjvlkdsnlkvn jsndoviejoiejvoljkdlkjvoeijvoiejovijdokjdeoivjolj");
 //                        talk.setDate("19 2022002345453453453450 2");
                         Ievent.setNameIEVE(talkObj.getString("name"));
-                        Ievent.setDateIEVE(talkObj.getString("date"));
+                        Ievent.setDateIEVE(talkObj.getString("start"));
                         Ievent.setImageIEVE(talkObj.getString("image"));
                         Ievent.setInfoIEVE(talkObj.getString("info"));
-                        Ievent.setRegURLIEVE(talkObj.getString("regUrl"));
+                        Ievent.setRegURLIEVE(talkObj.getString("regURL"));
                         Ievent.setVenueIEVE("Venue: " + talkObj.getString("venue"));
                         Ievent.setAbstractIEVE(talkObj.getString("abstract"));
                         // Log.d("Talk",talk.getName());
