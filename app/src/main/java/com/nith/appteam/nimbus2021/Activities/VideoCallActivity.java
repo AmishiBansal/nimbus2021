@@ -246,6 +246,7 @@ public class VideoCallActivity extends AppCompatActivity {
         mCallBtn = findViewById(R.id.btn_call);
         mMuteBtn = findViewById(R.id.btn_mute);
         mSwitchCameraBtn = findViewById(R.id.btn_switch_camera);
+//        mLogView = findViewById(R.id.log_recycler_view);
 
 
         // Sample logs are optional.
@@ -253,6 +254,9 @@ public class VideoCallActivity extends AppCompatActivity {
     }
 
     private void showSampleLogs() {
+//        mLogView.logI("Welcome to Agora 1v1 video call");
+//        mLogView.logW("You will see custom logs here");
+//        mLogView.logE("You can also use this to show errors");
     }
 
     private boolean checkSelfPermission(String permission, int requestCode) {
@@ -304,9 +308,13 @@ public class VideoCallActivity extends AppCompatActivity {
 
     private void initializeEngine() {
         try {
-            mRtcEngine = RtcEngine.create(getBaseContext(), getString(R.string.agora_app_id), mRtcEventHandler);
+            String appId = getString(R.string.agora_app_id);
+            mRtcEngine = RtcEngine.create(getBaseContext(), appId, mRtcEventHandler);
+            // Registers the local user account after initializing the Agora engine and before joining the channel.
+            mRtcEngine.registerLocalUserAccount(appId,getIntent().getStringExtra("uid"));
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Log.e("hi", Log.getStackTraceString(e));
+
             throw new RuntimeException("NEED TO check rtc sdk init fatal error\n" + Log.getStackTraceString(e));
         }
     }
@@ -342,6 +350,7 @@ public class VideoCallActivity extends AppCompatActivity {
         // RENDER_MODE_HIDDEN: Uniformly scale the video until it fills the visible boundaries. One dimension of the video may have clipped contents.
         mLocalVideo = new VideoCanvas(view, VideoCanvas.RENDER_MODE_HIDDEN, 0);
         mRtcEngine.setupLocalVideo(mLocalVideo);
+
     }
 
     private void joinChannel() {
@@ -392,9 +401,9 @@ public class VideoCallActivity extends AppCompatActivity {
         mVideoMuted = !mVideoMuted;
 
         if (mVideoMuted) {
-            mRtcEngine.disableVideo();
+            mRtcEngine.enableLocalVideo(false);
         } else {
-            mRtcEngine.enableVideo();
+            mRtcEngine.enableLocalVideo(true);
         }
         ImageView iv = (ImageView) view;
 

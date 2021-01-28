@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -61,7 +62,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
         image = getResources().getString(R.string.defaultImageUrl);
 
         quizId = getIntent().getStringExtra("quizId");
-
+          quizId = "1";
         queue = Volley.newRequestQueue(LeaderBoardActivity.this);
 
         recyclerView = findViewById(R.id.leaderboardRecyclerView);
@@ -81,34 +82,37 @@ public class LeaderBoardActivity extends AppCompatActivity {
         loadwall.setVisibility(View.VISIBLE);
 
         StringRequest stringRequest = new StringRequest(
-                Request.Method.POST, getString(R.string.baseUrl) + "/quiz/leaderboards",
+                Request.Method.GET,  getString(R.string.baseUrl)+"/quiz/leaderboard/results/"+ getIntent().getStringExtra("quizId"),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         loadwall.setVisibility(View.GONE);
-
                         try {
-                            JSONObject jsonObject = new JSONObject(response);
+//                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray players = new JSONArray(response);
                             Log.e("response", response);
-
-                            JSONArray players = jsonObject.getJSONArray("players");
+//                                JSONObject player = players.getJSONObject(1);
+//                            JSONArray players = jsonObject.getJSONArray("id");
+                            Log.e("Tag", String.valueOf(players.length()));
 
                             for (int i = 0; i < players.length(); ++i) {
 
                                 JSONObject player = players.getJSONObject(i);
-                                if (player.has("image")) {
-                                    image = player.getString("image");
+                                if (player.has("profileImage")) {
+                                    image = player.getString("profileImage");
                                 }
 
                                 mLeaderboardModelList.add(
-                                        new LeaderboardModel(player.getString("name"),
+                                        new LeaderboardModel(player.getJSONObject("user").getString("username"),
                                                 player.getInt("score"), image));
+
                                 mLeaderBoardAdapter.notifyDataSetChanged();
                             }
                             loadwall.setVisibility(View.GONE);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+
                         }
 
                         Collections.sort(mLeaderboardModelList, new Comparator<LeaderboardModel>() {

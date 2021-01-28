@@ -76,9 +76,9 @@
             android:layout_height="@dimen/other_button_size"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/control_bottom_horizontal_margin"
+            android:onClick="onCameraClicked"
             android:layout_toEndOf="@id/btn_call"
             android:layout_toRightOf="@id/btn_call"
-            android:onClick="onCameraClicked"
             android:scaleType="centerCrop"
             android:src="@drawable/btn_camera" />
 
