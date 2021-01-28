@@ -89,10 +89,10 @@ public class Videocall_Joining extends AppCompatActivity {
     }
 
     private void getUserId() {
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser != null) {
-            uid = firebaseUser.getUid();
-            Log.e("UID", "mslfkd");
+//        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (true) {
+            uid = "test1234678";
+            Log.e("UID", "test12345678");
             getChannelNameAndTokenId();
         } else
             {

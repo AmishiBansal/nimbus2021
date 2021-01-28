@@ -156,6 +156,7 @@ public class VideoCallActivity extends AppCompatActivity {
 
     private void setupRemoteVideo(int uid) {
         ViewGroup parent = mRemoteContainer;
+
         if (parent.indexOfChild(mLocalVideo.view) > -1) {
             parent = mLocalContainer;
         }
@@ -363,6 +364,7 @@ public class VideoCallActivity extends AppCompatActivity {
         super.onDestroy();
         if (!mCallEnd) {
             leaveChannel();
+            finish();
         }
         /*
           Destroys the RtcEngine instance and releases all resources used by the Agora SDK.
@@ -413,6 +415,7 @@ public class VideoCallActivity extends AppCompatActivity {
            intent.putExtra("VideoEnd",true);
            intent.putExtra("uid2",getIntent().getStringExtra("uid2"));
            startActivity(intent);
+           finish();
         }
 
         showButtons(!mCallEnd);
