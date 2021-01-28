@@ -19,6 +19,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.nith.appteam.nimbus2021.R;
 
 import io.agora.rtc.IRtcEngineEventHandler;
@@ -32,7 +38,7 @@ public class VideoCallActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQ_ID = 22;
 
-    //
+
     String channelName;
     String tokenId;
 
@@ -112,6 +118,7 @@ public class VideoCallActivity extends AppCompatActivity {
                 }
             });
         }
+
 
         /**
          * Occurs when a remote user (Communication)/host (Live Broadcast) leaves the channel.
@@ -204,7 +211,31 @@ public class VideoCallActivity extends AppCompatActivity {
                 checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID) &&
                 checkSelfPermission(REQUESTED_PERMISSIONS[2], PERMISSION_REQ_ID)) {
             initEngineAndJoinChannel();
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            Sendlog();
+                        }
+                    },
+                    5000);
+
         }
+    }
+
+    private void Sendlog() {
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest request = new StringRequest(Request.Method.GET, getString(R.string.baseUrl)+"/omegle_clone/log/"+channelName, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("Response",response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error",error.toString());
+            }
+        });
+        queue.add(request);
     }
 
     private void initUI() {
@@ -302,6 +333,7 @@ public class VideoCallActivity extends AppCompatActivity {
         // Our server will assign one and return the uid via the event
         // handler callback function (onJoinChannelSuccess) after
         // joining the channel successfully.
+        mRtcEngine.enableVideo();
         SurfaceView view = RtcEngine.CreateRendererView(getBaseContext());
         view.setZOrderMediaOverlay(true);
         mLocalContainer.addView(view);
@@ -323,7 +355,7 @@ public class VideoCallActivity extends AppCompatActivity {
 //            token = getString(R.string.agora_access_token); // default, no token
 //        }
 
-        mRtcEngine.joinChannel(tokenId, channelName, "Extra Optional Data", 0);
+        mRtcEngine.joinChannelWithUserAccount(tokenId,channelName,getIntent().getStringExtra("uid"));
     }
 
     @Override
@@ -377,7 +409,10 @@ public class VideoCallActivity extends AppCompatActivity {
         } else {
             endCall();
             mCallEnd = true;
-            startActivity(new Intent(VideoCallActivity.this,Videocall_Joining.class));
+           Intent intent = new Intent(VideoCallActivity.this,Videocall_Joining.class);
+           intent.putExtra("VideoEnd",true);
+           intent.putExtra("uid2",getIntent().getStringExtra("uid2"));
+           startActivity(intent);
         }
 
         showButtons(!mCallEnd);
