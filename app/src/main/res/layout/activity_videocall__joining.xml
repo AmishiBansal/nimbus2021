@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".Activities.Videocall_Joining">
+
+    <com.nith.appteam.nimbus2021.Utils.GradientTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name_omegle"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:layout_marginTop="70dp"
+        android:textSize="30sp"
+        android:fontFamily="@font/psb"
+        android:text="O M E G L E"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/name_omegle"
+        android:id="@+id/des_omegle"
+        android:text="@string/omegleDes"/>
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="350dp"
+        android:src="@drawable/omegle_back"
+        android:id="@+id/img_omegle"
+        android:layout_centerInParent="true" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:textAllCaps="true"
+        android:text="video"
+        android:id="@+id/video_join"
+        android:background="@drawable/gradient_round_corner"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:fontFamily="@font/psb"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

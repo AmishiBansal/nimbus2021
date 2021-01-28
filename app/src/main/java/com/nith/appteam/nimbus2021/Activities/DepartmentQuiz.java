@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.nith.appteam.nimbus2021.Adapters.QuizRecyclerAdapter;
 import com.nith.appteam.nimbus2021.Models.Id_Value;
 import com.nith.appteam.nimbus2021.R;
+import com.nith.appteam.nimbus2021.Utils.Constant;
 import com.nith.appteam.nimbus2021.Utils.RecyclerItemClickListener;
 
 import org.json.JSONArray;
@@ -95,11 +96,13 @@ public class DepartmentQuiz extends AppCompatActivity {
         try {
             JSONArray jsonArray = new JSONArray(response);
             for (int i = 0; i < jsonArray.length(); i++) {
-                Id_Value idValue = new Id_Value(jsonArray.getJSONObject(i).getString("quizName"),
-                        jsonArray.getJSONObject(i).getString("_id"),
-                        image, jsonArray.getJSONObject(i).getString("startTime"), jsonArray.getJSONObject(i).getString("endTime"));
-                quiztypes.add(idValue);
-                Objects.requireNonNull(departmentquiz.getAdapter()).notifyDataSetChanged();
+                if(jsonArray.getJSONObject(i).getString("department").equals(getIntent().getStringExtra("departmentname"))) {
+                    Id_Value idValue = new Id_Value(jsonArray.getJSONObject(i).getString("name"),
+                            jsonArray.getJSONObject(i).getString("id"),
+                            image, jsonArray.getJSONObject(i).getString("startTime"), jsonArray.getJSONObject(i).getString("endTime"));
+                    quiztypes.add(idValue);
+                    Objects.requireNonNull(departmentquiz.getAdapter()).notifyDataSetChanged();
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -110,13 +113,28 @@ public class DepartmentQuiz extends AppCompatActivity {
 
     private void postdata(final int position) {
 
+        String id = null;
+
+        Intent j = getIntent();
+        String response = j.getStringExtra("quiz");
+        id = quiztypes.get(position).getId();
+        Log.e("id",id);
+//        textView.setText(j.getStringExtra("departmentname"))
+        image = j.getStringExtra("image");
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         final ProgressDialog progressDialog = new ProgressDialog(DepartmentQuiz.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
         loadwall.setVisibility(View.VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                getString(R.string.baseUrl) + "/quiz/questions", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                Constant.Url + "/quiz/question/"+id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 loadwall.setVisibility(View.GONE);
@@ -127,16 +145,9 @@ public class DepartmentQuiz extends AppCompatActivity {
 
                 try {
                     jsonObject = new JSONObject(response);
-                    int error = jsonObject.getInt("errorCode");
-
-                    if (error == 3) {
+                    if(jsonObject.has("message")){
+                        Log.e("Message",jsonObject.getString("message"));
                         flag = false;
-                        new AlertDialog.Builder(DepartmentQuiz.this)
-                                .setTitle("User not Validated!")
-                                .setMessage("You first need to signup or login.")
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -148,8 +159,17 @@ public class DepartmentQuiz extends AppCompatActivity {
                     intent.putExtra("startTime", quiztypes.get(position).getStartTime());
                     intent.putExtra("endTime", quiztypes.get(position).getEndTime());
                     progressDialog.dismiss();
+                    Log.e("questions",response);
                     startActivity(intent);
                     overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+                }
+                else{
+                    new AlertDialog.Builder(DepartmentQuiz.this)
+                            .setTitle("Not right time!")
+                            .setMessage("Quiz hasn't started yet")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                    progressDialog.dismiss();
                 }
 
             }
@@ -173,7 +193,7 @@ public class DepartmentQuiz extends AppCompatActivity {
 
                 HashMap<String, String> map = new HashMap<>();
                 SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
-                String token = sharedPreferences.getString("token", null);
+                String token = sharedPreferences.getString("token", String.valueOf(1));
                 map.put("access-token", token);
                 Log.e("access token", token);
                 return map;
