@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.nith.appteam.nimbus2021.Adapters.LeaderBoardAdapter;
 import com.nith.appteam.nimbus2021.Models.LeaderboardModel;
 import com.nith.appteam.nimbus2021.R;
+import com.nith.appteam.nimbus2021.Utils.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -82,7 +83,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
         loadwall.setVisibility(View.VISIBLE);
 
         StringRequest stringRequest = new StringRequest(
-                Request.Method.GET,  getString(R.string.baseUrl)+"/quiz/leaderboard/results/"+ getIntent().getStringExtra("quizId"),
+                Request.Method.GET,  Constant.Url +"/quiz/leaderboard/results/"+ getIntent().getStringExtra("quizId"),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -98,8 +99,8 @@ public class LeaderBoardActivity extends AppCompatActivity {
                             for (int i = 0; i < players.length(); ++i) {
 
                                 JSONObject player = players.getJSONObject(i);
-                                if (player.has("profileImage")) {
-                                    image = player.getString("profileImage");
+                                if (player.getJSONObject("user").has("profileImage")) {
+                                    image = player.getJSONObject("user").getString("profileImage");
                                 }
 
                                 mLeaderboardModelList.add(

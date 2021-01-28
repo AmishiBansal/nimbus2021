@@ -23,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.nith.appteam.nimbus2021.Models.QuestionData;
 import com.nith.appteam.nimbus2021.R;
+import com.nith.appteam.nimbus2021.Utils.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -260,7 +261,7 @@ public class Quiz extends AppCompatActivity {
         }
         Log.e("result", result);
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                getString(R.string.baseUrl) + "/quiz/checkresponses/", new Response.Listener<String>() {
+                Constant.Url + "/quiz/checkresponses/", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

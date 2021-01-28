@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.nith.appteam.nimbus2021.R;
+import com.nith.appteam.nimbus2021.Utils.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -208,7 +209,7 @@ public class QuizInstructionsActivity extends AppCompatActivity {
         }
         Log.e("result", result);
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                getString(R.string.baseUrl) + "/quiz/checkPlayedOrNot/", new Response.Listener<String>() {
+                Constant.Url + "/quiz/checkPlayedOrNot/", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -274,7 +275,7 @@ public class QuizInstructionsActivity extends AppCompatActivity {
     }
 
     private void getUserId() {
-        uid = "test2_123456";
+//        uid = "krejbgfkjerjg"; // for testing
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
             uid = firebaseUser.getUid();

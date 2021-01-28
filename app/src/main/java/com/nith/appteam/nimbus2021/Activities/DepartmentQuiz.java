@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.nith.appteam.nimbus2021.Adapters.QuizRecyclerAdapter;
 import com.nith.appteam.nimbus2021.Models.Id_Value;
 import com.nith.appteam.nimbus2021.R;
+import com.nith.appteam.nimbus2021.Utils.Constant;
 import com.nith.appteam.nimbus2021.Utils.RecyclerItemClickListener;
 
 import org.json.JSONArray;
@@ -133,7 +134,7 @@ public class DepartmentQuiz extends AppCompatActivity {
         progressDialog.show();
         loadwall.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                getString(R.string.baseUrl) + "/quiz/question/"+id, new Response.Listener<String>() {
+                Constant.Url + "/quiz/question/"+id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 loadwall.setVisibility(View.GONE);

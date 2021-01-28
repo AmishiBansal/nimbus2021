@@ -58,7 +58,7 @@ public class Videocall_Joining extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             RequestQueue queue =  Volley.newRequestQueue(Videocall_Joining.this);
-                            StringRequest request = new StringRequest(Request.Method.GET, getString(R.string.baseUrl) + "/omegle_clone/report/" + getIntent().getStringExtra("uid2"), new Response.Listener<String>() {
+                            StringRequest request = new StringRequest(Request.Method.GET, Constant.Url + "/omegle_clone/report/" + getIntent().getStringExtra("uid2"), new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
                                     Log.e("ReportResponse",response);

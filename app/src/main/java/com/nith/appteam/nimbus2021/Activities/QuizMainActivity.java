@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.nith.appteam.nimbus2021.Adapters.QuizRecyclerAdapter;
 import com.nith.appteam.nimbus2021.Models.Id_Value;
 import com.nith.appteam.nimbus2021.R;
+import com.nith.appteam.nimbus2021.Utils.Constant;
 import com.nith.appteam.nimbus2021.Utils.RecyclerItemClickListener;
 
 import org.json.JSONArray;
@@ -105,7 +106,7 @@ public class QuizMainActivity extends AppCompatActivity {
         loadwall.setVisibility(View.VISIBLE);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                getString(R.string.baseUrl) + "/departments", new Response.Listener<String>() {
+                Constant.Url + "/departments", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -158,7 +159,7 @@ public class QuizMainActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                getString(R.string.baseUrl) + "/quiz", new Response.Listener<String>() {
+                Constant.Url + "/quiz", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("quiz", response);
