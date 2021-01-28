@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.nith.appteam.nimbus2021.Adapters.SponsorsAdapter;
 import com.nith.appteam.nimbus2021.Models.Sponsor;
 import com.nith.appteam.nimbus2021.R;
+import com.nith.appteam.nimbus2021.Utils.Constant;
 import com.nith.appteam.nimbus2021.Utils.IResult;
 import com.nith.appteam.nimbus2021.Utils.VolleyService;
 
@@ -50,7 +51,7 @@ public class SponsorsActivity extends AppCompatActivity {
 
 
         recyclerView = findViewById(R.id.sponsorsRecyclerView);
-        loadwall = findViewById(R.id.loadwall);
+        loadwall = findViewById(R.id.loadwallWorkshop);
         mSponsorList = new ArrayList<>();
         getData();
         mSponsorsAdapter = new SponsorsAdapter(mSponsorList, this);
@@ -70,7 +71,7 @@ public class SponsorsActivity extends AppCompatActivity {
         final VolleyService mVolleyService = new VolleyService(mResultCallback, this);
 
         mVolleyService.getJsonArrayDataVolley("GETSPONSORS",
-                getString(R.string.baseUrl) + "/sponsor");
+                Constant.Url + "members/sponsors");
 
     }
 
