@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
         String image = sharedPreferences.getString("profileImage", null);
-
+        Log.e("image","any"+image);
         Picasso.with(this).load(image).resize(30, 30).placeholder(R.drawable.fui_ic_anonymous_white_24dp).into(profileImage);
 
 
