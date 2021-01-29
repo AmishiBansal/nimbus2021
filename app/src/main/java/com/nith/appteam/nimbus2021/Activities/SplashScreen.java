@@ -24,6 +24,12 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        //Test
+//        Intent intent = new Intent(SplashScreen.this, Exhhibition.class);
+//        startActivity(intent);
+//        finish();
+        //Test end
+
         ImageView t_n, t_k, e_n, e_k;
         Animation animation, animation1, animation2, animation3, anim;
 

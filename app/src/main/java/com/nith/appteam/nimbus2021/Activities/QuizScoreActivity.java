@@ -35,6 +35,7 @@ public class QuizScoreActivity extends AppCompatActivity {
                 Intent intent = new Intent(QuizScoreActivity.this, MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+                finish();
             }
         });
 

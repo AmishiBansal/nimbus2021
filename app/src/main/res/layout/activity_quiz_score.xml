@@ -3,6 +3,7 @@
     android:id="@+id/activity_quiz_score"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -15,6 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:text="YOU SCORED"
             android:textSize="35sp" />
 
@@ -26,6 +29,8 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
             android:text="0"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="55sp" />
 
         <TextView
@@ -71,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:padding="28dp"
+                android:background="@drawable/gradient_round_corner"
                 android:text="BACK TO HOME"
                 android:textSize="16sp" />
 

@@ -23,9 +23,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.nith.appteam.nimbus2021.Adapters.QuizRecyclerAdapter;
 import com.nith.appteam.nimbus2021.Models.Id_Value;
 import com.nith.appteam.nimbus2021.R;
+import com.nith.appteam.nimbus2021.Utils.Constant;
 import com.nith.appteam.nimbus2021.Utils.RecyclerItemClickListener;
 
 import org.json.JSONArray;
@@ -44,6 +47,8 @@ public class QuizMainActivity extends AppCompatActivity {
     ArrayList<Id_Value> quiztypes = new ArrayList<>();
     ProgressBar loadwall;
     ImageView quiz;
+    String uid;
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,15 @@ public class QuizMainActivity extends AppCompatActivity {
             }
         });
 
+        TextView lb;
+        lb = findViewById(R.id.leaderB);
+        lb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(QuizMainActivity.this,LeaderboardOverall.class));
+            }
+        });
+
         quizrecyclerView = findViewById(R.id.quizrecyclerview);
         queue = Volley.newRequestQueue(QuizMainActivity.this);
 
@@ -73,7 +87,7 @@ public class QuizMainActivity extends AppCompatActivity {
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-//                                postdata(position);
+                                postdata(position);
                                 //Display toast until ui
                                 Toast.makeText(QuizMainActivity.this, "Coming Soon..", Toast.LENGTH_SHORT).show();
                             }
@@ -92,7 +106,7 @@ public class QuizMainActivity extends AppCompatActivity {
         loadwall.setVisibility(View.VISIBLE);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                getString(R.string.baseUrl) + "/quiz/departments", new Response.Listener<String>() {
+                Constant.Url + "/departments", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -110,8 +124,8 @@ public class QuizMainActivity extends AppCompatActivity {
                                     getResources().getString(R.string.defaultImageUrl);
                         }
                         Id_Value idValue = new Id_Value(
-                                jsonArray.getJSONObject(i).getString("departmentName"),
-                                jsonArray.getJSONObject(i).getString("departmentId"),
+                                jsonArray.getJSONObject(i).getString("name"),
+                                "0",
                                 image, "0", "0");
                         quiztypes.add(idValue);
                         Objects.requireNonNull(
@@ -139,45 +153,47 @@ public class QuizMainActivity extends AppCompatActivity {
 
     private void postdata(final int position) {
 
+        getUserId();
         final ProgressDialog progressDialog = new ProgressDialog(QuizMainActivity.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                getString(R.string.baseUrl) + "/quiz/departments", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                Constant.Url + "/quiz", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("quiz", response);
                 boolean flag = true;
 
-                JSONObject jsonObject = null;
+                JSONArray jsonArray = null;
 
                 try {
-                    jsonObject = new JSONObject(response);
-                    int error = jsonObject.getInt("errorCode");
+                    jsonArray = new JSONArray(response);
 
-                    if (error == 3) {
+                    if (uid == null) {
                         flag = false;
                         new AlertDialog.Builder(QuizMainActivity.this)
                                 .setTitle("User not Validated!")
                                 .setMessage("You first need to signup or login.")
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
+                        progressDialog.dismiss();
 
                     }
+                    if (flag) {
+                        Intent i = new Intent(QuizMainActivity.this, DepartmentQuiz.class);
+                        i.putExtra("quiz", response);
+                        i.putExtra("departmentname", quiztypes.get(position).getValue());
+                        i.putExtra("image", quiztypes.get(position).getImageUrl());
+                        progressDialog.dismiss();
+                        startActivity(i);
+                        overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                if (flag) {
-                    Intent i = new Intent(QuizMainActivity.this, DepartmentQuiz.class);
-                    i.putExtra("quiz", response);
-                    i.putExtra("departmentname", quiztypes.get(position).getValue());
-                    i.putExtra("image", quiztypes.get(position).getImageUrl());
-                    progressDialog.dismiss();
-                    startActivity(i);
-                    overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
-                }
 
             }
         }, new Response.ErrorListener() {
@@ -214,6 +230,21 @@ public class QuizMainActivity extends AppCompatActivity {
         };
 
         queue.add(stringRequest);
+
+    }
+
+    private void getUserId() {
+        uid = "text1";
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+            uid = firebaseUser.getUid();
+            Log.e("UID", uid);
+        } else {
+            Toast.makeText(this,uid, Toast.LENGTH_SHORT).show();
+
+
+        }
+
 
     }
 
