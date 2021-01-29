@@ -14,11 +14,43 @@
       },
       "oauth_client": [
         {
+          "client_id": "610442561690-23nnnnn6898jv85h7j133sf5i08pmflb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nith.appteam.nimbus2021",
+            "certificate_hash": "0a7dac3b352d06b657bde8d9daea90aa9ae3f8b5"
+          }
+        },
+        {
           "client_id": "610442561690-4j1tlijjqsc6ntbf8d29239s7mu1me8f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.nith.appteam.nimbus2021",
             "certificate_hash": "96af1a503781b0036464cfb591d21d8a3877e29c"
+          }
+        },
+        {
+          "client_id": "610442561690-6vmg5c51ns25gf4ddb1arvbqafqp2pl8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nith.appteam.nimbus2021",
+            "certificate_hash": "57350a5ad158b3ed8338889479896768d91652bc"
+          }
+        },
+        {
+          "client_id": "610442561690-933n7h8a0qdrca9j50rmjgpuksuhhoo9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nith.appteam.nimbus2021",
+            "certificate_hash": "07ce1f2862f1e725463eca3a21d9de9f05e55b85"
+          }
+        },
+        {
+          "client_id": "610442561690-rvutmrsttd5dg1b3eee5jpghk7o7upfs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nith.appteam.nimbus2021",
+            "certificate_hash": "84dc2e8851e242e3e099aa709bd8ab4c193ab036"
           }
         },
         {
