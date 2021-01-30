@@ -46,6 +46,14 @@
           }
         },
         {
+          "client_id": "610442561690-puqc3nnscellcrrsaembcqvafoootufv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nith.appteam.nimbus2021",
+            "certificate_hash": "0f7c8a42b8f588e98646a0c96f7c222131892501"
+          }
+        },
+        {
           "client_id": "610442561690-rvutmrsttd5dg1b3eee5jpghk7o7upfs.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
