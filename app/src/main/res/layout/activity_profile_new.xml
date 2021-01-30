@@ -83,23 +83,23 @@
                     android:src="@drawable/ic_title_24px" />
 
                 <TextView
-                    android:id="@+id/name_label"
+                    android:id="@+id/username_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="45dp"
                     android:layout_marginTop="16dp"
                     android:gravity="start"
-                    android:text="Name"
+                    android:text="User Name"
                     android:textAllCaps="true"
                     android:textColor="@color/colorAccent"
                     android:textSize="13sp" />
 
 
                 <EditText
-                    android:id="@+id/name"
+                    android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/name_label"
+                    android:layout_below="@id/username_label"
                     android:layout_marginStart="45dp"
                     android:backgroundTint="@color/white"
                     android:nextFocusDown="@id/rollno"
@@ -107,7 +107,111 @@
                     android:textColor="@color/white" />
 
             </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_title_24px" />
+
+                <TextView
+                    android:id="@+id/firstname_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:text="First Name"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="13sp" />
+
+
+                <EditText
+                    android:id="@+id/firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/firstname_label"
+                    android:layout_marginStart="45dp"
+                    android:backgroundTint="@color/white"
+                    android:nextFocusDown="@id/rollno"
+                    android:singleLine="true"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_title_24px" />
+
+                <TextView
+                    android:id="@+id/lastname_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:text="Last Name"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="13sp" />
+
+
+                <EditText
+                    android:id="@+id/lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lastname_label"
+                    android:layout_marginStart="45dp"
+                    android:backgroundTint="@color/white"
+                    android:nextFocusDown="@id/rollno"
+                    android:singleLine="true"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_email_24px" />
+
+                <TextView
+                    android:id="@+id/mobile_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="start"
+                    android:text="Mobile Number"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mobile_label"
+                    android:layout_marginStart="@dimen/profileEditTextLeft"
+                    android:backgroundTint="@color/white"
+                    android:inputType="none"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -125,13 +229,13 @@
                     android:layout_marginStart="45dp"
                     android:layout_marginTop="16dp"
                     android:gravity="start"
-                    android:text="Mobile Number"
+                    android:text="Email"
                     android:textAllCaps="true"
                     android:textColor="@color/colorAccent"
                     android:textSize="13sp" />
 
                 <EditText
-                    android:id="@+id/mobile"
+                    android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/email_label"
@@ -253,7 +357,6 @@
                         android:textSize="13sp" />
                 </RadioGroup>
             </LinearLayout>
-
             <Button
                 android:id="@+id/submit_profile"
                 android:layout_width="match_parent"
@@ -266,6 +369,7 @@
                 android:background="@drawable/black_round_corner"
                 android:text="Submit"
                 android:textColor="@color/white" />
+
         </LinearLayout>
     </ScrollView>
 

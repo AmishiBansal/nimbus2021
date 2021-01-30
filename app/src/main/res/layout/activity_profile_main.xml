@@ -118,10 +118,32 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/rollno_label"
+                android:id="@+id/username_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/points"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:text="User Name"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/username_label"
+                android:layout_marginTop="4dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:text="xyz" />
+            <TextView
+                android:id="@+id/rollno_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/username"
                 android:layout_marginTop="16dp"
                 android:gravity="center_horizontal"
                 android:text="Roll Number"
@@ -139,6 +161,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 tools:text="184560" />
+
 
             <TextView
                 android:id="@+id/phoneno_label"
