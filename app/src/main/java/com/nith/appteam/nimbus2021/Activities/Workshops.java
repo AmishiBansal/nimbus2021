@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -34,7 +35,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Workshops extends AppCompatActivity {
@@ -97,11 +100,11 @@ public class Workshops extends AppCompatActivity {
         workshopList = new ArrayList<>();
         PrefsWorkshop prefsWorkshop = new PrefsWorkshop(this);
         String search = prefsWorkshop.getSearch();
-        workshopList = getWorkshop(search);
+        workshopList = getWorkshop(search,sharedPref.getString("firebaseUid","NULL"));
 
     }
 
-    public List<WorkshopModel> getWorkshop(String searchTerm)//all info returned from api
+    public List<WorkshopModel> getWorkshop(String searchTerm,final String UID)//all info returned from api
     {
         loadWall.setVisibility(View.VISIBLE);
         workshopList.clear();
@@ -148,7 +151,15 @@ public class Workshops extends AppCompatActivity {
            //     Log.d("Error", error.getMessage());
 
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+UID);
+                headers.put("Authorization", UID);
+                return headers;
+            }
+        };
         requestQueuework.add(jsonArrayRequest);
 
 

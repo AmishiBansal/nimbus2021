@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,7 +34,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Talks extends AppCompatActivity {
@@ -92,14 +95,14 @@ public class Talks extends AppCompatActivity {
         talkList = new ArrayList<>();
         PrefsTalk prefsTalk = new PrefsTalk(this);
         String search = prefsTalk.getSearch();
-        talkList = getTalk(search);
+        talkList = getTalk(search,sharedPref.getString("firebaseUid","NULL"));
         //   talkRecyclerViewAdapter=new TalkRecyclerViewAdapter(this,talkList);
         // recyclerView.setAdapter(talkRecyclerViewAdapter);
         //     talkRecyclerViewAdapter.notifyDataSetChanged();
 
     }
 
-    public List<TalkModel> getTalk(String searchTerm)//all info returned from api
+    public List<TalkModel> getTalk(String searchTerm,final String UID)//all info returned from api
     {
         loadwall.setVisibility(View.VISIBLE);
         talkList.clear();
@@ -145,7 +148,15 @@ public class Talks extends AppCompatActivity {
              //   Log.d("Error", error.getMessage());
 
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+UID);
+                headers.put("Authorization", UID);
+                return headers;
+            }
+        };
         requestQueue.add(jsonArrayRequest);
 
 

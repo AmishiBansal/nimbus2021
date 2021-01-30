@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -38,7 +39,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InstituteEvents extends Fragment {
     Context context;
@@ -98,7 +101,7 @@ public class InstituteEvents extends Fragment {
         eventIlist = new ArrayList<>();
         PrefsIevent prefsIevent = new PrefsIevent(((Activity) context));
         String search = prefsIevent.getSearch();
-        eventIlist = getEventI(search);
+        eventIlist = getEventI(search,sharedPref.getString("firebaseUid","NULL"));
         //   talkRecyclerViewAdapter=new TalkRecyclerViewAdapter(this,talkList);
         // recyclerView.setAdapter(talkRecyclerViewAdapter);
         //     talkRecyclerViewAdapter.notifyDataSetChanged();
@@ -106,7 +109,7 @@ public class InstituteEvents extends Fragment {
         return rootView;
     }
 
-    public List<instituteEvent> getEventI(String searchTerm)//all info returned from api
+    public List<instituteEvent> getEventI(String searchTerm, final String UID)//all info returned from api
     {
         loadWall.setVisibility(View.VISIBLE);
         eventIlist.clear();
@@ -153,10 +156,18 @@ public class InstituteEvents extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Error", error.getMessage());
+//                Log.d("Error", error.getMessage());
 
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+UID);
+                headers.put("Authorization", UID);
+                return headers;
+            }
+        };
         requestQueueEVEI.add(jsonArrayRequest);
 
 

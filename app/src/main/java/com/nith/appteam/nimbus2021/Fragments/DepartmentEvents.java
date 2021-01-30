@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -38,7 +39,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DepartmentEvents extends Fragment {
     private Context context;
@@ -100,7 +103,7 @@ public class DepartmentEvents extends Fragment {
         eventlistD = new ArrayList<>();
         PrefsDevents prefsDevent = new PrefsDevents(((Activity) context));
         String search = prefsDevent.getSearch();
-        eventlistD = getEventD(search);
+        eventlistD = getEventD(search,sharedPref.getString("firebaseUid","NULL"));
         //   talkRecyclerViewAdapter=new TalkRecyclerViewAdapter(this,talkList);
         // recyclerView.setAdapter(talkRecyclerViewAdapter);
         //     talkRecyclerViewAdapter.notifyDataSetChanged();
@@ -108,7 +111,7 @@ public class DepartmentEvents extends Fragment {
         return rootView;
     }
 
-    public List<departmentEvent> getEventD(String searchTerm)//all info returned from api
+    public List<departmentEvent> getEventD(String searchTerm,final String UID)//all info returned from api
     {
         loadWall.setVisibility(View.VISIBLE);
         eventlistD.clear();
@@ -164,7 +167,15 @@ public class DepartmentEvents extends Fragment {
 //                Log.d("Error", error.getMessage());
 
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+UID);
+                headers.put("Authorization", UID);
+                return headers;
+            }
+        };
         requestQueueEVED.add(jsonArrayRequest);
 
 
