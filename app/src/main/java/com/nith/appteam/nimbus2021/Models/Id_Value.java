@@ -6,16 +6,26 @@ public class Id_Value {
     private String imageUrl;
     private String startTime;
     private String endTime;
-    private String count;
+    private int count;
+    private int sendCount;
 
 
-    public Id_Value(String value, String id, String imageUrl, String startTime, String endTime,String count) {
+    public Id_Value(String value, String id, String imageUrl, String startTime, String endTime,int count,int sendCount) {
         this.value = value;
         this.id = id;
         this.imageUrl = imageUrl;
         this.startTime = startTime;
         this.endTime = endTime;
         this.count = count;
+        this.sendCount = sendCount;
+    }
+
+    public int getSendCount() {
+        return sendCount;
+    }
+
+    public void setSendCount(int sendCount) {
+        this.sendCount = sendCount;
     }
 
     public String getImageUrl() {
@@ -46,11 +56,11 @@ public class Id_Value {
         this.endTime = endTime;
     }
 
-    public String getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 }
