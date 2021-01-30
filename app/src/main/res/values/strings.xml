@@ -6,6 +6,8 @@
     <string name="defaultImageUrl">https://res.cloudinary.com/duutozrvz/image/upload/v1580653278/default_profile_pic_gbhf8z.pn0g</string>
     <string name="defaultImage">https://res.cloudinary.com/duutozrvz/image/upload/v1581182611/ab_a2o64d.png</string>
     <string name="quiz_comment">*Make sure to read all instructions before attempting the quiz</string>
+    <string name="omegleDes">We\'ll pick someone at random and let you talk one to one</string>
+    <string name="agora_app_id">abe9aa77ff8946f8b653b7e7ad96348c</string>
 
     <!--    <string name="quote"> <![CDATA[-->
     <!--      <p>\"I AM-->

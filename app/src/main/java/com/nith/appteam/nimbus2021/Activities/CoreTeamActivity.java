@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.nith.appteam.nimbus2021.Adapters.CoreTeamAdapter;
 import com.nith.appteam.nimbus2021.Models.CoreTeamModel;
 import com.nith.appteam.nimbus2021.R;
+import com.nith.appteam.nimbus2021.Utils.Constant;
 import com.nith.appteam.nimbus2021.Utils.IResult;
 import com.nith.appteam.nimbus2021.Utils.VolleyService;
 
@@ -69,7 +70,7 @@ public class CoreTeamActivity extends AppCompatActivity {
         final VolleyService mVolleyService = new VolleyService(mResultCallback, this);
 
         mVolleyService.getJsonArrayDataVolley("GETCORETEAMS",
-                getString(R.string.baseUrl) + "/coreTeam");
+                Constant.Url + "members/coreTeam");
 
     }
 

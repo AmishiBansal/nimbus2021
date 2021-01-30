@@ -106,7 +106,7 @@ public class Exhhibition extends AppCompatActivity {
 
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,
-                Constant.Url + searchTerm, null, new Response.Listener<JSONArray>() {
+                Constant.Url + "events/?type="+ "exhibition", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 loadWall.setVisibility(View.GONE);
@@ -117,12 +117,12 @@ public class Exhhibition extends AppCompatActivity {
                         ExhibitionModel exhibition = new ExhibitionModel();
 //                        talk.setName("APP on TALkoinghg iguhedbfuhcgwu");
 //                        talk.setVenue("LEcture aHAljewnfkljcnkjhfewkkjhefkjwhkfjwkejfhkwehkfhkwejnfkll");
-                        exhibition.setRegURLExh("https://google.com");
+//                        exhibition.setRegURLExh("https://google.com");
 //                        talk.setInfo("HE is veryhlhfeldijvoikbfewkjbkfjwkejfkjwejeovijoeijvoeijdvoijeoijeovjioejioeijvovjoeidjvlkdsnlkvn jsndoviejoiejvoljkdlkjvoeijvoiejovijdokjdeoivjolj");
 //                        talk.setDate("19 2022002345453453453450 2");
                         exhibition.setNameExh(exhObj.getString("name"));
-                        exhibition.setDateExh(exhObj.getString("date"));
-                        Log.e("dateeeeeeee", exhObj.getString("date"));
+                        exhibition.setDateExh(exhObj.getString("start"));
+//                        Log.e("dateeeeeeee", exhObj.getString("date"));
                         exhibition.setImageExh(exhObj.getString("image"));
                         //exhibition.setImageExh("https://www.google
                         // .com/search?q=images&rlz=1C1CHBF_enIN859IN859&sxsrf
@@ -130,7 +130,7 @@ public class Exhhibition extends AppCompatActivity {
                         // &sa=X&ved=2ahUKEwj94_2uk6vnAhU1zTgGHUz7DEAQ_AUoAXoECA4QAw&biw=1536&bih
                         // =754#imgrc=_2JirDBiGzi3lM:");
                         exhibition.setInfoExh(exhObj.getString("info"));
-                        //exhibition.setRegURLExh(  exhObj.getString("regUrl"));
+                        exhibition.setRegURLExh(  exhObj.getString("regURL"));
                         exhibition.setVenueExh("Venue: " + exhObj.getString("venue"));
 //                         Log.d("Talk",talk.getName());
 //                       Log.d("date",talk.getDate());
@@ -146,7 +146,7 @@ public class Exhhibition extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Error", error.getMessage());
+             //   Log.d("Error", error.getMessage());
 
             }
         });

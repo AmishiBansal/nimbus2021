@@ -110,7 +110,7 @@ public class Workshops extends AppCompatActivity {
 
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,
-                Constant.Url + searchTerm, null, new Response.Listener<JSONArray>() {
+                Constant.Url + "events/?type="+ "workshop", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 loadWall.setVisibility(View.GONE);
@@ -125,12 +125,12 @@ public class Workshops extends AppCompatActivity {
 //                        talk.setInfo("HE is veryhlhfeldijvoikbfewkjbkfjwkejfkjwejeovijoeijvoeijdvoijeoijeovjioejioeijvovjoeidjvlkdsnlkvn jsndoviejoiejvoljkdlkjvoeijvoiejovijdokjdeoivjolj");
 //                        talk.setDate("19 2022002345453453453450 2");
                         workshop.setNameWor(workshopObj.getString("name"));
-                        workshop.setDateWor(workshopObj.getString("date"));
+                        workshop.setDateWor(workshopObj.getString("start"));
                         workshop.setImageWor(workshopObj.getString("image"));
                         workshop.setInfoWor(workshopObj.getString("info"));
-                        workshop.setUrlWor(workshopObj.getString("regUrl"));
+                        workshop.setUrlWor(workshopObj.getString("regURL"));
                         workshop.setVenueWor("Venue: " + workshopObj.getString("venue"));
-                        workshop.setTypeWor("Type:" + workshopObj.getString("type"));
+                        workshop.setTypeWor("Type:" + workshopObj.getString("Type"));
                         // Log.d("Talk",talk.getName());
 //                       Log.d("date",talk.getDate());
                         workshopList.add(workshop);
@@ -145,7 +145,7 @@ public class Workshops extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Error", error.getMessage());
+           //     Log.d("Error", error.getMessage());
 
             }
         });

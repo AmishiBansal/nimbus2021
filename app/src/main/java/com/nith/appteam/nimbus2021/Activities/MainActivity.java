@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         profileImage = findViewById(R.id.profileImage);
         scanner = findViewById(R.id.scanner);
 
