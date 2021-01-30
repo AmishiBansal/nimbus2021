@@ -99,7 +99,8 @@ public class DepartmentQuiz extends AppCompatActivity {
                 if(jsonArray.getJSONObject(i).getString("department").equals(getIntent().getStringExtra("departmentname"))) {
                     Id_Value idValue = new Id_Value(jsonArray.getJSONObject(i).getString("name"),
                             jsonArray.getJSONObject(i).getString("id"),
-                            image, jsonArray.getJSONObject(i).getString("startTime"), jsonArray.getJSONObject(i).getString("endTime"));
+                            image, jsonArray.getJSONObject(i).getString("startTime"), jsonArray.getJSONObject(i).getString("endTime"),
+                            jsonArray.getJSONObject(i).getString("count"));
                     quiztypes.add(idValue);
                     Objects.requireNonNull(departmentquiz.getAdapter()).notifyDataSetChanged();
                 }
@@ -158,6 +159,7 @@ public class DepartmentQuiz extends AppCompatActivity {
                     intent.putExtra("quizId", quiztypes.get(position).getId());
                     intent.putExtra("startTime", quiztypes.get(position).getStartTime());
                     intent.putExtra("endTime", quiztypes.get(position).getEndTime());
+                    intent.putExtra("count",quiztypes.get(position).getCount());
                     progressDialog.dismiss();
                     Log.e("questions",response);
                     startActivity(intent);

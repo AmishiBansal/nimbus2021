@@ -6,13 +6,16 @@ public class Id_Value {
     private String imageUrl;
     private String startTime;
     private String endTime;
+    private String count;
 
-    public Id_Value(String value, String id, String imageUrl, String startTime, String endTime) {
+
+    public Id_Value(String value, String id, String imageUrl, String startTime, String endTime,String count) {
         this.value = value;
         this.id = id;
         this.imageUrl = imageUrl;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.count = count;
     }
 
     public String getImageUrl() {
@@ -41,5 +44,13 @@ public class Id_Value {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 }

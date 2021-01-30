@@ -89,6 +89,7 @@ public class Videocall_Joining extends AppCompatActivity {
             public void onClick(View v) {
                 pd.setMessage("Finding Someone...");
                 pd.setIndeterminate(true);
+                pd.setCancelable(false);
                 pd.show();
                 getUserId();
             }
@@ -157,5 +158,11 @@ public class Videocall_Joining extends AppCompatActivity {
             }
         });
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
