@@ -126,7 +126,7 @@ public class QuizMainActivity extends AppCompatActivity {
                         Id_Value idValue = new Id_Value(
                                 jsonArray.getJSONObject(i).getString("name"),
                                 "0",
-                                image, "0", "0");
+                                image, "0", "0","0");
                         quiztypes.add(idValue);
                         Objects.requireNonNull(
                                 quizrecyclerView.getAdapter()).notifyDataSetChanged();

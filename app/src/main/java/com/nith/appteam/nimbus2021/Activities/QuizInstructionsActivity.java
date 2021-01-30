@@ -71,7 +71,11 @@ public class QuizInstructionsActivity extends AppCompatActivity {
 
 
         instructionsTV.setText("This quiz contains");
-        instructionsDetails.setText("This quiz consists of 10 multiple-choice questions.You are allowed to attempt the quiz only once.Keep the following in mind: \n ");
+        instructionsDetails.setText("This quiz consists of " + getIntent().getStringExtra("count")+
+                " multiple-choice questions.You are allowed to attempt the quiz only once.Keep the following in mind:\n" +
+                "1. You will have only one attempts for this quiz\n" +
+                "2. Time given for each question will be 15s\n" +
+                "To start, click the \"Play Now\" button.");
 
         response = getIntent().getStringExtra("questions");
         quizId = getIntent().getStringExtra("quizId");
