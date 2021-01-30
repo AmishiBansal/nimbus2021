@@ -1,8 +1,10 @@
 package com.nith.appteam.nimbus2021.Activities;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +41,8 @@ public class Videocall_Joining extends AppCompatActivity {
     String channel;
     String token;
     boolean gotDetails = false;
+    private SharedPreferences sharedPref;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,7 @@ public class Videocall_Joining extends AppCompatActivity {
 
         videoJoin = findViewById(R.id.video_join);
         requestQueue = Volley.newRequestQueue(Videocall_Joining.this);
-
+        pd = new ProgressDialog(Videocall_Joining.this);
         if(getIntent().hasExtra("uid2"))
         {
             new AlertDialog.Builder(Videocall_Joining.this)
@@ -83,24 +87,24 @@ public class Videocall_Joining extends AppCompatActivity {
         videoJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pd.setMessage("Finding Someone...");
+                pd.setIndeterminate(true);
+                pd.show();
                 getUserId();
             }
         });
     }
 
     private void getUserId() {
-//        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (true) {
-            uid = "test1234678";
-            Log.e("UID", "test12345678");
+        sharedPref = getSharedPreferences("app", MODE_PRIVATE);
+        uid = sharedPref.getString("firebaseUid","");
+        if (!uid.isEmpty()) {
+            Log.e("UID", uid);
             getChannelNameAndTokenId();
-        } else
-            {
-            Toast toast = Toast.makeText(this, "Please Sign in to join video call", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.getView().setPadding(5, 5, 5, 5);
-            toast.getView().setBackgroundColor(Color.GRAY);
+        } else {
+            Toast toast = Toast.makeText(this,"Try reinstalling the app or clearing data", Toast.LENGTH_SHORT);
             toast.show();
+            pd.dismiss();
         }
     }
 
@@ -135,6 +139,7 @@ public class Videocall_Joining extends AppCompatActivity {
                             intent.putExtra("uid2",jsonObject.getString("uid2"));
                             Log.e("channel", channel);
                             Log.e("token", token);
+                            pd.dismiss();
                             startActivity(intent);
 
                         }
@@ -147,6 +152,8 @@ public class Videocall_Joining extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("onErrorResponse: ", error.toString());
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                pd.dismiss();
             }
         });
         requestQueue.add(stringRequest);
