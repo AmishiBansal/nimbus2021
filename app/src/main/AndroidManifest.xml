@@ -25,23 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.LeaderboardOverall"></activity>
-        <activity android:name=".Activities.VideoCallActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Activities.Videocall_Joining">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Activities.EmailAuthentication"></activity>
         <activity android:name=".Activities.UI" />
         <activity android:name=".Activities.Web" />
         <activity android:name=".Activities.CoreTeamActivity" />
@@ -50,15 +34,21 @@
         <activity android:name=".Activities.Schedule_Day" />
         <activity android:name=".Activities.Event_Choose" />
         <activity android:name=".Activities.contributorsActivity" />
+        <activity android:name=".Activities.LeaderboardOverall"></activity>
+        <activity android:name=".Activities.VideoCallActivity" >
+        </activity>
+        <activity android:name=".Activities.Videocall_Joining">
+        </activity>
+ 
         <activity
             android:name=".Activities.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <action android:name="android.intent.action.VIEW" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+             <intent-filter> 
+          <action android:name="android.intent.action.MAIN" /> 
+             <action android:name="android.intent.action.VIEW" />
+           <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter> 
         </activity>
         <activity android:name=".Activities.Add_D_Events" />
         <activity android:name=".Activities.Add_I_Events" />
@@ -98,14 +88,9 @@
         <activity
             android:name=".Activities.QuizScoreActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".Activities.LeaderBoardActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Activities.LeaderBoardActivity" />
+
         <activity android:name=".Activities.QuizInstructionsActivity" />
         <activity android:name=".Activities.ProfileMain" />
         <activity android:name=".Activities.ProfileNew" />
@@ -117,14 +102,9 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".Activities.Quiz" />
         <activity android:name=".Activities.DepartmentQuiz" />
-        <activity android:name=".Activities.QuizMainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Activities.QuizMainActivity" />
+
 
         <meta-data
             android:name="CLOUDINARY_URL"

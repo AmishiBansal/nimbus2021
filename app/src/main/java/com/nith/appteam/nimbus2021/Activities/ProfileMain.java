@@ -3,6 +3,7 @@ package com.nith.appteam.nimbus2021.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileMain extends AppCompatActivity {
 
     private CircleImageView profilePicture;
-    private TextView name, college, phoneNumber, rollno, normalPoints, caPoints;
+    private TextView name,username,college, phoneNumber, rollno, normalPoints, caPoints;
     private ImageView diamondsPink;
     private SharedPreferences sharedPreferences;
     private FloatingActionButton editProfile;
@@ -69,6 +70,7 @@ public class ProfileMain extends AppCompatActivity {
 
     private void getUI() {
         name = findViewById(R.id.name);
+        username = findViewById(R.id.username);
         college = findViewById(R.id.college);
         phoneNumber = findViewById(R.id.phone_number);
         rollno = findViewById(R.id.rollno);
@@ -80,10 +82,11 @@ public class ProfileMain extends AppCompatActivity {
     }
 
     private void getProfile() {
-        name.setText(sharedPreferences.getString("name", "Name"));
+        name.setText(sharedPreferences.getString("name", "Your Name"));
+        username.setText(sharedPreferences.getString("username","Your username"));
         college.setText(sharedPreferences.getString("college", "Your college name"));
         phoneNumber.setText(sharedPreferences.getString("phoneNumber", "123456890"));
-        rollno.setText(sharedPreferences.getString("rollno", "Your roll number"));
+        rollno.setText(sharedPreferences.getString("rollNumber", "Your roll number"));
         normalPoints.setText(sharedPreferences.getString("normalPoints", "0"));
         caPoints.setText(sharedPreferences.getString("caPoints", "0"));
         String imageUrl = sharedPreferences.getString("profileImage", String.valueOf(R.string.defaultImageUrl));
@@ -91,5 +94,6 @@ public class ProfileMain extends AppCompatActivity {
                 .load(imageUrl)
                 .placeholder(R.drawable.default_profile_pic)
                 .into(profilePicture);
+
     }
 }
