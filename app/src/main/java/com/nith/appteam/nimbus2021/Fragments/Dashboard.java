@@ -23,6 +23,7 @@ import com.nith.appteam.nimbus2021.Activities.Event_Choose;
 import com.nith.appteam.nimbus2021.Activities.Exhhibition;
 import com.nith.appteam.nimbus2021.Activities.QuizMainActivity;
 import com.nith.appteam.nimbus2021.Activities.Talks;
+import com.nith.appteam.nimbus2021.Activities.Videocall_Joining;
 import com.nith.appteam.nimbus2021.Activities.Workshops;
 import com.nith.appteam.nimbus2021.Activities.contributorsActivity;
 import com.nith.appteam.nimbus2021.R;
@@ -32,11 +33,11 @@ import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 public class Dashboard extends Fragment {
     Activity context;
-    Animation animation, animation1, animation2, animation3;
+    Animation animation, animation1, animation2, animation3,animation4,animation5;
     private HtmlTextView quote1;
     private HtmlTextView quote2, event_text, campus_text, developers_text;
-    private CardView quiz_card, workshop_card, exhibition_card, talk_card;
-    private ImageView t_n, t_k, e_n, e_k;
+    private CardView quiz_card, workshop_card, exhibition_card, talk_card,omegle;
+    private ImageView t_n, t_k, e_n, e_k,omg_n,omg_k;
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog dialog;
 
@@ -60,11 +61,14 @@ public class Dashboard extends Fragment {
         exhibition_card = rootView.findViewById(R.id.exhibition_card);
         talk_card = rootView.findViewById(R.id.talk_card);
         developers_text = rootView.findViewById(R.id.developers_text);
+        omegle = rootView.findViewById(R.id.omgl_card);
 
         t_n = rootView.findViewById(R.id.t_n);
         t_k = rootView.findViewById(R.id.t_k);
         e_n = rootView.findViewById(R.id.e_n);
         e_k = rootView.findViewById(R.id.e_k);
+        omg_n = rootView.findViewById(R.id.omg_n);
+        omg_k = rootView.findViewById(R.id.omg_k);
 
         animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.fast_anim);
         animation1 = AnimationUtils.loadAnimation(context.getApplicationContext(),
@@ -73,11 +77,17 @@ public class Dashboard extends Fragment {
                 R.anim.fast_anim_v);
         animation3 = AnimationUtils.loadAnimation(context.getApplicationContext(),
                 R.anim.slow_anim_v);
+        animation4 = AnimationUtils.loadAnimation(context.getApplicationContext(),
+                R.anim.fast_anim_v2);
+        animation5 = AnimationUtils.loadAnimation(context.getApplicationContext(),
+                R.anim.slow_anim_v2);
 
         e_n.startAnimation(animation);
         e_k.startAnimation(animation1);
         t_n.startAnimation(animation2);
         t_k.startAnimation(animation3);
+        omg_n.startAnimation(animation4);
+        omg_k.startAnimation(animation5);
 
         quote2.setHtml(
                 "<p>\"HOW YOU <font color=\"#2fc0d1\">CODIN'</font> \uD83D\uDCBB ?!\" "
@@ -155,6 +165,14 @@ public class Dashboard extends Fragment {
                 startActivity(i);
             }
         });
+        omegle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), Videocall_Joining.class);
+                startActivity(i);
+            }
+        });
+
         quote1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
