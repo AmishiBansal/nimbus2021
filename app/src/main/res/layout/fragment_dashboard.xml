@@ -219,6 +219,78 @@
             android:textSize="13sp" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/omgl_card"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="@color/background"
+            app:cardCornerRadius="@dimen/cardCornerRadius"
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/omg_n"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/bg_round_dark"
+                    android:translationX="-75dp" />
+
+                <ImageView
+                    android:id="@+id/omg_k"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/bg_round_dark"
+                    android:tint="@color/background"
+                    android:translationX="-50dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="16dp"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/psb"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:text="meet the"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="40sp" />
+
+                    <com.nith.appteam.nimbus2021.Utils.GradientTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:fontFamily="@font/psb"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:text="unknown !!"
+                        android:textAllCaps="true"
+                        android:textColor="@color/blueLight"
+                        android:textSize="40sp" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/talk_card"
             android:layout_width="match_parent"
             android:layout_height="170dp"
