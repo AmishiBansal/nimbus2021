@@ -50,19 +50,20 @@ public class ProfileNew extends AppCompatActivity {
 
     private SharedPreferences sharedPrefs;
     private SharedPreferences.Editor editor;
-    private EditText name, rollno, phoneNumber, college;
+    private EditText username,first,last,email,phoneNumber,college,rollno;
     private Button submitProfile;
     private ProgressBar progressBar;
     private CircleImageView profilePic;
     private int PICK_PHOTO_CODE = 100;
     private byte[] byteArray;
-    private String imageUrl;
+    private String imageUrl,uid;
     private Bitmap bmp, img;
     private RadioButton caYes, caNo;
     private ImageView uploadPic;
     private Uri photoUri;
     private LinearLayout ca;
     private boolean editProfile;
+    private boolean isCa = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class ProfileNew extends AppCompatActivity {
 
         TextView back;
         back = findViewById(R.id.back);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,24 +86,50 @@ public class ProfileNew extends AppCompatActivity {
         getUI();
         if (sharedPrefs.getBoolean("profileStatus", false)) {
             ca.setVisibility(View.INVISIBLE);
-            rollno.setEnabled(false);
         }
         Intent intent = getIntent();
-        if (intent.hasExtra("editProfile")) {
+        if (intent.hasExtra("editProfile"))
+        {
             editProfile = getIntent().getExtras().getBoolean("editProfile");
-            String image = sharedPrefs.getString("profileImage", null);
-            if (editProfile) {
+            imageUrl = sharedPrefs.getString("profileImage", null);
+            if (editProfile)
+            {
+                uid = sharedPrefs.getString("firebaseUid","");
                 Picasso.with(ProfileNew.this)
-                        .load(image)
+                        .load(imageUrl)
                         .placeholder(R.drawable.default_profile_pic)
                         .into(profilePic);
-                rollno.setText(sharedPrefs.getString("rollno", ""));
-                name.setText(sharedPrefs.getString("name", ""));
+                first.setText(sharedPrefs.getString("firstname",""));
+                last.setText(sharedPrefs.getString("lastname",""));
+                email.setText(sharedPrefs.getString("email",""));
+                email.setEnabled(false);
+                phoneNumber.setText(sharedPrefs.getString("phoneNumber",""));
+                rollno.setText(sharedPrefs.getString("rollNumber", ""));
+                rollno.setEnabled(false);
+                username.setText(sharedPrefs.getString("username", ""));
+                username.setEnabled(false);
                 college.setText(sharedPrefs.getString("college", ""));
+                college.setEnabled(false);
             }
         }
-        phoneNumber.setText(sharedPrefs.getString("phoneNumber", ""));
-        phoneNumber.setEnabled(false);
+        if(intent.hasExtra("email")&&intent.hasExtra("firebaseuid"))
+        {
+            String memail = intent.getStringExtra("email");
+            email.setText(memail);
+            email.setEnabled(false);
+            uid = intent.getStringExtra("firebaseuid");
+            if(memail.endsWith("@nith.ac.in"))
+            {
+                college.setText("NIT Hamirpur");
+                college.setEnabled(false);
+            }
+            if(memail.endsWith("@iiitu.ac.in"))
+            {
+                college.setText("IIIT Una");
+                college.setEnabled(false);
+            }
+        }
+
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,15 +149,13 @@ public class ProfileNew extends AppCompatActivity {
         caYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putBoolean("campusAmbassador", true);
-                editor.commit();
+             isCa = true;
             }
         });
         caNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putBoolean("campusAmbassador", false);
-                editor.commit();
+               isCa = false;
             }
         });
 
@@ -141,7 +167,11 @@ public class ProfileNew extends AppCompatActivity {
                     Bitmap bitmap = ((BitmapDrawable) profilePic.getDrawable()).getBitmap();
                     getImageUrl(bitmap);
                 } else if (imageUrl == null) {
-                    imageUrl = String.valueOf(R.string.defaultImageUrl);
+                    imageUrl = getString(R.string.defaultImageUrl);
+                    Log.e("ImageUrl",imageUrl);
+                    submitProfile();
+                } else if(imageUrl != null)
+                {
                     submitProfile();
                 }
             }
@@ -204,6 +234,7 @@ public class ProfileNew extends AppCompatActivity {
                     @Override
                     public void onSuccess(String requestId, Map resultData) {
                         imageUrl = String.valueOf(resultData.get("url"));
+                        Log.e("imageurlbitmap",imageUrl);
                         submitProfile();
                     }
 
@@ -225,105 +256,201 @@ public class ProfileNew extends AppCompatActivity {
     }
 
     private void submitProfile() {
-        if (!name.getText().toString().isEmpty() && !rollno.getText().toString().isEmpty() &&
-                !phoneNumber.getText().toString().isEmpty() && !college.getText().toString().isEmpty()) {
+        if (!username.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !last.getText().toString().isEmpty() && !email.getText().toString().isEmpty() &&
+                !phoneNumber.getText().toString().isEmpty() && !college.getText().toString().isEmpty() && !rollno.getText().toString().isEmpty() && !imageUrl.isEmpty() ) {
             Intent intent = getIntent();
             editProfile = false;
             if (intent.hasExtra("editProfile")) {
                 editProfile = getIntent().getExtras().getBoolean("editProfile");
                 Log.e("status", "" + editProfile);
             }
-            RequestQueue queue = Volley.newRequestQueue(ProfileNew.this);
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.baseUrl) + "/auth/signup", new com.android.volley.Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    int errorCode = 1;
-                    String token;
-                    final JSONObject jsonObject;
-                    try {
-                        jsonObject = new JSONObject(response);
-                        errorCode = (int) jsonObject.get("errorCode");
-                        if (!editProfile) {
-                            token = (String) jsonObject.get("token");
-                            editor.putString("token", token);
-                            editor.apply();
-                        }
-//                        Toast.makeText(ProfileNew.this, "token" + sharedPrefs.getString("token", ""), Toast.LENGTH_LONG).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-//                            Toast.makeText(ProfileNew.this, response, Toast.LENGTH_LONG).show();
-                    if (errorCode == 0) {
-//                                Toast.makeText(ProfileNew.this, "error code" + errorCode, Toast.LENGTH_SHORT).show();
-                        editor.putString("name", name.getText().toString());
-                        editor.putString("rollno", rollno.getText().toString());
-                        editor.putString("college", college.getText().toString());
+            if (editProfile)
+            {
+                Log.e("imageEditprofile",imageUrl);
+                RequestQueue queue = Volley.newRequestQueue(ProfileNew.this);
+                StringRequest stringRequest = new StringRequest(Request.Method.PATCH, getString(R.string.baseUrl) + "/users/"+uid+"/?format=json", new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e("putresponse",response);
+                        editor.putString("username", username.getText().toString().trim());
+                        editor.putString("firstname", first.getText().toString().trim());
+                        editor.putString("lastname", last.getText().toString().trim());
+                        editor.putString("name",first.getText().toString().trim()+" "+last.getText().toString().trim());
+                        editor.putString("email", email.getText().toString().trim());
+                        editor.putString("phoneNumber", phoneNumber.getText().toString().trim());
+                        editor.putString("rollNumber", rollno.getText().toString().trim());
+                        editor.putString("college", college.getText().toString().trim());
                         editor.putString("profileImage", imageUrl);
-                        editor.putBoolean("profileStatus", true);
+                        //editor.putString("firebaseuid",uid);
                         editor.commit();
                         progressBar.setVisibility(View.GONE);
-                        if (editProfile) {
-                            finish();
-                            overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
-                        } else {
-                            Intent i = new Intent(ProfileNew.this, MainActivity.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(i);
-                            finish();
-                            overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
-                            overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
-                        }
-                    } else {
-                        Toast.makeText(ProfileNew.this, "Unknown error" + response, Toast.LENGTH_SHORT).show();
-                        Log.e("error", response);
-                        progressBar.setVisibility(View.GONE);
+                        finish();
+                        overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+                        overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+
                     }
-                }
-            }, new com.android.volley.Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("VOLLEY", error.toString());
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(ProfileNew.this, error.toString(), Toast.LENGTH_SHORT).show();
-                }
-            }) {
+                }, new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("VOLLEY", error.toString());
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(ProfileNew.this, error.toString(), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }) {
 
-                @Override
-                public String getBodyContentType() {
-                    return "application/x-www-form-urlencoded; charset=UTF-8";
-                }
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/x-www-form-urlencoded; charset=UTF-8";
+                    }
 
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("name", name.getText().toString());
-                    params.put("rollNumber", rollno.getText().toString());
-                    params.put("college", college.getText().toString());
-                    //params.put("campusAmbassador", false);
-                    params.put("image", imageUrl);
-                    params.put("campusAmbassador", "" + sharedPrefs.getBoolean("campusAmbassador", false));
-                    params.put("phone", phoneNumber.getText().toString());
-                    return params;
-                }
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("username", username.getText().toString().trim());
+                        params.put("firstName", first.getText().toString().trim());
+                        params.put("lastName", last.getText().toString().trim());
+                        params.put("rollNumber", rollno.getText().toString().trim());
+                        params.put("college", college.getText().toString().trim());
+                        //params.put("campusAmbassador", false);
+                        params.put("image", imageUrl);
+                        params.put("campusAmbassador", "" + sharedPrefs.getBoolean("campusAmbassador", false));
+                        params.put("phone", phoneNumber.getText().toString().trim());
+                        return params;
+                    }
 
-                @Override
-                public Map<String, String> getHeaders() {
-                    HashMap<String, String> headers = new HashMap<>();
-                    headers.put("access-token", "" + sharedPrefs.getString("token", ""));
-                    return headers;
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("access-token", "" + sharedPrefs.getString("token", ""));
+                        return headers;
+                    }
+                };
+                stringRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                queue.add(stringRequest);
+            }
+            else
+                {
+                    RequestQueue queue = Volley.newRequestQueue(ProfileNew.this);
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.baseUrl) + "/users/?format=json", new com.android.volley.Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+//                            int errorCode = 1;
+//                            String token;
+//                            final JSONObject jsonObject;
+//                            try {
+//                                jsonObject = new JSONObject(response);
+//                                errorCode = (int) jsonObject.get("errorCode");
+//                                if (!editProfile) {
+//                                    token = (String) jsonObject.get("token");
+//                                    editor.putString("token", token);
+//                                    editor.apply();
+//                                }
+////                        Toast.makeText(ProfileNew.this, "token" + sharedPrefs.getString("token", ""), Toast.LENGTH_LONG).show();
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                            Toast.makeText(ProfileNew.this, response, Toast.LENGTH_LONG).show();
+//                            if (errorCode == 0) {
+//                                Toast.makeText(ProfileNew.this, "error code" + errorCode, Toast.LENGTH_SHORT).show();
+                                editor.putString("firebaseUid", uid);
+                                editor.putString("username", username.getText().toString().trim());
+                                editor.putString("name", first.getText().toString().trim()+" "+last.getText().toString().trim());
+                                editor.putString("firstname",first.getText().toString().trim());
+                                editor.putString("lastname",last.getText().toString().trim());
+                                editor.putString("email", email.getText().toString().trim());
+                                editor.putString("phoneNumber", phoneNumber.getText().toString().trim());
+                                editor.putString("rollNumber", rollno.getText().toString().trim());
+                                editor.putString("college", college.getText().toString().trim());
+                                editor.putString("profileImage", imageUrl);
+                                editor.putBoolean("campusAmbassador", isCa);
+                                editor.putBoolean("profileStatus", true);
+                                editor.putBoolean("loginStatus",true);
+                                editor.putInt("OmegleReport", 0);
+                                editor.putBoolean("OmegleAllowed", true);
+                                editor.commit();
+                                progressBar.setVisibility(View.GONE);
+                                Log.e("Image",imageUrl);
+                                Intent i = new Intent(ProfileNew.this, MainActivity.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(i);
+                                finish();
+                                overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+                                overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+//
+//                            } else {
+//                                Toast.makeText(ProfileNew.this, "Unknown error" + response, Toast.LENGTH_SHORT).show();
+//                                Log.e("error", response);
+//                                progressBar.setVisibility(View.GONE);
+//                            }
+                        }
+                    }, new com.android.volley.Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("VOLLEY", error.toString());
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(ProfileNew.this, error.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProfileNew.this, "Try again with another username!!!", Toast.LENGTH_SHORT).show();
+                        }
+                    }) {
+
+                        @Override
+                        public String getBodyContentType() {
+                            return "application/x-www-form-urlencoded; charset=UTF-8";
+                        }
+
+                        @Override
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("firebase" , uid);
+                            params.put("username", username.getText().toString().trim());
+                            params.put("phone", phoneNumber.getText().toString().trim());
+                            params.put("email", email.getText().toString().trim());
+                            params.put("firstName", first.getText().toString().trim());
+                            params.put("lastName", last.getText().toString().trim());
+                            params.put("omegleReports","0");
+                            params.put("omegleAllowed","true");
+                            params.put("profileImage",imageUrl);
+                            params.put("campusAmbassador",String.valueOf(isCa));
+                            params.put("rollNumber", rollno.getText().toString().trim());
+                            params.put("collegeName", college.getText().toString().trim());
+//                          params.put("rollNumber", rollno.getText().toString());
+//                            params.put("college", college.getText().toString());
+                            //params.put("campusAmbassador", false);
+//                            params.put("image", imageUrl);
+//                            params.put("campusAmbassador", "" + sharedPrefs.getBoolean("campusAmbassador", false));
+                            return params;
+                        }
+
+                        @Override
+                        public Map<String, String> getHeaders() {
+                            HashMap<String, String> headers = new HashMap<>();
+                            headers.put("access-token", "" + sharedPrefs.getString("token", ""));
+                            return headers;
+                        }
+                    };
+                    stringRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                    queue.add(stringRequest);
                 }
-            };
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            queue.add(stringRequest);
-        } else
-            Toast.makeText(ProfileNew.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+        }
+        else
+            {
+                Toast.makeText(ProfileNew.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+            }
+
 
     }
 
     private void getUI() {
-        name = findViewById(R.id.name);
+        username = findViewById(R.id.username);
+        email = findViewById(R.id.email);
+        first = findViewById(R.id.firstname);
+        last = findViewById(R.id.lastname);
         phoneNumber = findViewById(R.id.mobile);
         rollno = findViewById(R.id.rollno);
         college = findViewById(R.id.college);

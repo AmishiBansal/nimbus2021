@@ -50,6 +50,8 @@ public class Login extends AppCompatActivity {
     private FirebaseUser user;
     private TextView loginButton;
     RichPathView nimbus,nimbus1;
+    Boolean SignInFlag;
+    String email,uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ImageView t_n, t_k, e_n, e_k;
         Animation animation, animation1, animation2, animation3, anim;
-
         nimbus = findViewById(R.id.nimbus);
         nimbus1 = findViewById(R.id.nimbus1);
 
@@ -83,24 +84,27 @@ public class Login extends AppCompatActivity {
 
         animation();
 
+        SignInFlag = getIntent().getBooleanExtra("SignInFlag",false);
+
         loginButton = findViewById(R.id.login_btn);
         progressBar = findViewById(R.id.login_progress);
         sharedPref = getSharedPreferences("app", MODE_PRIVATE);
         editor = sharedPref.edit();
-        providers = Arrays.asList(new AuthUI.IdpConfig.PhoneBuilder().build());
+//        providers = Arrays.asList(new AuthUI.IdpConfig.PhoneBuilder().build());
+        if(SignInFlag)
+        {   //user SignedIn Successfully
+            uid = getIntent().getStringExtra("FirebaseUID");
+            email = getIntent().getStringExtra("LoginEmail");
+            progressBar.setVisibility(View.VISIBLE);
+            loginButton.setVisibility(View.GONE);
+            isUser(email);
+        }
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .setAvailableProviders(providers)
-                                .setTheme(R.style.LoginTheme)
-                                .setLogo(R.drawable.nimbus_logo)
-                                .build(),
-                        RC_SIGN_IN);
-                progressBar.setVisibility(View.VISIBLE);
-                loginButton.setVisibility(View.GONE);
+
+                startActivity(new Intent(Login.this,EmailAuthentication.class));
+
             }
         });
     }
@@ -134,51 +138,56 @@ public class Login extends AppCompatActivity {
                 .start();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == RC_SIGN_IN) {
+//            IdpResponse response = IdpResponse.fromResultIntent(data);
+//
+//            if (resultCode == RESULT_OK) {
+//                // Successfully signed in
+//                user = FirebaseAuth.getInstance().getCurrentUser();
+//                editor.putBoolean("loginStatus", true);
+//                editor.putString("phoneNumber", user.getPhoneNumber());
+//                editor.putString("firebaseId", user.getUid());
+//                editor.commit();
+//                Log.d("phoneNumber", user.getPhoneNumber());
+//                Log.d("UserId", user.getUid());
+//                isUser(user.getPhoneNumber());
+//
+//            } else {
+//                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
+//                loginButton.setVisibility(View.VISIBLE);
+//                progressBar.setVisibility(View.GONE);
+//            }
+//        }
+//    }
 
-        if (requestCode == RC_SIGN_IN) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
-
-            if (resultCode == RESULT_OK) {
-                // Successfully signed in
-                user = FirebaseAuth.getInstance().getCurrentUser();
-                editor.putBoolean("loginStatus", true);
-                editor.putString("phoneNumber", user.getPhoneNumber());
-                editor.putString("firebaseId", user.getUid());
-                editor.commit();
-                Log.d("phoneNumber", user.getPhoneNumber());
-                Log.d("UserId", user.getUid());
-                isUser(user.getPhoneNumber());
-
-            } else {
-                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
-                loginButton.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    private void isUser(final String phoneNumber) {
+    private void isUser(final String email)
+    {
         Log.e("user", "inside is User");
         RequestQueue queue = Volley.newRequestQueue(Login.this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.baseUrl) + "/isUser", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, getString(R.string.baseUrl)+"/users/checkUser/"+email, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                int errorCode;
+                Boolean isUserPresent;
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     Log.e("response  ", response);
-                    errorCode = (int) jsonObject.get("errorCode");
-                    if (errorCode == 0) {
-                        String token = (String) jsonObject.get("token");
-                        editor.putString("token", token);
-                        editor.apply();
+                    isUserPresent = (Boolean)jsonObject.getBoolean("user_present");
+                    if (isUserPresent) {
+                        Log.e("Boolean  ", isUserPresent.toString());
+//                        String token = (String) jsonObject.get("token");
+//                        editor.putString("token", token);
+//                        editor.apply();
                         getDetails();
-                    } else if (errorCode == 1) {
+                    } else{
+//                        editor.putBoolean("loginStatus", true);
                         Intent intent = new Intent(Login.this, ProfileNew.class);
                         intent.putExtra("editProfile", false);
+                        intent.putExtra("email",email);
+                        intent.putExtra("firebaseuid",uid);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
@@ -204,7 +213,7 @@ public class Login extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("phone", phoneNumber);
+                params.put("email", email);
                 return params;
             }
         };
@@ -216,28 +225,50 @@ public class Login extends AppCompatActivity {
 
     private void getDetails() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, getString(R.string.baseUrl) + "/auth/profile", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, getString(R.string.baseUrl) + "/users/"+uid, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(String response)
+            {
                 try {
                     Log.e("get details response  ", response);
-                    JSONArray jsonArray = new JSONArray(response);
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    editor.putString("name", jsonObject.getString("Name"));
-                    editor.putString("rollno", jsonObject.getString("rollNumber"));
+//                    JSONArray jsonArray = new JSONArray(response);
+//                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    editor.putString("firebaseUid", jsonObject.getString("firebase"));
+                    editor.putString("username", jsonObject.getString("username"));
+                    editor.putString("name",jsonObject.getString("firstName")+" " + jsonObject.getString("lastName"));
+                    editor.putString("phoneNumber", jsonObject.getString("phone"));
+                    editor.putString("email", jsonObject.getString("email"));
+                    editor.putString("firstname", jsonObject.getString("firstName"));
+                    editor.putString("lastname", jsonObject.getString("lastName"));
+                    editor.putInt("OmegleReport", Integer.parseInt(jsonObject.getString("omegleReports")));
+                    editor.putBoolean("OmegleAllowed", Boolean.parseBoolean(jsonObject.getString("omegleAllowed")));
                     editor.putString("college", jsonObject.getString("collegeName"));
-                    editor.putString("profileImage", jsonObject.getString("profileImage"));
-                    editor.putString("normalPoints", jsonObject.getString("userPoints"));
                     editor.putBoolean("campusAmbassador", jsonObject.getBoolean("campusAmbassador"));
-                    editor.putString("caPoints", jsonObject.getString("campusAmbassadorPoints"));
-                    editor.putBoolean("profileStatus", true);
+                    editor.putString("rollNumber", jsonObject.getString("rollNumber"));
+                    editor.putString("profileImage",jsonObject.getString("profileImage"));
+                    editor.putBoolean("loginStatus",true);
+                    editor.putBoolean("profileStatus",true);
+//                    editor.putBoolean("profileStatus", true);
+//                    editor.putBoolean("loginStatus", true);
                     editor.commit();
+//                    editor.putString("name", jsonObject.getString("Name"));
+//                    editor.putString("rollno", jsonObject.getString("rollNumber"));
+
+//                    editor.putString("profileImage", jsonObject.getString("profileImage"));
+//                    editor.putString("normalPoints", jsonObject.getString("userPoints"));
+
+//                    editor.putString("caPoints", jsonObject.getString("campusAmbassadorPoints"));
+//                    editor.putBoolean("profileStatus", true);
+//                    editor.commit();
                     Intent intent = new Intent(Login.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                     overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
-                } catch (JSONException e) {
+                } catch (JSONException e)
+                {
                     e.printStackTrace();
                 }
             }
@@ -252,7 +283,7 @@ public class Login extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("access-token", sharedPref.getString("token", ""));
+                headers.put("access-token", sharedPref.getString("token", "any"));
                 return headers;
             }
         };
