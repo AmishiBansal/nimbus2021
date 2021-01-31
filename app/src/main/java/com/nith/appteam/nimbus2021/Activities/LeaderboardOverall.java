@@ -81,7 +81,7 @@ public class LeaderboardOverall extends AppCompatActivity {
         loadwall.setVisibility(View.VISIBLE);
 
         StringRequest stringRequest = new StringRequest(
-                Request.Method.GET,  Constant.Url +"/quiz/leaderboard/results/",
+                Request.Method.GET,  Constant.Url +"/quiz/leaderboard/results/?format=json",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
