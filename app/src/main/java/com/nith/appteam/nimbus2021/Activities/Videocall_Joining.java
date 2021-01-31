@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,23 +37,30 @@ public class Videocall_Joining extends AppCompatActivity {
     TextView videoJoin;
 
     RequestQueue requestQueue;
-    FirebaseUser firebaseUser;
-    // uid of firebase user
     private String uid;
     String channel;
     String token;
     boolean gotDetails = false;
     private SharedPreferences sharedPref;
-    ProgressDialog pd;
+    ProgressBar progressBar;
+    private Handler handler;
+    private Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videocall__joining);
+        progressBar = findViewById(R.id.pb);
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                getChannelNameAndTokenId();
+            }
+        };
 
         videoJoin = findViewById(R.id.video_join);
         requestQueue = Volley.newRequestQueue(Videocall_Joining.this);
-        pd = new ProgressDialog(Videocall_Joining.this);
         if(getIntent().hasExtra("uid2"))
         {
             new AlertDialog.Builder(Videocall_Joining.this)
@@ -87,10 +96,8 @@ public class Videocall_Joining extends AppCompatActivity {
         videoJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pd.setMessage("Finding Someone...");
-                pd.setIndeterminate(true);
-                pd.setCancelable(false);
-                pd.show();
+                progressBar.setVisibility(View.VISIBLE);
+                videoJoin.setText("Joining...");
                 getUserId();
             }
         });
@@ -105,11 +112,13 @@ public class Videocall_Joining extends AppCompatActivity {
         } else {
             Toast toast = Toast.makeText(this,"Try reinstalling the app or clearing data", Toast.LENGTH_SHORT);
             toast.show();
-            pd.dismiss();
+            progressBar.setVisibility(View.GONE);
+            videoJoin.setText("Video");
         }
     }
 
     private void getChannelNameAndTokenId() {
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 Constant.Url + "omegle_clone/joinvc/" + uid, new Response.Listener<String>() {
             @Override
@@ -117,17 +126,13 @@ public class Videocall_Joining extends AppCompatActivity {
                 try {
                     Log.e("video call response", response);
                     JSONObject jsonObject = new JSONObject(response);
-                    if (jsonObject.has("Message")) {
+                    if (jsonObject.has("Message"))
+                    {
                         Log.e("response", jsonObject.get("Message").toString());
-                        new android.os.Handler().postDelayed(
-                                new Runnable() {
-                                    public void run() {
-                                        getChannelNameAndTokenId();
-                                    }
-                                },
-                                1000);
+                        handler.postDelayed(runnable,1000);                 // --for triggering getChannelNameAndTokenId() to send request to backend after every 1 sec
                     }
-                    else if (jsonObject.has("uid")) {
+                    else if (jsonObject.has("uid"))
+                    {
                         Log.e("onResponse: ", "got channel and token");
                         channel = jsonObject.getString("channel");
                         token = jsonObject.getString("token");
@@ -140,9 +145,11 @@ public class Videocall_Joining extends AppCompatActivity {
                             intent.putExtra("uid2",jsonObject.getString("uid2"));
                             Log.e("channel", channel);
                             Log.e("token", token);
-                            pd.dismiss();
+                            handler.removeCallbacks(runnable);
+                            progressBar.setVisibility(View.GONE);
+                            videoJoin.setText("Video");
                             startActivity(intent);
-
+                            finish();
                         }
                     }
                 } catch (JSONException e) {
@@ -154,7 +161,8 @@ public class Videocall_Joining extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e("onErrorResponse: ", error.toString());
                 Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
-                pd.dismiss();
+                progressBar.setVisibility(View.GONE);
+                videoJoin.setText("Video");
             }
         });
         requestQueue.add(stringRequest);
@@ -163,6 +171,7 @@ public class Videocall_Joining extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        handler.removeCallbacks(runnable);
         finish();
     }
 }
