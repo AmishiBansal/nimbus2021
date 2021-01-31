@@ -63,7 +63,7 @@ public class Sponsor extends Fragment {
         final VolleyService mVolleyService = new VolleyService(mResultCallback, getActivity());
 
         mVolleyService.getJsonArrayDataVolley("GETSPONSORS",
-                getString(R.string.baseUrl) + "/sponsor");
+                getString(R.string.baseUrl) + "/members/sponsors");
 
     }
 
