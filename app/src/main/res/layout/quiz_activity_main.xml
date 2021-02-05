@@ -38,9 +38,9 @@
             android:layout_marginRight="2dp"
             android:text="LEADERBOARD"
             android:drawablePadding="6dp"
-            android:drawableLeft="@drawable/ic_trophy"
             android:textColor="@android:color/white"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            />
 
     </RelativeLayout>
 

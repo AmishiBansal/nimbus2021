@@ -43,7 +43,7 @@ public class LeaderBoardAdapter extends
         LeaderboardModel user = mLeaderboardModelList.get(position);
         holder.nameTextView.setText(user.getName());
         if (!user.getImageUrl().isEmpty()) {
-            Picasso.with(mActivity).load(user.getImageUrl()).resize(80, 80).centerCrop().into(
+            Picasso.with(mActivity).load(user.getImageUrl()).placeholder(R.drawable.default_profile_pic).resize(80, 80).centerCrop().into(
                     holder.userImageView);
         }
         holder.scoreTextView.setText(String.valueOf(user.getScore()));

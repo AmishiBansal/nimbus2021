@@ -261,7 +261,7 @@ public class Quiz extends AppCompatActivity {
         }
         Log.e("result", result);
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constant.Url + "/quiz/checkresponses/", new Response.Listener<String>() {
+                Constant.Url + "/quiz/checkresponses/?format=json", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

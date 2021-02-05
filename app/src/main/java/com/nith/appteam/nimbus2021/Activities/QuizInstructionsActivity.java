@@ -33,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -71,7 +72,11 @@ public class QuizInstructionsActivity extends AppCompatActivity {
 
 
         instructionsTV.setText("This quiz contains");
-        instructionsDetails.setText("This quiz consists of 10 multiple-choice questions.You are allowed to attempt the quiz only once.Keep the following in mind: \n ");
+        instructionsDetails.setText("This quiz consists of " + getIntent().getStringExtra("count")+
+                " multiple-choice questions.You are allowed to attempt the quiz only once.Keep the following in mind:\n" +
+                "1. You will have only one attempts for this quiz\n" +
+                "2. Time given for each question will be 15s\n" +
+                "To start, click the \"Play Now\" button.");
 
         response = getIntent().getStringExtra("questions");
         quizId = getIntent().getStringExtra("quizId");
@@ -94,42 +99,29 @@ public class QuizInstructionsActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                Calendar currentTime = Calendar.getInstance();
 
-                boolean flag = false;
+                boolean flag;
               String aT = getIntent().getStringExtra("startTime");
               String bT = getIntent().getStringExtra("endTime");
 
-                ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
-                String cT = String.valueOf(utc.toInstant());
-                ZonedDateTime zdt = ZonedDateTime.parse(cT);
-                String newFormat = zdt.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss"));
+                ZonedDateTime zdt = ZonedDateTime.now();
                 ZonedDateTime zdt1 = ZonedDateTime.parse(aT);
-                String newFormat1 = zdt1.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss"));
                 ZonedDateTime zdt2 = ZonedDateTime.parse(bT);
-                String newFormat2 = zdt2.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss"));
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-                try {
-                    Date d1 = sdf.parse(newFormat1);
-                    Date d2 = sdf.parse(newFormat);
-                    Date d3 = sdf.parse(newFormat2);
 
-                    assert d2 != null;
-                    if(d2.compareTo(d1)>=0 && d2.compareTo(d3)<=0){
-                        Toast.makeText(QuizInstructionsActivity.this,"Time is right",Toast.LENGTH_SHORT).show();
-                        flag = true;
-
-                    }
-                    else{
-                        new AlertDialog.Builder(QuizInstructionsActivity.this)
+                if(zdt.compareTo(zdt1)>0 && zdt.compareTo(zdt2)<0){
+                    Toast.makeText(QuizInstructionsActivity.this,"Time is Right",Toast.LENGTH_SHORT).show();
+                    flag = true;
+                }
+                else{
+                    Toast.makeText(QuizInstructionsActivity.this, "Not Right Time", Toast.LENGTH_SHORT).show();
+                    new AlertDialog.Builder(QuizInstructionsActivity.this)
                                 .setTitle("Not right time!")
-                                .setMessage("Start time: " + String.valueOf(d1) + "\n" + "End time: " + String.valueOf(d3))
+                                .setMessage("Start time: " + zdt1 + "\n" + "End time: " + zdt2)
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
-                                flag = false;
-                    }
-
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    flag = false;
                 }
+
+
                 getUserId();
                 if(uid == null){
                     new AlertDialog.Builder(QuizInstructionsActivity.this)
@@ -209,7 +201,7 @@ public class QuizInstructionsActivity extends AppCompatActivity {
         }
         Log.e("result", result);
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constant.Url + "/quiz/checkPlayedOrNot/", new Response.Listener<String>() {
+                Constant.Url + "/quiz/checkPlayedOrNot/?format=json", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

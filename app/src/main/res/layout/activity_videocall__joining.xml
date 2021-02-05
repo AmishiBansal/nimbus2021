@@ -38,6 +38,13 @@
         android:src="@drawable/omegle_back"
         android:id="@+id/img_omegle"
         android:layout_centerInParent="true" />
+    <ProgressBar
+        android:id="@+id/pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_omegle"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,6 +63,8 @@
         android:textAlignment="center"
         android:textSize="20sp"
         android:fontFamily="@font/psb"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true">
+
+    </TextView>
 
 </RelativeLayout>

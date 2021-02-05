@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,7 +36,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Exhhibition extends AppCompatActivity {
 
@@ -91,13 +94,13 @@ public class Exhhibition extends AppCompatActivity {
         exhibitionList = new ArrayList<>();
         PrefsExhibition prefsExhibition = new PrefsExhibition(this);
         String search = prefsExhibition.getSearch();
-        exhibitionList = getExhibition(search);
+        exhibitionList = getExhibition(search,sharedPref.getString("firebaseUid","NULL"));
 //        talkRecyclerViewAdapter=new TalkRecyclerViewAdapter(this,talkList);
 //        recyclerView.setAdapter(talkRecyclerViewAdapter);
 
     }
 
-    public List<ExhibitionModel> getExhibition(String searchTerm)//all info returned from api
+    public List<ExhibitionModel> getExhibition(String searchTerm,final String UID)//all info returned from api
     {
         loadWall.setVisibility(View.VISIBLE);
         exhibitionList.clear();
@@ -149,7 +152,16 @@ public class Exhhibition extends AppCompatActivity {
              //   Log.d("Error", error.getMessage());
 
             }
-        });
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+UID);
+                headers.put("Authorization", UID);
+                return headers;
+            }
+        };
         requestQueueExh.add(jsonArrayRequest);
 
 

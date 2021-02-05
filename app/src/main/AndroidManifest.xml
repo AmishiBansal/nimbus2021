@@ -64,12 +64,6 @@
             android:name=".Activities.QRScanner"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.department_Events"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Activities.Institute_Events"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".Activities.Add_Workshop"
             android:theme="@style/AppTheme" />
         <activity

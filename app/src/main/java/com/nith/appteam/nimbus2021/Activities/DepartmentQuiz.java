@@ -43,6 +43,7 @@ public class DepartmentQuiz extends AppCompatActivity {
     ArrayList<Id_Value> quiztypes = new ArrayList<>();
     ProgressBar loadwall;
     String image;
+    int nOfQue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,8 @@ public class DepartmentQuiz extends AppCompatActivity {
                 if(jsonArray.getJSONObject(i).getString("department").equals(getIntent().getStringExtra("departmentname"))) {
                     Id_Value idValue = new Id_Value(jsonArray.getJSONObject(i).getString("name"),
                             jsonArray.getJSONObject(i).getString("id"),
-                            image, jsonArray.getJSONObject(i).getString("startTime"), jsonArray.getJSONObject(i).getString("endTime"));
+                            image, jsonArray.getJSONObject(i).getString("startTime"), jsonArray.getJSONObject(i).getString("endTime"),
+                            jsonArray.getJSONObject(i).getInt("count"),jsonArray.getJSONObject(i).getInt("sendCount"));
                     quiztypes.add(idValue);
                     Objects.requireNonNull(departmentquiz.getAdapter()).notifyDataSetChanged();
                 }
@@ -134,7 +136,7 @@ public class DepartmentQuiz extends AppCompatActivity {
         progressDialog.show();
         loadwall.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                Constant.Url + "/quiz/question/"+id, new Response.Listener<String>() {
+                Constant.Url + "/quiz/question/"+id+"/?format=json", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 loadwall.setVisibility(View.GONE);
@@ -158,6 +160,9 @@ public class DepartmentQuiz extends AppCompatActivity {
                     intent.putExtra("quizId", quiztypes.get(position).getId());
                     intent.putExtra("startTime", quiztypes.get(position).getStartTime());
                     intent.putExtra("endTime", quiztypes.get(position).getEndTime());
+                    nOfQue = Math.min(quiztypes.get(position).getSendCount(), quiztypes.get(position).getCount());
+                    Log.e("que",String.valueOf(nOfQue));
+                    intent.putExtra("count",String.valueOf(nOfQue));
                     progressDialog.dismiss();
                     Log.e("questions",response);
                     startActivity(intent);

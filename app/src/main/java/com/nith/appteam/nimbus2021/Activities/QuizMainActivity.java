@@ -106,7 +106,7 @@ public class QuizMainActivity extends AppCompatActivity {
         loadwall.setVisibility(View.VISIBLE);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                Constant.Url + "/departments", new Response.Listener<String>() {
+                Constant.Url + "/departments/?format=json", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -126,7 +126,7 @@ public class QuizMainActivity extends AppCompatActivity {
                         Id_Value idValue = new Id_Value(
                                 jsonArray.getJSONObject(i).getString("name"),
                                 "0",
-                                image, "0", "0");
+                                image, "0", "0",0,0);
                         quiztypes.add(idValue);
                         Objects.requireNonNull(
                                 quizrecyclerView.getAdapter()).notifyDataSetChanged();
@@ -159,7 +159,7 @@ public class QuizMainActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                Constant.Url + "/quiz", new Response.Listener<String>() {
+                Constant.Url + "/quiz/?format=json", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("quiz", response);

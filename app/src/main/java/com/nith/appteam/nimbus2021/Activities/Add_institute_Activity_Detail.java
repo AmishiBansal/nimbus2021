@@ -81,12 +81,12 @@ public class Add_institute_Activity_Detail extends AppCompatActivity {
 
         Log.e("before", instituteEvent.getAbstractIEVE());
 
-        if (myPdfUrl != null && !myPdfUrl.isEmpty()) {
-            String substr = myPdfUrl.substring(myPdfUrl.length() - 4);
-            if (!substr.equals("view")) myPdfUrl = myPdfUrl + "/view";
+//        if (myPdfUrl != null && !myPdfUrl.isEmpty()) {
+//            String substr = myPdfUrl.substring(myPdfUrl.length() - 4);
+//            if (!substr.equals("view")) myPdfUrl = myPdfUrl + "/view";
 
-            Log.e("after", myPdfUrl);
-        }
+//            Log.e("after", myPdfUrl);
+//        }
 
         CardView abstractButton = findViewById(R.id.abstractIDDetEventsD);
         abstractButton.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +105,7 @@ public class Add_institute_Activity_Detail extends AppCompatActivity {
                             return true;
                         }
                     });
-                    webView.loadUrl(myPdfUrl);
+                    webView.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=" +myPdfUrl);
 
                 } catch (Exception e) {
                     e.printStackTrace();

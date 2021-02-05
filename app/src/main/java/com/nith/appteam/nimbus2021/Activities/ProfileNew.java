@@ -313,7 +313,7 @@ public class ProfileNew extends AppCompatActivity {
                         params.put("rollNumber", rollno.getText().toString().trim());
                         params.put("college", college.getText().toString().trim());
                         //params.put("campusAmbassador", false);
-                        params.put("image", imageUrl);
+                        params.put("profileImage", imageUrl);
                         params.put("campusAmbassador", "" + sharedPrefs.getBoolean("campusAmbassador", false));
                         params.put("phone", phoneNumber.getText().toString().trim());
                         return params;
