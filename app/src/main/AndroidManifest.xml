@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nith.appteam.nimbus2021">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -92,11 +90,6 @@
         <meta-data
             android:name="CLOUDINARY_URL"
             android:value="cloudinary://256963859891119:w4WXsRRz58DN3eVbGK1g6JvcjJY@duutozrvz" />
-
-        <service
-            android:name=".Services.GeofenceRegistrationService"
-            android:enabled="true"
-            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.gms.version"
