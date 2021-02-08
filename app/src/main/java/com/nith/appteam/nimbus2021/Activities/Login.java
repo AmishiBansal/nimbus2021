@@ -48,7 +48,7 @@ public class Login extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private ProgressBar progressBar;
     private FirebaseUser user;
-    private TextView loginButton;
+    private TextView loginButton,SignUpbutton;
     RichPathView nimbus,nimbus1;
     Boolean SignInFlag;
     String email,uid;
@@ -87,6 +87,7 @@ public class Login extends AppCompatActivity {
         SignInFlag = getIntent().getBooleanExtra("SignInFlag",false);
 
         loginButton = findViewById(R.id.login_btn);
+        SignUpbutton = findViewById(R.id.signup_btn);
         progressBar = findViewById(R.id.login_progress);
         sharedPref = getSharedPreferences("app", MODE_PRIVATE);
         editor = sharedPref.edit();
@@ -103,7 +104,18 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(Login.this,EmailAuthentication.class));
+                Intent intent = new Intent(Login.this,EmailAuthentication.class);
+                intent.putExtra("login",true);
+                startActivity(intent);
+
+            }
+        });
+        SignUpbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Login.this,EmailAuthentication.class);
+                startActivity(intent);
 
             }
         });
@@ -203,8 +215,16 @@ public class Login extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e("is user error", error.toString());
             }
-        }) {
+        })
+        {
 
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+uid);
+                headers.put("Authorization", uid);
+                return headers;
+            }
             @Override
             public String getBodyContentType() {
                 return "application/x-www-form-urlencoded; charset=UTF-8";
@@ -216,6 +236,7 @@ public class Login extends AppCompatActivity {
                 params.put("email", email);
                 return params;
             }
+
         };
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -246,7 +267,7 @@ public class Login extends AppCompatActivity {
                     editor.putBoolean("OmegleAllowed", Boolean.parseBoolean(jsonObject.getString("omegleAllowed")));
                     editor.putString("college", jsonObject.getString("collegeName"));
                     editor.putBoolean("campusAmbassador", jsonObject.getBoolean("campusAmbassador"));
-                    editor.putString("rollNumber", jsonObject.getString("rollNumber"));
+//                    editor.putString("rollNumber", jsonObject.getString("rollNumber"));
                     editor.putString("profileImage",jsonObject.getString("profileImage"));
                     editor.putBoolean("loginStatus",true);
                     editor.putBoolean("profileStatus",true);
@@ -281,9 +302,10 @@ public class Login extends AppCompatActivity {
             }
         }) {
             @Override
-            public Map<String, String> getHeaders() {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("access-token", sharedPref.getString("token", "any"));
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+uid);
+                headers.put("Authorization", uid);
                 return headers;
             }
         };
