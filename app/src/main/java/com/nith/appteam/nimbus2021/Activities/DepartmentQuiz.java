@@ -39,9 +39,11 @@ import java.util.Objects;
 public class DepartmentQuiz extends AppCompatActivity {
     RecyclerView departmentquiz;
     TextView textView;
+    String UID;
     RequestQueue queue;
     ArrayList<Id_Value> quiztypes = new ArrayList<>();
     ProgressBar loadwall;
+    SharedPreferences sharedPreferences;
     String image;
     int nOfQue;
 
@@ -50,6 +52,9 @@ public class DepartmentQuiz extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_department_quiz);
         departmentquiz = findViewById(R.id.departmentquiz);
+
+        sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
+        UID = sharedPreferences.getString("firebaseUid","");
 
         TextView back;
         back = findViewById(R.id.back);
@@ -196,12 +201,10 @@ public class DepartmentQuiz extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
 
 
-                HashMap<String, String> map = new HashMap<>();
-                SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
-                String token = sharedPreferences.getString("token", String.valueOf(1));
-                map.put("access-token", token);
-                Log.e("access token", token);
-                return map;
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+UID);
+                headers.put("Authorization", UID);
+                return headers;
 
             }
 

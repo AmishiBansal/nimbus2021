@@ -59,11 +59,15 @@ public class Quiz extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
                 timeview.setText(millisUntilFinished / 1000 + "s");
+                if(timeview.getText().toString().equals("0")){
+                    timer.onFinish();
+                }
             }
+
 
             public void onFinish() {
 
-                if (questions.get(counter).getOption_chosen() == 0) {
+                if (questions.get(counter).getOption_chosen() == 30000) {
 
                     JSONObject jsonObject = new JSONObject();
                     try {
@@ -86,6 +90,7 @@ public class Quiz extends AppCompatActivity {
                 }
             }
         };
+
 
         questionnumber = findViewById(R.id.quizquestionnumber);
         timeview = findViewById(R.id.quizTimer);
@@ -176,6 +181,7 @@ public class Quiz extends AppCompatActivity {
         option3.setText(questions.get(counter).getOption_3());
         option4.setText(questions.get(counter).getOption_4());
         questionnumber.setText("Q" + (counter + 1));
+        questions.get(counter).setOption_chosen(30000);
         timer.start();
 
     }
@@ -305,10 +311,11 @@ public class Quiz extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
-                String token = sharedPreferences.getString("token", null);
-                HashMap<String, String> map = new HashMap<>();
-                map.put("access-token", token);
-                return map;
+                String UID = sharedPreferences.getString("firebaseUid","");
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+UID);
+                headers.put("Authorization", UID);
+                return headers;
             }
 
             @Override

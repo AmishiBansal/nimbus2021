@@ -46,6 +46,7 @@ public class QuizMainActivity extends AppCompatActivity {
     RequestQueue queue;
     ArrayList<Id_Value> quiztypes = new ArrayList<>();
     ProgressBar loadwall;
+    SharedPreferences sharedPref;
     ImageView quiz;
     String uid;
     FirebaseUser firebaseUser;
@@ -89,7 +90,7 @@ public class QuizMainActivity extends AppCompatActivity {
                             public void onItemClick(View view, int position) {
                                 postdata(position);
                                 //Display toast until ui
-                                Toast.makeText(QuizMainActivity.this, "Coming Soon..", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(QuizMainActivity.this, "Coming Soon..", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -212,12 +213,10 @@ public class QuizMainActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
 
-                HashMap<String, String> map = new HashMap<>();
-                SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
-                String token = sharedPreferences.getString("token", null);
-
-                map.put("access-token", token);
-                return map;
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+uid);
+                headers.put("Authorization", uid);
+                return headers;
             }
 
             @Override
@@ -234,15 +233,13 @@ public class QuizMainActivity extends AppCompatActivity {
     }
 
     private void getUserId() {
-        uid = "text1";
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser != null) {
-            uid = firebaseUser.getUid();
+        sharedPref = getSharedPreferences("app", MODE_PRIVATE);
+        uid = sharedPref.getString("firebaseUid","");
+        if (!uid.isEmpty()) {
             Log.e("UID", uid);
         } else {
-            Toast.makeText(this,uid, Toast.LENGTH_SHORT).show();
-
-
+            Toast toast = Toast.makeText(this,"Try reinstalling the app or clearing data", Toast.LENGTH_SHORT);
+            toast.show();
         }
 
 
