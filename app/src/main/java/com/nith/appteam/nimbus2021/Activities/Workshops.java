@@ -78,21 +78,8 @@ public class Workshops extends AppCompatActivity {
 
         FloatingActionButton fabwo = findViewById(R.id.fabworkshop);
 
-        if (sharedPref.getString("phoneNumber", "").equals("+918219341697") || sharedPref.getString("phoneNumber", "").equals("+917982107070")) {
-            fabwo.setVisibility(View.VISIBLE);
 
-            fabwo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Workshops.this, Add_Workshop.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
-
-                }
-            });
-        } else {
             fabwo.setVisibility(View.GONE);
-        }
         loadWall = findViewById(R.id.loadwallWorkshop);
         recyclerViewwor = findViewById(R.id.recyclerViewWorkshop);
         recyclerViewwor.setHasFixedSize(true);

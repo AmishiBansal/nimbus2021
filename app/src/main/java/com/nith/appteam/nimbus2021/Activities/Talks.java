@@ -74,20 +74,8 @@ public class Talks extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         FloatingActionButton fab = findViewById(R.id.fabtalk);
-        if (sharedPref.getString("phoneNumber", "").equals("+917982107070") || sharedPref.getString("phoneNumber", "").equals("+918572027705") || sharedPref.getString("phoneNumber", "").equals("+918959747704") || sharedPref.getString("phoneNumber", "").equals("+919340453051")) {
-            fab.setVisibility(View.VISIBLE);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Talks.this, Add_Talk.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
 
-                }
-            });
-        } else {
             fab.setVisibility(View.GONE);
-        }
         loadwall = findViewById(R.id.loadwallTalk);
         recyclerView = findViewById(R.id.recyclerViewTalk);
         recyclerView.setHasFixedSize(true);

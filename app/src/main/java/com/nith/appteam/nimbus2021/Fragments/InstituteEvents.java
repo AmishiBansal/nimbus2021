@@ -2,7 +2,6 @@ package com.nith.appteam.nimbus2021.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,7 +26,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.nith.appteam.nimbus2021.Activities.Add_I_Events;
 import com.nith.appteam.nimbus2021.Adapters.EventIRecyclerViewAdapter;
 import com.nith.appteam.nimbus2021.Models.instituteEvent;
 import com.nith.appteam.nimbus2021.R;
@@ -79,20 +77,8 @@ public class InstituteEvents extends Fragment {
         sharedPref = context.getSharedPreferences("app", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         FloatingActionButton fab = rootView.findViewById(R.id.fabI);
-        if (sharedPref.getString("phoneNumber", "").equals("+918219341697") || sharedPref.getString("phoneNumber", "").equals("+917982107070") || sharedPref.getString("phoneNumber", "").equals("+918572027705") || sharedPref.getString("phoneNumber", "").equals("+918959747704") || sharedPref.getString("phoneNumber", "").equals("+919340453051")) {
-            fab.setVisibility(View.VISIBLE);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, Add_I_Events.class);
-                    startActivity(intent);
-                    ((Activity) context).overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
 
-                }
-            });
-        } else {
             fab.setVisibility(View.GONE);
-        }
         requestQueueEVEI = Volley.newRequestQueue(context);
         loadWall = rootView.findViewById(R.id.loadwallEventI);
         recyclerViewIEVE = rootView.findViewById(R.id.recyclerViewEVEI);

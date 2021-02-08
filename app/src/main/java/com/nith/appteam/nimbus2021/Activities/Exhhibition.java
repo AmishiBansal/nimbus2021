@@ -72,21 +72,7 @@ public class Exhhibition extends AppCompatActivity {
         editor = sharedPref.edit();
         requestQueueExh = Volley.newRequestQueue(this);
         FloatingActionButton fab = findViewById(R.id.fabExh);
-        if (sharedPref.getString("phoneNumber", "").equals("+918219341697") || sharedPref.getString("phoneNumber", "").equals("+917982107070") || sharedPref.getString("phoneNumber", "").equals("+918572027705") || sharedPref.getString("phoneNumber", "").equals("+918959747704") || sharedPref.getString("phoneNumber", "").equals("+917587524626")) {
-            fab.setVisibility(View.VISIBLE);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Exhhibition.this, Add_Exhibition.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
-
-
-                }
-            });
-        } else {
             fab.setVisibility(View.GONE);
-        }
         loadWall = findViewById(R.id.loadwallExh);
         recyclerViewExhib = findViewById(R.id.recyclerViewExhibition);
         recyclerViewExhib.setHasFixedSize(true);

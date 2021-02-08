@@ -50,25 +50,14 @@
            <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter> 
         </activity>
-        <activity android:name=".Activities.Add_D_Events" />
-        <activity android:name=".Activities.Add_I_Events" />
         <activity android:name=".Activities.Add_institute_Activity_Detail" />
         <activity android:name=".Activities.Add_deptEvents_detail" />
         <activity android:name=".Activities.Add_exhibition_details" />
         <activity android:name=".Activities.Add_workshop_details" />
         <activity android:name=".Activities.Add_talk_details" />
         <activity
-            android:name=".Activities.Add_Exhibition"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".Activities.QRScanner"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activities.Add_Workshop"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Activities.Add_Talk"
-            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activities.Exhhibition"
             android:theme="@style/AppTheme.NoActionBar" />
