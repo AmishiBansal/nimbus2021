@@ -2,13 +2,16 @@ package com.nith.appteam.nimbus2021.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,6 +37,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.ZonedDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.time.chrono.ChronoZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -101,6 +107,7 @@ public class Workshops extends AppCompatActivity {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,
                 Constant.Url + "events/?type="+ "workshop", null, new Response.Listener<JSONArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(JSONArray response) {
                 loadWall.setVisibility(View.GONE);
@@ -123,8 +130,14 @@ public class Workshops extends AppCompatActivity {
                         workshop.setTypeWor("Type:" + workshopObj.getString("Type"));
                         // Log.d("Talk",talk.getName());
 //                       Log.d("date",talk.getDate());
-                        workshopList.add(workshop);
-                        workshopRecyclerViewAdapter.notifyDataSetChanged();
+                        if(!workshopObj.getString("end").equals("null") && !ZonedDateTime.parse(workshopObj.getString("end")).isBefore(ZonedDateTime.now()))
+                        {
+                            workshopList.add(workshop);
+                            workshopRecyclerViewAdapter.notifyDataSetChanged();
+                        }else if(workshopObj.getString("end").equals("null")){
+                            workshopList.add(workshop);
+                            workshopRecyclerViewAdapter.notifyDataSetChanged();
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();

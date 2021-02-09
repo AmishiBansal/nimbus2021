@@ -3,6 +3,7 @@ package com.nith.appteam.nimbus2021.Fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -105,6 +108,7 @@ public class InstituteEvents extends Fragment {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,
                 Constant.Url + "events/?type="+ "institutional", null, new Response.Listener<JSONArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(JSONArray response) {
                 loadWall.setVisibility(View.GONE);
@@ -130,8 +134,13 @@ public class InstituteEvents extends Fragment {
                         Ievent.setAbstractIEVE(talkObj.getString("abstract"));
                         // Log.d("Talk",talk.getName());
                         //Log.d("date",talk.getDate());
-                        eventIlist.add(Ievent);
+                        if(!talkObj.getString("end").equals("null") && !ZonedDateTime.parse(talkObj.getString("end")).isBefore(ZonedDateTime.now())){
+                            eventIlist.add(Ievent);
                         eventIRecyclerViewAdapter.notifyDataSetChanged();
+                        }else if(talkObj.getString("end").equals("null")){
+                            eventIlist.add(Ievent);
+                            eventIRecyclerViewAdapter.notifyDataSetChanged();
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
