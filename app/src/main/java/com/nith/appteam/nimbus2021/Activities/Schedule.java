@@ -85,7 +85,7 @@ public class Schedule extends AppCompatActivity {
 
     }
 
-    public List<ScheduleModel> getSchedule(String searchTerm)//all info returned from api
+    public List<ScheduleModel> getSchedule(final String searchTerm)//all info returned from api
     {
         loadWall.setVisibility(View.VISIBLE);
         scheduleModelList.clear();
@@ -97,6 +97,7 @@ public class Schedule extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 loadWall.setVisibility(View.GONE);
+                Log.e("Response", String.valueOf(Constant.Url + searchTerm));
                 Log.d("Response", response.toString());
                 for (int i = 0; i < response.length(); i++) {
                     try {

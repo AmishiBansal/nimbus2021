@@ -19,11 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
 import com.android.volley.VolleyError;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.GeofencingRequest;
 import com.nith.appteam.nimbus2021.Adapters.DiscoverAdapter;
 import com.nith.appteam.nimbus2021.Fragments.Dashboard;
-import com.nith.appteam.nimbus2021.Fragments.OurTeam;
 import com.nith.appteam.nimbus2021.Fragments.Sponsor;
 import com.nith.appteam.nimbus2021.Models.DiscoverModel;
 import com.nith.appteam.nimbus2021.R;
@@ -41,7 +38,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private static final int REQUEST_LOCATION_PERMISSION_CODE = 101;
     RecyclerView mRecyclerView;
     DiscoverAdapter mDiscoverAdapter;
     List<DiscoverModel> mDiscoverModelList;
@@ -52,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
             schedule, contributors, coreTeam;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
-    private GeofencingRequest geofencingRequest;
-    private GoogleApiClient googleApiClient;
     private boolean isMonitoring = false;
     private PendingIntent pendingIntent;
     private ImageView profileImage;
@@ -66,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         profileImage = findViewById(R.id.profileImage);
-        scanner = findViewById(R.id.scanner);
+//        scanner = findViewById(R.id.scanner);
 
         SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
         String image = sharedPreferences.getString("profileImage", null);
@@ -127,13 +121,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void setClickListener() {
 
-        scanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, QRScanner.class);
-                startActivity(intent);
-            }
-        });
+//        scanner.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, QRScanner.class);
+//                startActivity(intent);
+//            }
+//        });
 
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,14 +225,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        qr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, QRScanner.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
-            }
-        });
+        // QR Code scanner
+//        qr.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, QRScanner.class);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+//            }
+//        });
 
         dashboardTab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -276,24 +271,24 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
             }
         });
-        teamTab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                teamTab.setTypeface(psbi);
-                sponsorTab.setTypeface(psi);
-                dashboardTab.setTypeface(psi);
-
-                teamTab.setTextColor(getResources().getColor(R.color.black));
-                sponsorTab.setTextColor(getResources().getColor(R.color.lightGray));
-                dashboardTab.setTextColor(getResources().getColor(R.color.lightGray));
-
-                OurTeam ourTeam = new OurTeam(MainActivity.this);
-                FragmentManager fm = getSupportFragmentManager();
-                fm.beginTransaction()
-                        .replace(R.id.fragment_holder, ourTeam)
-                        .commit();
-            }
-        });
+//        teamTab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                teamTab.setTypeface(psbi);
+//                sponsorTab.setTypeface(psi);
+//                dashboardTab.setTypeface(psi);
+//
+//                teamTab.setTextColor(getResources().getColor(R.color.black));
+//                sponsorTab.setTextColor(getResources().getColor(R.color.lightGray));
+//                dashboardTab.setTextColor(getResources().getColor(R.color.lightGray));
+//
+//                OurTeam ourTeam = new OurTeam(MainActivity.this);
+//                FragmentManager fm = getSupportFragmentManager();
+//                fm.beginTransaction()
+//                        .replace(R.id.fragment_holder, ourTeam)
+//                        .commit();
+//            }
+//        });
 
         dashboardTab.performClick();
     }
@@ -383,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
         events = findViewById(R.id.events);
         campusA = findViewById(R.id.ca);
         profile = findViewById(R.id.profile);
-        qr = findViewById(R.id.qr);
+//        qr = findViewById(R.id.qr);
         exhibition = findViewById(R.id.exhibition);
         schedule = findViewById(R.id.schedule);
         coreTeam = findViewById(R.id.coreTeam);
