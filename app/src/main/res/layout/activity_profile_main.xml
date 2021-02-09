@@ -72,56 +72,56 @@
                 android:textSize="24sp"
                 tools:text="Pawan Singh" />
 
-            <LinearLayout
-                android:id="@+id/points"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/name"
-                android:gravity="center"
-                android:orientation="horizontal">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/points"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/name"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="horizontal">-->
 
-                <ImageView
-                    android:id="@+id/diamond_blue"
-                    android:layout_width="22dp"
-                    android:layout_height="18dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/diamond_blue" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/diamond_blue"-->
+<!--                    android:layout_width="22dp"-->
+<!--                    android:layout_height="18dp"-->
+<!--                    android:scaleType="fitXY"-->
+<!--                    android:src="@drawable/diamond_blue" />-->
 
-                <TextView
-                    android:id="@+id/normal_points"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:fontFamily="@font/psregular"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    tools:text="100" />
+<!--                <TextView-->
+<!--                    android:id="@+id/normal_points"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="12dp"-->
+<!--                    android:fontFamily="@font/psregular"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+<!--                    tools:text="100" />-->
 
-                <ImageView
-                    android:id="@+id/diamond_pink"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_marginLeft="24dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/diamond_pink" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/diamond_pink"-->
+<!--                    android:layout_width="22dp"-->
+<!--                    android:layout_height="22dp"-->
+<!--                    android:layout_marginLeft="24dp"-->
+<!--                    android:scaleType="fitXY"-->
+<!--                    android:src="@drawable/diamond_pink" />-->
 
-                <TextView
-                    android:id="@+id/ca_points"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:fontFamily="@font/psregular"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    tools:text="100" />
+<!--                <TextView-->
+<!--                    android:id="@+id/ca_points"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="12dp"-->
+<!--                    android:fontFamily="@font/psregular"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+<!--                    tools:text="100" />-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
             <TextView
                 android:id="@+id/username_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/points"
+                android:layout_below="@id/name"
                 android:layout_marginTop="16dp"
                 android:gravity="center_horizontal"
                 android:text="User Name"
@@ -139,35 +139,12 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 tools:text="xyz" />
-            <TextView
-                android:id="@+id/rollno_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/username"
-                android:layout_marginTop="16dp"
-                android:gravity="center_horizontal"
-                android:text="Roll Number"
-                android:textAllCaps="true"
-                android:textColor="@color/colorAccent"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/rollno"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rollno_label"
-                android:layout_marginTop="4dp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                tools:text="184560" />
-
 
             <TextView
                 android:id="@+id/phoneno_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rollno"
+                android:layout_below="@id/username"
                 android:layout_marginTop="16dp"
                 android:gravity="center_horizontal"
                 android:text="Phone Number"

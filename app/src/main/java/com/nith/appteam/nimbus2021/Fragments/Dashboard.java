@@ -106,7 +106,7 @@ public class Dashboard extends Fragment {
 
 
         quote1.setHtml(
-                "<p>\"I AM <strike>IRON MAN</strike> <font color=\"#2fc0d1\">SEMBLANCE</font>"
+                "<p>\"I AM <strike>IRON MAN</strike> <font color=\"#2fc0d1\">SCOPUS</font>"
                         + " \uD83D\uDE80 !\" <small><i><font color=\"#888888\"> ~ "
                         + "NIMBUS</font></i></small></p>");
 
@@ -177,7 +177,7 @@ public class Dashboard extends Fragment {
             @Override
             public void onClick(View v) {
                 alertDialogBuilder = new AlertDialog.Builder(getContext());
-                View view = getLayoutInflater().inflate(R.layout.dialog_semblance, null);
+                View view = getLayoutInflater().inflate(R.layout.dialog_scopus, null);
                 alertDialogBuilder.setView(view);
                 dialog = alertDialogBuilder.create();
                 dialog.show();

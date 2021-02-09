@@ -27,17 +27,17 @@
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
-<!--    <EditText-->
-<!--        android:id="@+id/email_login"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="10dp"-->
-<!--        android:layout_marginRight="10dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:backgroundTint="@color/white"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:hint="Email"-->
-<!--        android:textColorHint="@color/white"/>-->
+    <!--    <EditText-->
+    <!--        android:id="@+id/email_login"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="10dp"-->
+    <!--        android:layout_marginRight="10dp"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:backgroundTint="@color/white"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:hint="Email"-->
+    <!--        android:textColorHint="@color/white"/>-->
     <Button
         android:id="@+id/login_next"
         android:visibility="visible"
@@ -70,6 +70,27 @@
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/repass_login"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:passwordToggleTint="@color/white"
+        app:passwordToggleEnabled="true"
+        android:textColorHint="@color/white"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:hint="Re-type Password"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/error_login"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -79,18 +100,18 @@
         android:layout_marginRight="10dp">
 
     </com.google.android.material.textfield.TextInputLayout>
-<!--    <EditText-->
-<!--        android:id="@+id/pass_login"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="10dp"-->
-<!--        android:layout_marginRight="10dp"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:visibility="visible"-->
-<!--        android:backgroundTint="@color/white"-->
-<!--        android:hint="Password"-->
-<!--        android:textColorHint="@color/white"/>-->
+    <!--    <EditText-->
+    <!--        android:id="@+id/pass_login"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="10dp"-->
+    <!--        android:layout_marginRight="10dp"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:visibility="visible"-->
+    <!--        android:backgroundTint="@color/white"-->
+    <!--        android:hint="Password"-->
+    <!--        android:textColorHint="@color/white"/>-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
