@@ -215,7 +215,6 @@ public class VideoCallActivity extends AppCompatActivity {
         if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
                 checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID) &&
                 checkSelfPermission(REQUESTED_PERMISSIONS[2], PERMISSION_REQ_ID)) {
-            initEngineAndJoinChannel();
             new android.os.Handler().postDelayed(
                     new Runnable() {
                         public void run() {
@@ -225,8 +224,7 @@ public class VideoCallActivity extends AppCompatActivity {
                     5000);
 
         }
-        else
-            initEngineAndJoinChannel();
+        initEngineAndJoinChannel();
     }
 
     private void Sendlog() {
@@ -282,8 +280,7 @@ public class VideoCallActivity extends AppCompatActivity {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED ||
                     grantResults[1] != PackageManager.PERMISSION_GRANTED ||
                     grantResults[2] != PackageManager.PERMISSION_GRANTED) {
-                showLongToast("Please Grant permissions in the Settings");
-                finish();
+                showLongToast("Please Grant the permissions required for better Experience");
                 return;
             }
 
