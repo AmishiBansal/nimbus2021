@@ -61,7 +61,6 @@ public class ProfileNew extends AppCompatActivity {
     private RadioButton caYes, caNo;
     private ImageView uploadPic;
     private Uri photoUri;
-    private LinearLayout ca;
     private boolean editProfile;
     private boolean isCa = false;
 
@@ -84,9 +83,6 @@ public class ProfileNew extends AppCompatActivity {
         sharedPrefs = getSharedPreferences("app", MODE_PRIVATE);
         editor = sharedPrefs.edit();
         getUI();
-        if (sharedPrefs.getBoolean("profileStatus", false)) {
-            ca.setVisibility(View.INVISIBLE);
-        }
         Intent intent = getIntent();
         if (intent.hasExtra("editProfile"))
         {
@@ -104,8 +100,8 @@ public class ProfileNew extends AppCompatActivity {
                 email.setText(sharedPrefs.getString("email",""));
                 email.setEnabled(false);
                 phoneNumber.setText(sharedPrefs.getString("phoneNumber",""));
-                rollno.setText(sharedPrefs.getString("rollNumber", ""));
-                rollno.setEnabled(false);
+//                rollno.setText(sharedPrefs.getString("rollNumber", ""));
+//                rollno.setEnabled(false);
                 username.setText(sharedPrefs.getString("username", ""));
                 username.setEnabled(false);
                 college.setText(sharedPrefs.getString("college", ""));
@@ -146,18 +142,18 @@ public class ProfileNew extends AppCompatActivity {
                 profilePic.performClick();
             }
         });
-        caYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-             isCa = true;
-            }
-        });
-        caNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               isCa = false;
-            }
-        });
+//        caYes.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//             isCa = true;
+//            }
+//        });
+//        caNo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               isCa = false;
+//            }
+//        });
 
         submitProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,7 +237,6 @@ public class ProfileNew extends AppCompatActivity {
                     @Override
                     public void onError(String requestId, ErrorInfo error) {
                         Log.e("error", "cloudinary image upload error");
-//                      finish();
                         overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
                         Toast.makeText(ProfileNew.this, "Image Upload Failed", Toast.LENGTH_LONG).show();
                     }
@@ -257,7 +252,7 @@ public class ProfileNew extends AppCompatActivity {
 
     private void submitProfile() {
         if (!username.getText().toString().isEmpty() && !first.getText().toString().isEmpty() && !last.getText().toString().isEmpty() && !email.getText().toString().isEmpty() &&
-                !phoneNumber.getText().toString().isEmpty() && !college.getText().toString().isEmpty() && !rollno.getText().toString().isEmpty() && !imageUrl.isEmpty() ) {
+                !phoneNumber.getText().toString().isEmpty() && !college.getText().toString().isEmpty() && !imageUrl.isEmpty() ) {
             Intent intent = getIntent();
             editProfile = false;
             if (intent.hasExtra("editProfile")) {
@@ -278,7 +273,7 @@ public class ProfileNew extends AppCompatActivity {
                         editor.putString("name",first.getText().toString().trim()+" "+last.getText().toString().trim());
                         editor.putString("email", email.getText().toString().trim());
                         editor.putString("phoneNumber", phoneNumber.getText().toString().trim());
-                        editor.putString("rollNumber", rollno.getText().toString().trim());
+//                        editor.putString("rollNumber", rollno.getText().toString().trim());
                         editor.putString("college", college.getText().toString().trim());
                         editor.putString("profileImage", imageUrl);
                         //editor.putString("firebaseuid",uid);
@@ -310,19 +305,19 @@ public class ProfileNew extends AppCompatActivity {
                         params.put("username", username.getText().toString().trim());
                         params.put("firstName", first.getText().toString().trim());
                         params.put("lastName", last.getText().toString().trim());
-                        params.put("rollNumber", rollno.getText().toString().trim());
+//                        params.put("rollNumber", rollno.getText().toString().trim());
                         params.put("college", college.getText().toString().trim());
                         //params.put("campusAmbassador", false);
                         params.put("profileImage", imageUrl);
-                        params.put("campusAmbassador", "" + sharedPrefs.getBoolean("campusAmbassador", false));
+//                        params.put("campusAmbassador", "" + sharedPrefs.getBoolean("campusAmbassador", false));
                         params.put("phone", phoneNumber.getText().toString().trim());
                         return params;
                     }
-
                     @Override
-                    public Map<String, String> getHeaders() {
-                        HashMap<String, String> headers = new HashMap<>();
-                        headers.put("access-token", "" + sharedPrefs.getString("token", ""));
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        HashMap<String, String> headers = new HashMap<String, String>();
+                        Log.d("TAG", "getHeaders: "+uid);
+                        headers.put("Authorization", uid);
                         return headers;
                     }
                 };
@@ -337,24 +332,7 @@ public class ProfileNew extends AppCompatActivity {
                     StringRequest stringRequest = new StringRequest(Request.Method.POST, getString(R.string.baseUrl) + "/users/?format=json", new com.android.volley.Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-//                            int errorCode = 1;
-//                            String token;
-//                            final JSONObject jsonObject;
-//                            try {
-//                                jsonObject = new JSONObject(response);
-//                                errorCode = (int) jsonObject.get("errorCode");
-//                                if (!editProfile) {
-//                                    token = (String) jsonObject.get("token");
-//                                    editor.putString("token", token);
-//                                    editor.apply();
-//                                }
-////                        Toast.makeText(ProfileNew.this, "token" + sharedPrefs.getString("token", ""), Toast.LENGTH_LONG).show();
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                            Toast.makeText(ProfileNew.this, response, Toast.LENGTH_LONG).show();
-//                            if (errorCode == 0) {
-//                                Toast.makeText(ProfileNew.this, "error code" + errorCode, Toast.LENGTH_SHORT).show();
+
                                 editor.putString("firebaseUid", uid);
                                 editor.putString("username", username.getText().toString().trim());
                                 editor.putString("name", first.getText().toString().trim()+" "+last.getText().toString().trim());
@@ -362,10 +340,10 @@ public class ProfileNew extends AppCompatActivity {
                                 editor.putString("lastname",last.getText().toString().trim());
                                 editor.putString("email", email.getText().toString().trim());
                                 editor.putString("phoneNumber", phoneNumber.getText().toString().trim());
-                                editor.putString("rollNumber", rollno.getText().toString().trim());
+//                                editor.putString("rollNumber", rollno.getText().toString().trim());
                                 editor.putString("college", college.getText().toString().trim());
                                 editor.putString("profileImage", imageUrl);
-                                editor.putBoolean("campusAmbassador", isCa);
+//                                editor.putBoolean("campusAmbassador", isCa);
                                 editor.putBoolean("profileStatus", true);
                                 editor.putBoolean("loginStatus",true);
                                 editor.putInt("OmegleReport", 0);
@@ -379,18 +357,14 @@ public class ProfileNew extends AppCompatActivity {
                                 finish();
                                 overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
                                 overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
-//
-//                            } else {
-//                                Toast.makeText(ProfileNew.this, "Unknown error" + response, Toast.LENGTH_SHORT).show();
-//                                Log.e("error", response);
-//                                progressBar.setVisibility(View.GONE);
-//                            }
+
                         }
                     }, new com.android.volley.Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.e("VOLLEY", error.toString());
                             progressBar.setVisibility(View.GONE);
+                            Log.e("roll",email.getText().toString().substring(0,email.getText().toString().indexOf("@")));
                             Toast.makeText(ProfileNew.this, error.toString(), Toast.LENGTH_SHORT).show();
                             Toast.makeText(ProfileNew.this, "Try again with another username!!!", Toast.LENGTH_SHORT).show();
                         }
@@ -413,21 +387,19 @@ public class ProfileNew extends AppCompatActivity {
                             params.put("omegleReports","0");
                             params.put("omegleAllowed","true");
                             params.put("profileImage",imageUrl);
-                            params.put("campusAmbassador",String.valueOf(isCa));
-                            params.put("rollNumber", rollno.getText().toString().trim());
+//                            params.put("campusAmbassador",String.valueOf(isCa));
                             params.put("collegeName", college.getText().toString().trim());
-//                          params.put("rollNumber", rollno.getText().toString());
-//                            params.put("college", college.getText().toString());
+                            params.put("rollNumber", email.getText().toString().substring(0,email.getText().toString().indexOf("@")));
                             //params.put("campusAmbassador", false);
-//                            params.put("image", imageUrl);
 //                            params.put("campusAmbassador", "" + sharedPrefs.getBoolean("campusAmbassador", false));
                             return params;
                         }
 
                         @Override
-                        public Map<String, String> getHeaders() {
-                            HashMap<String, String> headers = new HashMap<>();
-                            headers.put("access-token", "" + sharedPrefs.getString("token", ""));
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            Log.d("TAG", "getHeaders: "+uid);
+                            headers.put("Authorization", uid);
                             return headers;
                         }
                     };
@@ -452,14 +424,12 @@ public class ProfileNew extends AppCompatActivity {
         first = findViewById(R.id.firstname);
         last = findViewById(R.id.lastname);
         phoneNumber = findViewById(R.id.mobile);
-        rollno = findViewById(R.id.rollno);
         college = findViewById(R.id.college);
         submitProfile = findViewById(R.id.submit_profile);
         profilePic = findViewById(R.id.profile_pic);
         progressBar = findViewById(R.id.profile_progress);
-        caNo = findViewById(R.id.ca_no);
-        caYes = findViewById(R.id.ca_yes);
-        ca = findViewById(R.id.ca);
+//        caNo = findViewById(R.id.ca_no);
+//        caYes = findViewById(R.id.ca_yes);
         uploadPic = findViewById(R.id.profile_pic_button);
     }
 }
