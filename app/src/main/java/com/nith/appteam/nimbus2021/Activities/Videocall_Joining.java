@@ -1,5 +1,6 @@
 package com.nith.appteam.nimbus2021.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
@@ -34,8 +36,8 @@ import org.json.JSONObject;
 
 public class Videocall_Joining extends AppCompatActivity {
 
-    TextView videoJoin;
-
+    TextView videoJoin,remainingT;
+    CountDownTimer timer;
     RequestQueue requestQueue;
     private String uid;
     String channel;
@@ -56,6 +58,29 @@ public class Videocall_Joining extends AppCompatActivity {
             @Override
             public void run() {
                 getChannelNameAndTokenId();
+            }
+        };
+
+        remainingT = findViewById(R.id.remaining_time);
+
+        timer = new CountDownTimer(60000,1000) {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTick(long millisUntilFinished) {
+                remainingT.setText("Retry After : "+millisUntilFinished/1000 + "s");
+                if (remainingT.getText().toString().equals("0")){
+                    timer.onFinish();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                videoJoin.setEnabled(true);
+                videoJoin.setText("Video");
+                handler.removeCallbacks(runnable);
+                progressBar.setVisibility(View.GONE);
+                remainingT.setText("Please Try Again");
+                Toast.makeText(getApplicationContext(), "No connection present Try Again!", Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -97,7 +122,9 @@ public class Videocall_Joining extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                videoJoin.setText("Joining...");
+                videoJoin.setText("Searching the User...");
+                videoJoin.setEnabled(false);
+                timer.start();
                 getUserId();
             }
         });
@@ -149,6 +176,7 @@ public class Videocall_Joining extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             videoJoin.setText("Video");
                             startActivity(intent);
+                            timer.cancel();
                             finish();
                         }
                     }
@@ -160,7 +188,6 @@ public class Videocall_Joining extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("onErrorResponse: ", error.toString());
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
                 videoJoin.setText("Video");
             }

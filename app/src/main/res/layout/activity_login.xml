@@ -58,7 +58,7 @@
         app:vector="@drawable/nimbus_svg" />
 
     <com.nith.appteam.nimbus2021.Utils.GradientTextView
-        android:id="@+id/login_btn"
+        android:id="@+id/signup_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -70,6 +70,23 @@
         android:gravity="center"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
+        android:text="Sign up"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+    <com.nith.appteam.nimbus2021.Utils.GradientTextView
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/black_round_corner1"
+        android:fontFamily="@font/psb"
+        android:gravity="center"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:layout_above="@+id/signup_btn"
         android:text="Login"
         android:textAllCaps="true"
         android:textColor="@color/black"

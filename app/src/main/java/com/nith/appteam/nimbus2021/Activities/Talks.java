@@ -2,6 +2,7 @@ package com.nith.appteam.nimbus2021.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +35,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,20 +77,8 @@ public class Talks extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         FloatingActionButton fab = findViewById(R.id.fabtalk);
-        if (sharedPref.getString("phoneNumber", "").equals("+917982107070") || sharedPref.getString("phoneNumber", "").equals("+918572027705") || sharedPref.getString("phoneNumber", "").equals("+918959747704") || sharedPref.getString("phoneNumber", "").equals("+919340453051")) {
-            fab.setVisibility(View.VISIBLE);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Talks.this, Add_Talk.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
 
-                }
-            });
-        } else {
             fab.setVisibility(View.GONE);
-        }
         loadwall = findViewById(R.id.loadwallTalk);
         recyclerView = findViewById(R.id.recyclerViewTalk);
         recyclerView.setHasFixedSize(true);
@@ -112,6 +103,7 @@ public class Talks extends AppCompatActivity {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,
                 Constant.Url + "events/?type="+ "talk", null, new Response.Listener<JSONArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(JSONArray response) {
                 loadwall.setVisibility(View.GONE);
@@ -133,8 +125,13 @@ public class Talks extends AppCompatActivity {
                         talk.setRegURL(talkObj.getString("regURL"));
                         talk.setVenue("Venue: " + talkObj.getString("venue"));
                         // Log.d("Talk",talk.getName());
-                        talkList.add(talk);
-                        talkRecyclerViewAdapter.notifyDataSetChanged();
+                        if(!talkObj.getString("end").equals("null") && !ZonedDateTime.parse(talkObj.getString("end")).isBefore(ZonedDateTime.now())){
+                            talkList.add(talk);
+                            talkRecyclerViewAdapter.notifyDataSetChanged();
+                        }else if(talkObj.getString("end").equals("null")){
+                            talkList.add(talk);
+                            talkRecyclerViewAdapter.notifyDataSetChanged();
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();

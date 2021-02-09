@@ -3,6 +3,7 @@ package com.nith.appteam.nimbus2021.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,21 +75,7 @@ public class Exhhibition extends AppCompatActivity {
         editor = sharedPref.edit();
         requestQueueExh = Volley.newRequestQueue(this);
         FloatingActionButton fab = findViewById(R.id.fabExh);
-        if (sharedPref.getString("phoneNumber", "").equals("+918219341697") || sharedPref.getString("phoneNumber", "").equals("+917982107070") || sharedPref.getString("phoneNumber", "").equals("+918572027705") || sharedPref.getString("phoneNumber", "").equals("+918959747704") || sharedPref.getString("phoneNumber", "").equals("+917587524626")) {
-            fab.setVisibility(View.VISIBLE);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Exhhibition.this, Add_Exhibition.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
-
-
-                }
-            });
-        } else {
             fab.setVisibility(View.GONE);
-        }
         loadWall = findViewById(R.id.loadwallExh);
         recyclerViewExhib = findViewById(R.id.recyclerViewExhibition);
         recyclerViewExhib.setHasFixedSize(true);
@@ -110,6 +99,7 @@ public class Exhhibition extends AppCompatActivity {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,
                 Constant.Url + "events/?type="+ "exhibition", null, new Response.Listener<JSONArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(JSONArray response) {
                 loadWall.setVisibility(View.GONE);
@@ -137,8 +127,13 @@ public class Exhhibition extends AppCompatActivity {
                         exhibition.setVenueExh("Venue: " + exhObj.getString("venue"));
 //                         Log.d("Talk",talk.getName());
 //                       Log.d("date",talk.getDate());
-                        exhibitionList.add(exhibition);
-                        exhibitionRecyclerViewAdapter.notifyDataSetChanged();
+                        if(!exhObj.getString("end").equals("null") && !ZonedDateTime.parse(exhObj.getString("end")).isBefore(ZonedDateTime.now())){
+                            exhibitionList.add(exhibition);
+                            exhibitionRecyclerViewAdapter.notifyDataSetChanged();
+                        }else if(exhObj.getString("end").equals("null")){
+                            exhibitionList.add(exhibition);
+                            exhibitionRecyclerViewAdapter.notifyDataSetChanged();
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -65,10 +65,12 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/psb"
                     android:gravity="end"
+                    android:maxLines="3"
+                    android:ellipsize="end"
                     android:text="Event Name"
                     android:textAllCaps="true"
                     android:textColor="@color/blueLight"
-                    android:textSize="30sp" />
+                    android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/EventIVenueID"

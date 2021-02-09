@@ -126,7 +126,7 @@ public class contributorsActivity extends AppCompatActivity {
         TeamMembers.add(new TeamMember("Swarna Mallika", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338006/swarna_xyaulk.jpg",
                 "Designer"));
         TeamMembers.add(new TeamMember("Archana Verma", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338001/archana_huc6zr.jpg",
-                "Designer"));
+                "Android"));
         TeamMembers.add(new TeamMember("Shwetal Soni", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338006/shwetal_atqkxo.jpg",
                 "Designer"));
         TeamMembers.add(new TeamMember("Bhavesh Vaishnav", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338004/bhavesh_fnban5.jpg",

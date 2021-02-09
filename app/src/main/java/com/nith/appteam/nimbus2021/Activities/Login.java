@@ -48,7 +48,7 @@ public class Login extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private ProgressBar progressBar;
     private FirebaseUser user;
-    private TextView loginButton;
+    private TextView loginButton,SignUpbutton;
     RichPathView nimbus,nimbus1;
     Boolean SignInFlag;
     String email,uid;
@@ -87,23 +87,35 @@ public class Login extends AppCompatActivity {
         SignInFlag = getIntent().getBooleanExtra("SignInFlag",false);
 
         loginButton = findViewById(R.id.login_btn);
+        SignUpbutton = findViewById(R.id.signup_btn);
         progressBar = findViewById(R.id.login_progress);
         sharedPref = getSharedPreferences("app", MODE_PRIVATE);
         editor = sharedPref.edit();
-//        providers = Arrays.asList(new AuthUI.IdpConfig.PhoneBuilder().build());
         if(SignInFlag)
         {   //user SignedIn Successfully
             uid = getIntent().getStringExtra("FirebaseUID");
             email = getIntent().getStringExtra("LoginEmail");
             progressBar.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.GONE);
+            SignUpbutton.setVisibility(View.GONE);
             isUser(email);
         }
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(Login.this,EmailAuthentication.class));
+                Intent intent = new Intent(Login.this,EmailAuthentication.class);
+                intent.putExtra("login",true);
+                startActivity(intent);
+
+            }
+        });
+        SignUpbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Login.this,EmailAuthentication.class);
+                startActivity(intent);
 
             }
         });
@@ -113,8 +125,6 @@ public class Login extends AppCompatActivity {
         final RichPath part1 = nimbus.findRichPathByName("tiny_right");
         System.out.println(part1);
         final RichPath part2 = nimbus.findRichPathByName("tiny_left");
-//        final RichPath part3 = nimbus.findRichPathByName("small_right");
-//        final RichPath part4 = nimbus.findRichPathByName("small_left");
         final RichPath part5 = nimbus.findRichPathByName("big_right");
         final RichPath part6 = nimbus.findRichPathByName("big_left");
 
@@ -123,10 +133,6 @@ public class Login extends AppCompatActivity {
                 .trimPathOffset(0, 1.0f)
                 .andAnimate(part2)
                 .trimPathOffset(0, 1.0f)
-//                .andAnimate(part3)
-//                .trimPathOffset(0, 1.0f)
-//                .andAnimate(part4)
-//                .trimPathOffset(0, 1.0f)
                 .andAnimate(part5)
                 .trimPathOffset(0, 1.0f)
                 .andAnimate(part6)
@@ -138,31 +144,6 @@ public class Login extends AppCompatActivity {
                 .start();
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == RC_SIGN_IN) {
-//            IdpResponse response = IdpResponse.fromResultIntent(data);
-//
-//            if (resultCode == RESULT_OK) {
-//                // Successfully signed in
-//                user = FirebaseAuth.getInstance().getCurrentUser();
-//                editor.putBoolean("loginStatus", true);
-//                editor.putString("phoneNumber", user.getPhoneNumber());
-//                editor.putString("firebaseId", user.getUid());
-//                editor.commit();
-//                Log.d("phoneNumber", user.getPhoneNumber());
-//                Log.d("UserId", user.getUid());
-//                isUser(user.getPhoneNumber());
-//
-//            } else {
-//                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
-//                loginButton.setVisibility(View.VISIBLE);
-//                progressBar.setVisibility(View.GONE);
-//            }
-//        }
-//    }
 
     private void isUser(final String email)
     {
@@ -203,8 +184,16 @@ public class Login extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e("is user error", error.toString());
             }
-        }) {
+        })
+        {
 
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+uid);
+                headers.put("Authorization", uid);
+                return headers;
+            }
             @Override
             public String getBodyContentType() {
                 return "application/x-www-form-urlencoded; charset=UTF-8";
@@ -216,6 +205,7 @@ public class Login extends AppCompatActivity {
                 params.put("email", email);
                 return params;
             }
+
         };
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -246,22 +236,15 @@ public class Login extends AppCompatActivity {
                     editor.putBoolean("OmegleAllowed", Boolean.parseBoolean(jsonObject.getString("omegleAllowed")));
                     editor.putString("college", jsonObject.getString("collegeName"));
                     editor.putBoolean("campusAmbassador", jsonObject.getBoolean("campusAmbassador"));
-                    editor.putString("rollNumber", jsonObject.getString("rollNumber"));
+//                    editor.putString("rollNumber", jsonObject.getString("rollNumber"));
                     editor.putString("profileImage",jsonObject.getString("profileImage"));
                     editor.putBoolean("loginStatus",true);
                     editor.putBoolean("profileStatus",true);
-//                    editor.putBoolean("profileStatus", true);
-//                    editor.putBoolean("loginStatus", true);
+
                     editor.commit();
-//                    editor.putString("name", jsonObject.getString("Name"));
-//                    editor.putString("rollno", jsonObject.getString("rollNumber"));
-
-//                    editor.putString("profileImage", jsonObject.getString("profileImage"));
-//                    editor.putString("normalPoints", jsonObject.getString("userPoints"));
-
-//                    editor.putString("caPoints", jsonObject.getString("campusAmbassadorPoints"));
-//                    editor.putBoolean("profileStatus", true);
-//                    editor.commit();
+//                  editor.putString("normalPoints", jsonObject.getString("userPoints"));
+//                  editor.putString("caPoints", jsonObject.getString("campusAmbassadorPoints"));
+//                  editor.commit();
                     Intent intent = new Intent(Login.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
@@ -277,16 +260,27 @@ public class Login extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("get details error ", error.toString());
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.GONE);
             }
         }) {
             @Override
-            public Map<String, String> getHeaders() {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("access-token", sharedPref.getString("token", "any"));
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+uid);
+                headers.put("Authorization", uid);
                 return headers;
             }
         };
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+        finish();
     }
 }

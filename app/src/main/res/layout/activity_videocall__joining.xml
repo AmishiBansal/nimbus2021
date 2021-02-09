@@ -42,13 +42,13 @@
         android:id="@+id/pb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/img_omegle"
+        android:padding="8dp"
         android:visibility="gone"
+        android:layout_above="@+id/video_join"
         android:layout_centerHorizontal="true" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:textAllCaps="true"
@@ -59,12 +59,25 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:paddingTop="12dp"
+        android:layout_above="@+id/remaining_time"
         android:paddingBottom="12dp"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:fontFamily="@font/psb"
-        android:layout_alignParentBottom="true">
+        android:fontFamily="@font/psb">
 
     </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
+        android:id="@+id/remaining_time"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:padding="12dp"
+        android:gravity="center"
+        android:text=""
+        android:textStyle="bold" />
 
 </RelativeLayout>

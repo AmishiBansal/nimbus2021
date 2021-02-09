@@ -102,7 +102,7 @@
                     android:layout_below="@id/username_label"
                     android:layout_marginStart="45dp"
                     android:backgroundTint="@color/white"
-                    android:nextFocusDown="@id/rollno"
+                    android:nextFocusDown="@id/firstname"
                     android:singleLine="true"
                     android:textColor="@color/white" />
 
@@ -138,7 +138,7 @@
                     android:layout_below="@id/firstname_label"
                     android:layout_marginStart="45dp"
                     android:backgroundTint="@color/white"
-                    android:nextFocusDown="@id/rollno"
+                    android:nextFocusDown="@id/lastname"
                     android:singleLine="true"
                     android:textColor="@color/white" />
 
@@ -174,7 +174,7 @@
                     android:layout_below="@id/lastname_label"
                     android:layout_marginStart="45dp"
                     android:backgroundTint="@color/white"
-                    android:nextFocusDown="@id/rollno"
+                    android:nextFocusDown="@id/mobile"
                     android:singleLine="true"
                     android:textColor="@color/white" />
 
@@ -187,7 +187,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_call_24px" />
+                    android:src="@drawable/ic_email_24px" />
 
                 <TextView
                     android:id="@+id/mobile_label"
@@ -246,41 +246,6 @@
 
             </RelativeLayout>
 
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_numeric_24px" />
-
-                <TextView
-                    android:id="@+id/rno_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="45dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="start"
-                    android:text="Roll Number"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="13sp" />
-
-                <EditText
-                    android:id="@+id/rollno"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rno_label"
-                    android:layout_marginStart="@dimen/profileEditTextLeft"
-                    android:backgroundTint="@color/white"
-                    android:singleLine="true"
-                    android:textColor="@color/white" />
-
-            </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -314,49 +279,49 @@
 
             </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/ca"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/ca"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="16dp"-->
+            <!--                android:gravity="center"-->
+            <!--                android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="Are you a Campus Ambassador?"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="13sp" />
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:gravity="start"-->
+            <!--                    android:text="Are you a Campus Ambassador?"-->
+            <!--                    android:textAllCaps="true"-->
+            <!--                    android:textColor="@color/colorAccent"-->
+            <!--                    android:textSize="13sp" />-->
 
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+            <!--                <RadioGroup-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:orientation="horizontal">-->
 
-                    <RadioButton
-                        android:id="@+id/ca_yes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Yes"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="13sp" />
+            <!--                    <RadioButton-->
+            <!--                        android:id="@+id/ca_yes"-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:gravity="center"-->
+            <!--                        android:text="Yes"-->
+            <!--                        android:textAllCaps="true"-->
+            <!--                        android:textColor="@color/colorAccent"-->
+            <!--                        android:textSize="13sp" />-->
 
-                    <RadioButton
-                        android:id="@+id/ca_no"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="No"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="13sp" />
-                </RadioGroup>
-            </LinearLayout>
+            <!--                    <RadioButton-->
+            <!--                        android:id="@+id/ca_no"-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:gravity="center"-->
+            <!--                        android:text="No"-->
+            <!--                        android:textAllCaps="true"-->
+            <!--                        android:textColor="@color/colorAccent"-->
+            <!--                        android:textSize="13sp" />-->
+            <!--                </RadioGroup>-->
+            <!--            </LinearLayout>-->
             <Button
                 android:id="@+id/submit_profile"
                 android:layout_width="match_parent"
