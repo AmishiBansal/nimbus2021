@@ -143,10 +143,14 @@ public class VideoCallActivity extends AppCompatActivity {
          *     USER_OFFLINE_BECOME_AUDIENCE(2): (Live broadcast only.) The client role switched from the host to the audience.
          */
         @Override
-        public void onUserOffline(final int uid, int reason) {
+        public void onUserOffline(final int uid, final int reason) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    if(reason == 0)
+                        Toast.makeText(VideoCallActivity.this,"Other User Left", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(VideoCallActivity.this,"Your Internet Connection is Slow", Toast.LENGTH_SHORT).show();
 //                    mLogView.logI("User offline, uid: " + (uid & 0xFFFFFFFFL));
                     onRemoteUserLeft(uid);
                 }
@@ -221,6 +225,8 @@ public class VideoCallActivity extends AppCompatActivity {
                     5000);
 
         }
+        else
+            initEngineAndJoinChannel();
     }
 
     private void Sendlog() {
@@ -276,8 +282,7 @@ public class VideoCallActivity extends AppCompatActivity {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED ||
                     grantResults[1] != PackageManager.PERMISSION_GRANTED ||
                     grantResults[2] != PackageManager.PERMISSION_GRANTED) {
-                showLongToast("Need permissions " + Manifest.permission.RECORD_AUDIO +
-                        "/" + Manifest.permission.CAMERA + "/" + Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                showLongToast("Please Grant permissions in the Settings");
                 finish();
                 return;
             }

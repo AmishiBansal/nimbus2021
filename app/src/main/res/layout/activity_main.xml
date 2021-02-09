@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/psb"
-            android:text="S E M B L A N C E"
+            android:text="S C O P U S"
             android:textColor="@color/white"
             android:textSize="15sp" />
 

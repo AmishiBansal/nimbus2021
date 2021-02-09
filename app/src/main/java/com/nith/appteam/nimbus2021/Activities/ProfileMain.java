@@ -48,13 +48,6 @@ public class ProfileMain extends AppCompatActivity {
         getUI();
         sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
         getProfile();
-        if (sharedPreferences.getBoolean("campusAmbassador", false)) {
-            diamondsPink.setVisibility(View.VISIBLE);
-            caPoints.setVisibility(View.VISIBLE);
-        } else {
-            diamondsPink.setVisibility(View.GONE);
-            caPoints.setVisibility(View.GONE);
-        }
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,12 +66,8 @@ public class ProfileMain extends AppCompatActivity {
         username = findViewById(R.id.username);
         college = findViewById(R.id.college);
         phoneNumber = findViewById(R.id.phone_number);
-        rollno = findViewById(R.id.rollno);
         editProfile = findViewById(R.id.edit_profile);
         profilePicture = findViewById(R.id.profile_picture);
-        diamondsPink = findViewById(R.id.diamond_pink);
-        normalPoints = findViewById(R.id.normal_points);
-        caPoints = findViewById(R.id.ca_points);
     }
 
     private void getProfile() {
@@ -86,9 +75,6 @@ public class ProfileMain extends AppCompatActivity {
         username.setText(sharedPreferences.getString("username","Your username"));
         college.setText(sharedPreferences.getString("college", "Your college name"));
         phoneNumber.setText(sharedPreferences.getString("phoneNumber", "123456890"));
-        rollno.setText(sharedPreferences.getString("rollNumber", "Your roll number"));
-        normalPoints.setText(sharedPreferences.getString("normalPoints", "0"));
-        caPoints.setText(sharedPreferences.getString("caPoints", "0"));
         String imageUrl = sharedPreferences.getString("profileImage", String.valueOf(R.string.defaultImageUrl));
         Picasso.with(ProfileMain.this)
                 .load(imageUrl)

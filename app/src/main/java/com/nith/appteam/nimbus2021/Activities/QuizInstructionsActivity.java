@@ -55,6 +55,7 @@ public class QuizInstructionsActivity extends AppCompatActivity {
     TextView instructionsTV, back,instructionsDetails;
     RequestQueue requestQueue;
     boolean attempted;
+    SharedPreferences sharedPref;
     private String uid;
     FirebaseUser firebaseUser;
     int noquestions;
@@ -131,40 +132,7 @@ public class QuizInstructionsActivity extends AppCompatActivity {
                             .show();
                     flag = false;
                 }
-//                boolean flag = getscore();
-//                Toast.makeText(QuizInstructionsActivity.this, String.valueOf(flag), Toast.LENGTH_SHORT).show();
-
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    int error = jsonObject.getInt("errorCode");
 //
-//                    if (error == 1) {
-//                        String startTime = getIntent().getStringExtra("startTime");
-//                        String endTime = getIntent().getStringExtra("endTime");
-//                        new AlertDialog.Builder(QuizInstructionsActivity.this)
-//                                .setTitle("Not right time!")
-//                                .setMessage("Start time: " + startTime + "\n" + "End time: " + endTime)
-//                                .setIcon(android.R.drawable.ic_dialog_alert)
-//                                .show();
-//                        flag = false;
-//
-//                    } else if (error == 2) {
-//                        new AlertDialog.Builder(QuizInstructionsActivity.this)
-//                                .setTitle("Already played")
-//                                .setMessage("You can play a quiz only one time")
-//                                .setIcon(android.R.drawable.ic_dialog_alert)
-//                                .show();
-//                        flag = false;
-//
-//                    } else if (error == 4) {
-//                        Toast.makeText(QuizInstructionsActivity.this, "No questions available",
-//                                Toast.LENGTH_SHORT).show();
-//                        flag = false;
-//                    }
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
                 Log.e("Attempt", String.valueOf(attempted));
                    if (flag) {
                        checkPlayedOrNot();
@@ -248,11 +216,10 @@ public class QuizInstructionsActivity extends AppCompatActivity {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
-                String token = sharedPreferences.getString("token", null);
-                HashMap<String, String> map = new HashMap<>();
-                map.put("access-token", token);
-                return map;
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+uid);
+                headers.put("Authorization", uid);
+                return headers;
             }
 
             @Override
@@ -267,15 +234,13 @@ public class QuizInstructionsActivity extends AppCompatActivity {
     }
 
     private void getUserId() {
-//        uid = "krejbgfkjerjg"; // for testing
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser != null) {
-            uid = firebaseUser.getUid();
+        sharedPref = getSharedPreferences("app", MODE_PRIVATE);
+        uid = sharedPref.getString("firebaseUid","");
+        if (!uid.isEmpty()) {
             Log.e("UID", uid);
         } else {
-            Toast.makeText(this,uid, Toast.LENGTH_SHORT).show();
-
-
+            Toast toast = Toast.makeText(this,"Try reinstalling the app or clearing data", Toast.LENGTH_SHORT);
+            toast.show();
         }
 
 
