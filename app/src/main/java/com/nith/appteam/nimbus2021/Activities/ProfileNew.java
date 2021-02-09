@@ -24,8 +24,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -287,10 +293,40 @@ public class ProfileNew extends AppCompatActivity {
                 }, new com.android.volley.Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("VOLLEY", error.toString());
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(ProfileNew.this, error.toString(), Toast.LENGTH_SHORT).show();
-                        finish();
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                            Log.e("error", message);
+                            finish();
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                            Log.e("error", message);
+                            finish();
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                            Log.e("error", message);
+                            finish();
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                            Log.e("error", message);
+                            finish();
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                            Log.e("error", message);
+                            finish();
+                        }
+                        else
+                            {
+                                Log.e("VOLLEY", error.toString());
+                                Toast.makeText(ProfileNew.this, error.toString(), Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
                     }
                 }) {
 
@@ -362,11 +398,64 @@ public class ProfileNew extends AppCompatActivity {
                     }, new com.android.volley.Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.e("VOLLEY", error.toString());
-                            progressBar.setVisibility(View.GONE);
-                            Log.e("roll",email.getText().toString().substring(0,email.getText().toString().indexOf("@")));
-                            Toast.makeText(ProfileNew.this, error.toString(), Toast.LENGTH_SHORT).show();
-                            Toast.makeText(ProfileNew.this, "Try again with another username!!!", Toast.LENGTH_SHORT).show();
+                            NetworkResponse response = error.networkResponse;
+                            if(response!=null) {
+                                if (response.statusCode == 400 || response.statusCode == 404 || response.statusCode == 422 || response.statusCode == 401 ) {
+                                    try {
+                                        JSONObject object = new JSONObject(new String(response.data));
+                                        if(object.getJSONObject("Errors:").has("username"))
+                                        {
+                                            String usernameErr = object.getJSONObject("Errors:").getJSONArray("username").get(0).toString();
+                                            Log.e("jsonObject",usernameErr);
+                                            Toast.makeText(getApplicationContext(), usernameErr,Toast.LENGTH_SHORT).show();
+                                            progressBar.setVisibility(View.GONE);
+                                        }
+                                        else
+                                            {
+                                                String ResultMsg = object.getString("Message");
+                                                Log.e("jsonObject",ResultMsg);
+                                                Toast.makeText(getApplicationContext(), ResultMsg,Toast.LENGTH_SHORT).show();
+                                                progressBar.setVisibility(View.GONE);
+                                            }
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Log.e("jsonerror",e.getMessage());
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+                                }
+                                else
+                                    {
+                                        Log.e("jsonObject","Error with response code "+response.statusCode);
+                                        Toast.makeText(getApplicationContext(), "Error with response code "+response.statusCode,Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+                            }
+                            else{
+                                progressBar.setVisibility(View.GONE);
+                                String message = null;
+                                if (error instanceof NetworkError) {
+                                    message = "Cannot connect to Internet...Please check your connection!";
+                                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                                    Log.e("error", message);
+                                } else if (error instanceof ServerError) {
+                                    message = "The server could not be found. Please try again after some time!!";
+                                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                                    Log.e("error", message);
+                                } else if (error instanceof AuthFailureError) {
+                                    message = "Cannot connect to Internet...Please check your connection!";
+                                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                                    Log.e("error", message);
+                                } else if (error instanceof ParseError) {
+                                    message = "Parsing error! Please try again after some time!!";
+                                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                                    Log.e("error", message);
+                                } else if (error instanceof TimeoutError) {
+                                    message = "Connection TimeOut! Please check your internet connection.";
+                                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                                    Log.e("error", message);
+                                }
+                            }
                         }
                     }) {
 
@@ -389,7 +478,7 @@ public class ProfileNew extends AppCompatActivity {
                             params.put("profileImage",imageUrl);
 //                            params.put("campusAmbassador",String.valueOf(isCa));
                             params.put("collegeName", college.getText().toString().trim());
-                            params.put("rollNumber", email.getText().toString().substring(0,email.getText().toString().indexOf("@")));
+//                          params.put("rollNumber", email.getText().toString().substring(0,email.getText().toString().indexOf("@")));
                             //params.put("campusAmbassador", false);
 //                            params.put("campusAmbassador", "" + sharedPrefs.getBoolean("campusAmbassador", false));
                             return params;
