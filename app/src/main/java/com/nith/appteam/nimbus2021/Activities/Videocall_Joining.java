@@ -174,7 +174,6 @@ public class Videocall_Joining extends AppCompatActivity {
                             Log.e("token", token);
                             handler.removeCallbacks(runnable);
                             progressBar.setVisibility(View.GONE);
-                            videoJoin.setText("Video");
                             startActivity(intent);
                             timer.cancel();
                             finish();

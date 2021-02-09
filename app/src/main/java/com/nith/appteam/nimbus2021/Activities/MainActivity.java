@@ -44,8 +44,7 @@ public class MainActivity extends AppCompatActivity {
     TextView dashboardTab, sponsorTab, teamTab;
     Typeface psbi, psi;
     private IResult mResultCallback;
-    private Button quiz, sponsor, profile, campusA, workshops, talks, events, qr, exhibition,
-            schedule, contributors, coreTeam;
+    private Button quiz, sponsor, profile, campusA, workshops, talks, events, qr, exhibition, schedule, contributors, coreTeam;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
     private boolean isMonitoring = false;
@@ -69,11 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         getUI();
 
-//        profileButton = findViewById(R.id.profile_button);
-//        post = findViewById(R.id.post);
-//        Picasso.with(MainActivity.this)
-//                .load(sharedPref.getString("imageUrl", String.valueOf(R.string.defaultImageUrl)))
-//                .into(profileButton);
 
         sharedPref = getSharedPreferences("app", MODE_PRIVATE);
         editor = sharedPref.edit();
@@ -156,14 +150,14 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
             }
         });
-        campusA.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, CampusAmbassador.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
-            }
-        });
+//        campusA.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(MainActivity.this, CampusAmbassador.class);
+//                startActivity(i);
+//                overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+//            }
+//        });
 
         quiz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -376,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
         talks = findViewById(R.id.talks);
         workshops = findViewById(R.id.workshops);
         events = findViewById(R.id.events);
-        campusA = findViewById(R.id.ca);
+//        campusA = findViewById(R.id.ca);
         profile = findViewById(R.id.profile);
 //        qr = findViewById(R.id.qr);
         exhibition = findViewById(R.id.exhibition);

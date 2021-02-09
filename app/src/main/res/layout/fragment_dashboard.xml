@@ -103,16 +103,16 @@
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
-        <org.sufficientlysecure.htmltextview.HtmlTextView
-            android:id="@+id/quote1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/psregular"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="13sp" />
+<!--        <org.sufficientlysecure.htmltextview.HtmlTextView-->
+<!--            android:id="@+id/quote1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:fontFamily="@font/psregular"-->
+<!--            android:text=""-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="13sp" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -195,28 +195,17 @@
 
         </LinearLayout>
 
-        <org.sufficientlysecure.htmltextview.HtmlTextView
-            android:id="@+id/quote2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/psregular"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            android:visibility="gone" />
 
-        <org.sufficientlysecure.htmltextview.HtmlTextView
-            android:id="@+id/campus_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/psregular"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="13sp" />
+<!--        <org.sufficientlysecure.htmltextview.HtmlTextView-->
+<!--            android:id="@+id/campus_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:fontFamily="@font/psregular"-->
+<!--            android:text=""-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="13sp" />-->
 
         <androidx.cardview.widget.CardView
             android:id="@+id/omgl_card"
