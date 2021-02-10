@@ -2,6 +2,7 @@ package com.nith.appteam.nimbus2021.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,16 +12,17 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.nith.appteam.nimbus2021.Models.departmentEvent;
 import com.nith.appteam.nimbus2021.R;
 
 import java.util.Random;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 public class Add_deptEvents_detail extends AppCompatActivity {
     private departmentEvent dept;
@@ -32,6 +34,7 @@ public class Add_deptEvents_detail extends AppCompatActivity {
     private TextView abstractDet;
     private WebView webView;
     private String myPdfUrl;
+    private ProgressBar progressBar;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -40,6 +43,8 @@ public class Add_deptEvents_detail extends AppCompatActivity {
         setContentView(R.layout.activity_add_dept_events_detail);
 
         webView = findViewById(R.id.webView);
+        progressBar = findViewById(R.id.progressBarAbstract);
+        progressBar.setMax(100);
 
         ImageView round_big = findViewById(R.id.e_n);
         ImageView round_small = findViewById(R.id.e_k);
@@ -85,6 +90,7 @@ public class Add_deptEvents_detail extends AppCompatActivity {
         abstractButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
 
                 try {
                     webView.setVisibility(View.VISIBLE);
@@ -92,12 +98,25 @@ public class Add_deptEvents_detail extends AppCompatActivity {
                     webView.getSettings().setJavaScriptEnabled(true);
                     webView.setWebViewClient(new WebViewClient() {
                         @Override
+                        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                            super.onPageStarted(view, url, favicon);
+                        }
+
+                        @Override
                         public boolean shouldOverrideUrlLoading(WebView view,
                                 WebResourceRequest request) {
                             view.loadUrl(myPdfUrl);
                             return true;
                         }
+
+                        @Override
+                        public void onPageFinished(WebView view, String url) {
+                            super.onPageFinished(view, url);
+                            progressBar.setVisibility(View.GONE);
+                        }
                     });
+                    webView.clearCache(true);
+                    webView.clearHistory();
                     webView.loadUrl("https://drive.google.com/viewerng/viewer?embedded=true&url=" +myPdfUrl);
 
                 } catch (Exception e) {
