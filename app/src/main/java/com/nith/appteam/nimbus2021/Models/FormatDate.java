@@ -8,6 +8,11 @@ public class FormatDate {
     }
 
     public String getFormattedDate() {
+        String year = date.substring(0, 4);
+        // if the event's start date is next year then showing "COMING SOON" instead of time
+        if (year.equals("2022"))
+            return "Coming Soon".toUpperCase();
+
         String month = date.substring(5, 7);
         String monthName = "March";
         String day = date.substring(8, 10);
