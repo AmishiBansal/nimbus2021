@@ -9,7 +9,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -83,15 +82,15 @@ public class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRe
             round_small = itemView.findViewById(R.id.round_small);
             //   info=(TextView) itemView.findViewById(R.id.speakerInfoID);
             //  regUrl=(TextView) itemView.findViewById(R.id.regURL);
-            itemView.setOnClickListener(new View.OnClickListener() {
-
-
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(context, "Scroll only", Toast.LENGTH_SHORT).show();
-                }
-
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//
+//
+//                @Override
+//                public void onClick(View view) {
+//                    Toast.makeText(context, "Scroll only", Toast.LENGTH_SHORT).show();
+//                }
+//
+//            });
 
         }
 
