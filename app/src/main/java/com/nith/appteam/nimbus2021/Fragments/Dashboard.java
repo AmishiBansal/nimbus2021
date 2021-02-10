@@ -33,8 +33,7 @@ import org.sufficientlysecure.htmltextview.HtmlTextView;
 public class Dashboard extends Fragment {
     Activity context;
     Animation animation, animation1, animation2, animation3,animation4,animation5;
-    private HtmlTextView quote1;
-    private HtmlTextView quote2, event_text, campus_text, developers_text;
+    private HtmlTextView  event_text, campus_text, developers_text;
     private CardView quiz_card, workshop_card, exhibition_card, talk_card,omegle;
     private ImageView t_n, t_k, e_n, e_k,omg_n,omg_k;
     private AlertDialog.Builder alertDialogBuilder;
@@ -52,6 +51,7 @@ public class Dashboard extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
 //        quote1 = rootView.findViewById(R.id.quote1);
+
 //        quote2 = rootView.findViewById(R.id.quote2);
         event_text = rootView.findViewById(R.id.event_text);
 //        campus_text = rootView.findViewById(R.id.campus_text);
@@ -88,10 +88,12 @@ public class Dashboard extends Fragment {
         omg_n.startAnimation(animation4);
         omg_k.startAnimation(animation5);
 
+
 //        quote2.setHtml(
 //                "<p>\"HOW YOU <font color=\"#2fc0d1\">CODIN'</font> \uD83D\uDCBB ?!\" "
 //                        + "<small><i><font color=\"#888888\"> ~ <strike>JOEY</strike> "
 //                        + "NIMBUS</font></i></small></p>");
+
         developers_text.setHtml("<p>\"MEET THE<font color=\"#2fc0d1\"> DEVELOPERS</font> \uD83D\uDCBB\"</p>");
 
 //        campus_text.setHtml(
@@ -171,6 +173,7 @@ public class Dashboard extends Fragment {
                 startActivity(i);
             }
         });
+
 
 //        quote1.setOnClickListener(new View.OnClickListener() {
 //            @Override

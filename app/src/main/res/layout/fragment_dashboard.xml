@@ -196,6 +196,7 @@
 
         </LinearLayout>
 
+
 <!--        <org.sufficientlysecure.htmltextview.HtmlTextView-->
 <!--            android:id="@+id/quote2"-->
 <!--            android:layout_width="wrap_content"-->
@@ -207,6 +208,7 @@
 <!--            android:textColor="@color/black"-->
 <!--            android:textSize="13sp"-->
 <!--            android:visibility="invisible" />-->
+
 
 <!--        <org.sufficientlysecure.htmltextview.HtmlTextView-->
 <!--            android:id="@+id/campus_text"-->

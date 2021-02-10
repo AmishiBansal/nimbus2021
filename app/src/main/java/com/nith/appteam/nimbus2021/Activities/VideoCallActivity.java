@@ -1,9 +1,11 @@
 package com.nith.appteam.nimbus2021.Activities;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
@@ -41,6 +43,9 @@ public class VideoCallActivity extends AppCompatActivity {
 
     String channelName;
     String tokenId;
+    private Handler handler;
+    private Runnable runnable;
+
 
     // Permission WRITE_EXTERNAL_STORAGE is not mandatory
     // for Agora RTC SDK, just in case if you wanna save
@@ -148,9 +153,14 @@ public class VideoCallActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     if(reason == 0)
-                        Toast.makeText(VideoCallActivity.this,"Other User Left", Toast.LENGTH_SHORT).show();
+                    {
+                        Toast.makeText(getApplicationContext(), "Other User Left", Toast.LENGTH_SHORT).show();
+                        finish();
+
+                    }
+
                     else
-                        Toast.makeText(VideoCallActivity.this,"Your Internet Connection is Slow", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Your Internet Connection is Slow", Toast.LENGTH_SHORT).show();
 //                    mLogView.logI("User offline, uid: " + (uid & 0xFFFFFFFFL));
                     onRemoteUserLeft(uid);
                 }
@@ -212,19 +222,24 @@ public class VideoCallActivity extends AppCompatActivity {
         // Ask for permissions at runtime.
         // This is just an example set of permissions. Other permissions
         // may be needed, and please refer to our online documents.
+
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                Sendlog();
+            }
+        };
+
+        initEngineAndJoinChannel();
         if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
                 checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID) &&
                 checkSelfPermission(REQUESTED_PERMISSIONS[2], PERMISSION_REQ_ID)) {
-            new android.os.Handler().postDelayed(
-                    new Runnable() {
-                        public void run() {
-                            Sendlog();
-                        }
-                    },
-                    5000);
+
+            Sendlog();
 
         }
-        initEngineAndJoinChannel();
+
     }
 
     private void Sendlog() {
@@ -232,7 +247,8 @@ public class VideoCallActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.GET, getString(R.string.baseUrl)+"/omegle_clone/log/"+channelName, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("Response",response);
+                Log.e("Response456",response);
+                handler.postDelayed(runnable, 5000);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -241,6 +257,7 @@ public class VideoCallActivity extends AppCompatActivity {
             }
         });
         queue.add(request);
+
     }
 
     private void initUI() {
@@ -280,7 +297,20 @@ public class VideoCallActivity extends AppCompatActivity {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED ||
                     grantResults[1] != PackageManager.PERMISSION_GRANTED ||
                     grantResults[2] != PackageManager.PERMISSION_GRANTED) {
-                showLongToast("Please Grant the permissions required for better Experience");
+                showLongToast("Please Grant the permissions required for better Experience.");
+                final ProgressDialog pd = new ProgressDialog(this);
+                pd.setCancelable(false);
+                pd.setMessage("Exiting.....");
+                pd.show();
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                pd.dismiss();
+                                finish();
+                            }
+                        },
+                        5000);
+
                 return;
             }
 
@@ -374,6 +404,7 @@ public class VideoCallActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (!mCallEnd) {
+            handler.removeCallbacks(runnable);
             leaveChannel();
             finish();
         }
@@ -422,11 +453,11 @@ public class VideoCallActivity extends AppCompatActivity {
         } else {
             endCall();
             mCallEnd = true;
-           Intent intent = new Intent(VideoCallActivity.this,Videocall_Joining.class);
-           intent.putExtra("VideoEnd",true);
-           intent.putExtra("uid2",getIntent().getStringExtra("uid2"));
-           startActivity(intent);
-           finish();
+            Intent intent = new Intent(VideoCallActivity.this,Videocall_Joining.class);
+            intent.putExtra("VideoEnd",true);
+            intent.putExtra("uid2",getIntent().getStringExtra("uid2"));
+            startActivity(intent);
+            finish();
         }
 
         showButtons(!mCallEnd);
@@ -481,5 +512,11 @@ public class VideoCallActivity extends AppCompatActivity {
     public void onLocalContainerClick(View view) {
         switchView(mLocalVideo);
         switchView(mRemoteVideo);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        handler.removeCallbacks(runnable);
+        finish();
     }
 }
