@@ -109,7 +109,7 @@ public class QuizInstructionsActivity extends AppCompatActivity {
                 ZonedDateTime zdt2 = ZonedDateTime.parse(bT);
 
                 if(zdt.compareTo(zdt1)>0 && zdt.compareTo(zdt2)<0){
-                    Toast.makeText(QuizInstructionsActivity.this,"Time is Right",Toast.LENGTH_SHORT).show();
+                    Log.e("Time Checking","Time is right");
                     flag = true;
                 }
                 else{
@@ -139,7 +139,7 @@ public class QuizInstructionsActivity extends AppCompatActivity {
                    }
 
                    else{
-                       Toast.makeText(QuizInstructionsActivity.this, uid, Toast.LENGTH_SHORT).show();
+                       Toast.makeText(QuizInstructionsActivity.this,"You are not eligible to play the quiz", Toast.LENGTH_SHORT).show();
                    }
                }
 

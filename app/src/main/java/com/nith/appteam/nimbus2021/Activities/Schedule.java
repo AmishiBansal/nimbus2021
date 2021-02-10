@@ -59,15 +59,16 @@ public class Schedule extends AppCompatActivity {
         });
 
 //        scheduleModel = (ScheduleModel) getIntent().getSerializableExtra("Day1");
+        // TODO: Sorting the events according to dates
         day = getIntent().getExtras().getString("Day");
         if (day.equals("1")) {
-            date = "2020-02-01";
+            date = "2021-01-22";
             day_title.setText("Day 1");
         } else if (day.equals("2")) {
-            date = "2020-02-02";
+            date = "2021-01-29";
             day_title.setText("Day 2");
         } else if (day.equals("3")) {
-            date = "2020-02-03";
+            date = "2021-01-30";
             day_title.setText("Day 3");
         }
         loadWall = findViewById(R.id.loadwallSch);
@@ -93,31 +94,24 @@ public class Schedule extends AppCompatActivity {
         recyclerViewSch.setAdapter(scheduleRecyclerViewAdapter);
 
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Constant.Url + searchTerm, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Constant.Url + "events/", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 loadWall.setVisibility(View.GONE);
-                Log.e("Response", String.valueOf(Constant.Url + searchTerm));
                 Log.d("Response", response.toString());
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject schObj = response.getJSONObject(i);
                         ScheduleModel sch = new ScheduleModel();
-//                        talk.setName("Aysuh KAusnldjhlkhfkllnewlfnlwenflkjewlkjfljwhekjksdjkjhkuhkjhkjsdhlehlkjhalhldhll");
-//                        talk.setVenue("LEcture aHAljewnfkljcnkjhfewkkjhefkjwhkfjwkejfhkwehkfhkwejnfkll");
-                        //talk.setRegURL("https://github.com/appteam-nith/nimbus2019");
-//                        talk.setInfo("HE is veryhlhfeldijvoikbfewkjbkfjwkejfkjwejeovijoeijvoeijdvoijeoijeovjioejioeijvovjoeidjvlkdsnlkvn jsndoviejoiejvoljkdlkjvoeijvoiejovijdokjdeoivjolj");
-//                        talk.setDate("19 2022002345453453453450 2");
-                        String requiredDate = (schObj.getString("time").substring(0, 10));
-                        if (requiredDate.equals(date)) {
+                        // TODO: Filtering the events according to dates
+//                        String requiredDate = (schObj.getString("start").substring(0, 10));
+//                        if (requiredDate.equals(date)) {
+                        if (day.equals("1")) {
                             sch.setNameSch(schObj.getString("name"));
-                            FormatDate date = new FormatDate(schObj.getString("time"));
+                            FormatDate date = new FormatDate(schObj.getString("start"));
                             sch.setTimeSch(date.getFormattedDate());
-                            //sch.setS(talkObj.getString("info"));
-                            // sch.setRegURL(  talkObj.getString("regUrl"));
                             sch.setVenueSch(schObj.getString("venue"));
-                            sch.setDeptSch(schObj.getString("departmentName"));
-                            // Log.d("Talk",talk.getName());
+                            sch.setDeptSch(schObj.getString("department"));
                             scheduleModelList.add(sch);
                         }
                         scheduleRecyclerViewAdapter.notifyDataSetChanged();

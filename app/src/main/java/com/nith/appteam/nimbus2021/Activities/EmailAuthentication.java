@@ -154,7 +154,7 @@ public class EmailAuthentication extends AppCompatActivity {
                             pd.dismiss();
                             new AlertDialog.Builder(EmailAuthentication.this)
                                     .setTitle("Email Verification")
-                                    .setMessage("Verification mail has been sent to your Official College Email Id\nPlease Verify it For Successful Login")
+                                    .setMessage("Verification mail has been sent to your Official College Email Id\nLogin After Verifying it")
                                     .setIcon(android.R.drawable.ic_dialog_alert)
                                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                         @Override
