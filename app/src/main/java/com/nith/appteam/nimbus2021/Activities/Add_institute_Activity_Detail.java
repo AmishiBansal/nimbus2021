@@ -1,6 +1,7 @@
 package com.nith.appteam.nimbus2021.Activities;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -34,7 +35,8 @@ public class Add_institute_Activity_Detail extends AppCompatActivity {
     private TextView abstractDet;
     private WebView webView;
     private String myPdfUrl;
-    private ProgressBar progressBar;
+    private ProgressDialog pd;
+//    private ProgressBar progressBar;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -43,8 +45,8 @@ public class Add_institute_Activity_Detail extends AppCompatActivity {
         setContentView(R.layout.activity_add_institute___detail);
 
         webView=findViewById(R.id.webView);
-        progressBar = findViewById(R.id.progressBarAbstractIE);
-        progressBar.setMax(100);
+//        progressBar = findViewById(R.id.progressBarAbstractIE);
+//        progressBar.setMax(100);
 
         ImageView round_big = findViewById(R.id.e_n);
         ImageView round_small = findViewById(R.id.e_k);
@@ -58,6 +60,9 @@ public class Add_institute_Activity_Detail extends AppCompatActivity {
         animation1.setDuration(rand.nextInt(2000) + 2000);
         round_big.startAnimation(animation1);
         round_small.startAnimation(animation);
+        pd = new ProgressDialog(Add_institute_Activity_Detail.this);
+        pd.setMessage("Please wait...");
+        pd.setCanceledOnTouchOutside(false);
 
         TextView back;
         back = findViewById(R.id.back);
@@ -97,7 +102,8 @@ public class Add_institute_Activity_Detail extends AppCompatActivity {
         abstractButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
+//                progressBar.setVisibility(View.VISIBLE);
+                pd.show();
                 try {
                     webView.setVisibility(View.VISIBLE);
 
@@ -106,19 +112,27 @@ public class Add_institute_Activity_Detail extends AppCompatActivity {
                         @Override
                         public void onPageStarted(WebView view, String url, Bitmap favicon) {
                             super.onPageStarted(view, url, favicon);
+//                            progressBar.setVisibility(View.VISIBLE);
                         }
 
                         @Override
                         public boolean shouldOverrideUrlLoading(WebView view,
                                 WebResourceRequest request) {
                             view.loadUrl(myPdfUrl);
+                            if (!pd.isShowing()) {
+                                pd.show();
+                            }
+
                             return true;
                         }
 
                         @Override
                         public void onPageFinished(WebView view, String url) {
                             super.onPageFinished(view, url);
-                            progressBar.setVisibility(View.GONE);
+//                            progressBar.setVisibility(View.GONE);
+                            if (pd.isShowing()) {
+                                pd.dismiss();
+                            }
                         }
                     });
                     webView.clearCache(true);

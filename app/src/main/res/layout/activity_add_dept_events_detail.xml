@@ -12,12 +12,6 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <ProgressBar
-        android:id="@+id/progressBarAbstract"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:visibility="gone" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
