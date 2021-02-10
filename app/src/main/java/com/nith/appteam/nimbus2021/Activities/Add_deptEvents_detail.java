@@ -88,7 +88,6 @@ public class Add_deptEvents_detail extends AppCompatActivity {
 
                 try {
                     webView.setVisibility(View.VISIBLE);
-
                     webView.getSettings().setJavaScriptEnabled(true);
                     webView.setWebViewClient(new WebViewClient() {
                         @Override
