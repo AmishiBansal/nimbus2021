@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/psregular"
-            android:text="D E P A R T M E N T A L  E V E N T S"
+            android:textAlignment="center"
+            android:text="D E P A R T M E N T A L\nE V E N T S"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
@@ -221,7 +222,7 @@
                                 app:autoSizeStepGranularity="1sp" />
 
                         </RelativeLayout>
-                    </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>[
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/registerDetEventsD"
