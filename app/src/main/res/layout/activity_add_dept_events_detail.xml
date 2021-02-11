@@ -118,12 +118,12 @@
                                     android:autoSizeTextType="uniform"
                                     android:maxLines="2"
                                     app:autoSizeMinTextSize="12sp"
-                                    app:autoSizeMaxTextSize="70sp"
+                                    app:autoSizeMaxTextSize="30sp"
                                     android:text="event name"
 
                                     android:textAllCaps="true"
                                     android:textColor="@color/blueLight"
-                                    android:textSize="55sp" />
+                                    android:textSize="30sp" />
 
                                 <TextView
                                     android:id="@+id/DateDetEventsD"
@@ -144,7 +144,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/psb"
                                     android:gravity="start"
-                                    android:maxLines="1"
+                                    android:maxLines="2"
                                     android:text="venue"
                                     android:textAllCaps="true"
                                     android:textColor="@color/white"
