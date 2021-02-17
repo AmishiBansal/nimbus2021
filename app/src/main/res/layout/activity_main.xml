@@ -141,6 +141,19 @@
                         android:textColor="@color/greyLight"
                         android:textSize="11sp"
                         android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/gallery_tab"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/psitalic"
+                        android:gravity="center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="8dp"
+                        android:text="Gallery"
+                        android:textAllCaps="true"
+                        android:textColor="@color/greyLight"
+                        android:textSize="11sp" />
 
 
                 </LinearLayout>
