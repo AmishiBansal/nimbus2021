@@ -155,6 +155,11 @@ public class VideoCallActivity extends AppCompatActivity {
                     if(reason == 0)
                     {
                         Toast.makeText(getApplicationContext(), "Other User Left", Toast.LENGTH_SHORT).show();
+                        endCall();
+                        Intent intent = new Intent(VideoCallActivity.this,Videocall_Joining.class);
+                        intent.putExtra("VideoEnd",true);
+                        intent.putExtra("uid2",getIntent().getStringExtra("uid2"));
+                        startActivity(intent);
                         finish();
 
                     }
@@ -230,15 +235,9 @@ public class VideoCallActivity extends AppCompatActivity {
                 Sendlog();
             }
         };
-
+        Sendlog();
         initEngineAndJoinChannel();
-        if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
-                checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID) &&
-                checkSelfPermission(REQUESTED_PERMISSIONS[2], PERMISSION_REQ_ID)) {
 
-            Sendlog();
-
-        }
 
     }
 
@@ -280,45 +279,9 @@ public class VideoCallActivity extends AppCompatActivity {
 //        mLogView.logE("You can also use this to show errors");
     }
 
-    private boolean checkSelfPermission(String permission, int requestCode) {
-        if (ContextCompat.checkSelfPermission(this, permission) !=
-                PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, REQUESTED_PERMISSIONS, requestCode);
-            return false;
-        }
 
-        return true;
-    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == PERMISSION_REQ_ID) {
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED ||
-                    grantResults[1] != PackageManager.PERMISSION_GRANTED ||
-                    grantResults[2] != PackageManager.PERMISSION_GRANTED) {
-                showLongToast("Please Grant the permissions required for better Experience.");
-                final ProgressDialog pd = new ProgressDialog(this);
-                pd.setCancelable(false);
-                pd.setMessage("Exiting.....");
-                pd.show();
-                new android.os.Handler().postDelayed(
-                        new Runnable() {
-                            public void run() {
-                                pd.dismiss();
-                                finish();
-                            }
-                        },
-                        5000);
 
-                return;
-            }
-
-            // Here we continue only if all permissions are granted.
-            // The permissions can also be granted in the system settings manually.
-            initEngineAndJoinChannel();
-        }
-    }
 
     private void showLongToast(final String msg) {
         this.runOnUiThread(new Runnable() {

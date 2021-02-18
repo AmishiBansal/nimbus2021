@@ -1,12 +1,15 @@
 package com.nith.appteam.nimbus2021.Activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -17,8 +20,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -47,6 +53,12 @@ public class Videocall_Joining extends AppCompatActivity {
     ProgressBar progressBar;
     private Handler handler;
     private Runnable runnable;
+    private static final String[] REQUESTED_PERMISSIONS = {
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    private static final int PERMISSION_REQ_ID = 22;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,11 +133,16 @@ public class Videocall_Joining extends AppCompatActivity {
         videoJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                videoJoin.setText("Searching the User...");
-                videoJoin.setEnabled(false);
-                timer.start();
-                getUserId();
+                if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
+                        checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID) &&
+                        checkSelfPermission(REQUESTED_PERMISSIONS[2], PERMISSION_REQ_ID)) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        videoJoin.setText("Searching the User...");
+                        videoJoin.setEnabled(false);
+                        timer.start();
+                        getUserId();
+                }
+
             }
         });
     }
@@ -199,5 +216,73 @@ public class Videocall_Joining extends AppCompatActivity {
         super.onBackPressed();
         handler.removeCallbacks(runnable);
         finish();
+    }
+
+    private boolean checkSelfPermission(String permission, int requestCode) {
+        if (ContextCompat.checkSelfPermission(this, permission) !=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, REQUESTED_PERMISSIONS, requestCode);
+            return false;
+        }
+
+        return true;
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSION_REQ_ID) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED ||
+                    grantResults[1] != PackageManager.PERMISSION_GRANTED ||
+                    grantResults[2] != PackageManager.PERMISSION_GRANTED) {
+                if (Build.VERSION.SDK_INT
+                        > Build.VERSION_CODES.Q){
+                    new AlertDialog.Builder(Videocall_Joining.this)
+                            .setTitle("Allow Permissions from the Settings")
+                            .setMessage("1. Open Settings app.\n2. Tap Apps & notifications.\n3. Tap on Nimbus2K21. If you can't find it, first tap See all apps or App info.\n" +
+                                    "4. Tap Permissions.\n" +
+                                    "5. If you allowed or denied any permissions for the app, you’ll find them here.\n" +
+                                    "6. To change a permission setting, tap it, then choose Allow or Deny.")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Open Settings", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+
+                                }
+                            })
+                            .show();
+                }
+                else{
+                    new AlertDialog.Builder(Videocall_Joining.this)
+                            .setTitle("Re-Ask for Permissions")
+                            .setMessage("Permissions are neccesary for this feature to work properly.\n" +
+                                    "Steps to follow:" +
+                                    "\n1. Close the Dialog Box." +
+                                    "\n2. Click on Button Again. Permissions will be asked again." +
+                                    "\n3. Allow Permissions for better experience.")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .show();
+                }
+
+            }
+            else{
+                progressBar.setVisibility(View.VISIBLE);
+                videoJoin.setText("Searching the User...");
+                videoJoin.setEnabled(false);
+                timer.start();
+                getUserId();
+            }
+
+            // Here we continue only if all permissions are granted.
+            // The permissions can also be granted in the system settings manually.
+
+        }
+
     }
 }
