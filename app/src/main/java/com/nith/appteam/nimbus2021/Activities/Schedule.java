@@ -59,16 +59,15 @@ public class Schedule extends AppCompatActivity {
         });
 
 //        scheduleModel = (ScheduleModel) getIntent().getSerializableExtra("Day1");
-        // TODO: Sorting the events according to dates
         day = getIntent().getExtras().getString("Day");
         if (day.equals("1")) {
-            date = "2021-01-22";
+            date = "2021-04-09";
             day_title.setText("Day 1");
         } else if (day.equals("2")) {
-            date = "2021-01-29";
+            date = "2021-04-10";
             day_title.setText("Day 2");
         } else if (day.equals("3")) {
-            date = "2021-01-30";
+            date = "2021-04-11";
             day_title.setText("Day 3");
         }
         loadWall = findViewById(R.id.loadwallSch);
@@ -103,10 +102,8 @@ public class Schedule extends AppCompatActivity {
                     try {
                         JSONObject schObj = response.getJSONObject(i);
                         ScheduleModel sch = new ScheduleModel();
-                        // TODO: Filtering the events according to dates
-//                        String requiredDate = (schObj.getString("start").substring(0, 10));
-//                        if (requiredDate.equals(date)) {
-                        if (day.equals("1")) {
+                        String requiredDate = (schObj.getString("start").substring(0, 10));
+                        if (requiredDate.equals(date)) {
                             sch.setNameSch(schObj.getString("name"));
                             FormatDate date = new FormatDate(schObj.getString("start"));
                             sch.setTimeSch(date.getFormattedDate());
