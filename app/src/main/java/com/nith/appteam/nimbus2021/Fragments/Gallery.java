@@ -26,7 +26,7 @@ import java.util.List;
 
 public class Gallery extends Fragment {
 
-    public Gallery(Context context) {
+    public Gallery() {
     }
 
     @Nullable

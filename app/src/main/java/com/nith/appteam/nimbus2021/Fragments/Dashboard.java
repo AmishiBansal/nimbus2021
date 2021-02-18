@@ -31,7 +31,6 @@ import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 
 public class Dashboard extends Fragment {
-    Activity context;
     Animation animation, animation1, animation2, animation3,animation4,animation5;
     private HtmlTextView  event_text, campus_text, developers_text;
     private CardView quiz_card, workshop_card, exhibition_card, talk_card,omegle;
@@ -39,8 +38,8 @@ public class Dashboard extends Fragment {
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog dialog;
 
-    public Dashboard(Activity context) {
-        this.context = context;
+    public Dashboard() {
+        
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -69,16 +68,16 @@ public class Dashboard extends Fragment {
         omg_n = rootView.findViewById(R.id.omg_n);
         omg_k = rootView.findViewById(R.id.omg_k);
 
-        animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.fast_anim);
-        animation1 = AnimationUtils.loadAnimation(context.getApplicationContext(),
+        animation = AnimationUtils.loadAnimation(getActivity(), R.anim.fast_anim);
+        animation1 = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.slow_anim);
-        animation2 = AnimationUtils.loadAnimation(context.getApplicationContext(),
+        animation2 = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.fast_anim_v);
-        animation3 = AnimationUtils.loadAnimation(context.getApplicationContext(),
+        animation3 = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.slow_anim_v);
-        animation4 = AnimationUtils.loadAnimation(context.getApplicationContext(),
+        animation4 = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.fast_anim_v2);
-        animation5 = AnimationUtils.loadAnimation(context.getApplicationContext(),
+        animation5 = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.slow_anim_v2);
 
         e_n.startAnimation(animation);
@@ -114,47 +113,47 @@ public class Dashboard extends Fragment {
         quiz_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), QuizMainActivity.class);
-                context.startActivity(i);
-                context.overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+                Intent i = new Intent(getActivity(), QuizMainActivity.class);
+                startActivity(i);
+                getActivity().overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
             }
         });
         workshop_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), Workshops.class);
+                Intent i = new Intent(getActivity(), Workshops.class);
                 startActivity(i);
-                context.overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+                getActivity().overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
             }
         });
         talk_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), Talks.class);
+                Intent i = new Intent(getActivity(), Talks.class);
                 startActivity(i);
-                context.overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+                getActivity().overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
             }
         });
         exhibition_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), Exhhibition.class);
+                Intent i = new Intent(getActivity(), Exhhibition.class);
                 startActivity(i);
-                context.overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+                getActivity().overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
             }
         });
         event_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), Event_Choose.class);
+                Intent i = new Intent(getActivity(), Event_Choose.class);
                 startActivity(i);
-                context.overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
+                getActivity().overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
             }
         });
 //        campus_text.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent i = new Intent(getContext(), CampusAmbassador.class);
+//                Intent i = new Intent(getActivity(), CampusAmbassador.class);
 //                startActivity(i);
 //                context.overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
 //            }
@@ -162,14 +161,14 @@ public class Dashboard extends Fragment {
         developers_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), contributorsActivity.class);
+                Intent i = new Intent(getActivity(), contributorsActivity.class);
                 startActivity(i);
             }
         });
         omegle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), Videocall_Joining.class);
+                Intent i = new Intent(getActivity(), Videocall_Joining.class);
                 startActivity(i);
             }
         });
@@ -178,7 +177,7 @@ public class Dashboard extends Fragment {
 //        quote1.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                alertDialogBuilder = new AlertDialog.Builder(getContext());
+//                alertDialogBuilder = new AlertDialog.Builder(getActivity());
 //                View view = getLayoutInflater().inflate(R.layout.dialog_scopus, null);
 //                alertDialogBuilder.setView(view);
 //                dialog = alertDialogBuilder.create();

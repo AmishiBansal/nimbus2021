@@ -271,13 +271,18 @@ public class Videocall_Joining extends AppCompatActivity {
                 }
 
             }
+            else{
+                progressBar.setVisibility(View.VISIBLE);
+                videoJoin.setText("Searching the User...");
+                videoJoin.setEnabled(false);
+                timer.start();
+                getUserId();
+            }
 
             // Here we continue only if all permissions are granted.
             // The permissions can also be granted in the system settings manually.
 
         }
-        else{
 
-        }
     }
 }
