@@ -4,10 +4,11 @@ public class ClubDetail {
 
     String name;
     String imageUrl;
-
-    public ClubDetail(String name, String imageUrl) {
+    int club_id;
+    public ClubDetail(String name, String imageUrl,int club_id) {
         this.name = name;
         this.imageUrl = imageUrl;
+        this.club_id = club_id;
     }
 
     public String getName() {
@@ -24,5 +25,13 @@ public class ClubDetail {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public int getClub_id() {
+        return club_id;
+    }
+
+    public void setClub_id(int club_id) {
+        this.club_id = club_id;
     }
 }

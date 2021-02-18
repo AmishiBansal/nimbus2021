@@ -241,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
                 dashboardTab.setTextColor(getResources().getColor(R.color.black));
                 sponsorTab.setTextColor(getResources().getColor(R.color.lightGray));
                 teamTab.setTextColor(getResources().getColor(R.color.lightGray));
+                galleryTab.setTextColor(getResources().getColor(R.color.lightGray));
 
                 Dashboard dashboard = new Dashboard(MainActivity.this);
                 FragmentManager fm = getSupportFragmentManager();
@@ -261,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
                 sponsorTab.setTextColor(getResources().getColor(R.color.black));
                 dashboardTab.setTextColor(getResources().getColor(R.color.lightGray));
                 teamTab.setTextColor(getResources().getColor(R.color.lightGray));
+                galleryTab.setTextColor(getResources().getColor(R.color.lightGray));
                 Sponsor sponsorFragment = new Sponsor(MainActivity.this);
                 FragmentManager fm = getSupportFragmentManager();
                 fm.beginTransaction()
