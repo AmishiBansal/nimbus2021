@@ -38,8 +38,12 @@
         <activity android:name=".Activities.Event_Choose" />
         <activity android:name=".Activities.contributorsActivity" />
         <activity android:name=".Activities.LeaderboardOverall" />
-        <activity android:name=".Activities.VideoCallActivity"></activity>
-        <activity android:name=".Activities.Videocall_Joining"></activity>
+        <activity android:name=".Activities.VideoCallActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Activities.Videocall_Joining"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Activities.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
