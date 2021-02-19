@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.nith.appteam.nimbus2021.Models.GallerySliderItem;
 import com.nith.appteam.nimbus2021.R;
@@ -37,7 +38,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
     @Override
     public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
-        Picasso.with(mcontext).load(gallerySliderItems.get(position).getImage()).resize(420,360).centerCrop().into(holder.imageView);
+        Glide.with(mcontext).load(gallerySliderItems.get(position).getImage()).centerCrop().into(holder.imageView);
         if(position == gallerySliderItems.size()-2)
         {
             viewPager2.post(runnable);
