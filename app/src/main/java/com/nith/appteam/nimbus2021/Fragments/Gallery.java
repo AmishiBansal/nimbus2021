@@ -44,11 +44,11 @@ public class Gallery extends Fragment {
 //        }
 
         List<ClubDetail> clubList = new ArrayList<>();
-        ClubDetail clubDetail = new ClubDetail("App Team","https://avatars.githubusercontent.com/u/17087131?s=200&v=4",11);
+        ClubDetail clubDetail = new ClubDetail("App Team","https://avatars.githubusercontent.com/u/17087131?s=200&v=4",12);
         clubList.add(clubDetail);
         clubList.add(new ClubDetail("Team Exe","https://teamexe.in/images/logo.png",9));
         clubList.add(new ClubDetail("Hermetica","https://scontent.fslv1-2.fna.fbcdn.net/v/t1.0-9/84570307_2600774863478544_2688631209260482560_n.jpg?_nc_cat=101&ccb=3&_nc_sid=85a577&_nc_ohc=yKo1sioroQYAX8HJ2vg&_nc_ht=scontent.fslv1-2.fna&oh=b16c5ee401f1fa74bacac1dbb145eb26&oe=605389DD",3));
-        clubList.add(new ClubDetail("App Team","https://avatars.githubusercontent.com/u/17087131?s=200&v=4",11));
+        clubList.add(new ClubDetail("App Team","https://avatars.githubusercontent.com/u/17087131?s=200&v=4",12));
 
         GalleryAdapter galleryAdapter = new GalleryAdapter(clubList, getActivity());
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
