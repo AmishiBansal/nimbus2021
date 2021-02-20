@@ -247,7 +247,7 @@
                                 <ImageView
                                     android:id="@+id/EventIImageIDDetail"
                                     android:layout_width="match_parent"
-                                    android:layout_height="150dp"
+                                    android:layout_height="200dp"
                                     android:layout_alignParentLeft="true"
                                     android:layout_centerVertical="true"
                                     android:layout_margin="16dp"

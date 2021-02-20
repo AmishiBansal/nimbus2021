@@ -300,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
                 sponsorTab.setTextColor(getResources().getColor(R.color.lightGray));
                 dashboardTab.setTextColor(getResources().getColor(R.color.lightGray));
 
-                Gallery gallery = new Gallery();
+                Gallery gallery = new Gallery(MainActivity.this);
                 FragmentManager fm = getSupportFragmentManager();
                 fm.beginTransaction()
                         .replace(R.id.fragment_holder, gallery)
