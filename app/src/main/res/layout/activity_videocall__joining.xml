@@ -16,7 +16,7 @@
         android:layout_marginTop="70dp"
         android:textSize="30sp"
         android:fontFamily="@font/psb"
-        android:text="O M E G L E"/>
+        android:text="S C H M O O Z E L"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
