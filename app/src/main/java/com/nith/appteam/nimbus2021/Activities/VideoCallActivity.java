@@ -1,9 +1,8 @@
 package com.nith.appteam.nimbus2021.Activities;
 
 import android.Manifest;
-import android.app.ProgressDialog;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,13 +13,13 @@ import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,8 +27,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.nith.appteam.nimbus2021.R;
+import com.nith.appteam.nimbus2021.Utils.Constant;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import io.agora.rtc.IRtcEngineEventHandler;
+import io.agora.rtc.RtcChannel;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
@@ -45,6 +52,7 @@ public class VideoCallActivity extends AppCompatActivity {
     String tokenId;
     private Handler handler;
     private Runnable runnable;
+    private TextView rName,rTime;
 
 
     // Permission WRITE_EXTERNAL_STORAGE is not mandatory
@@ -155,6 +163,11 @@ public class VideoCallActivity extends AppCompatActivity {
                     if(reason == 0)
                     {
                         Toast.makeText(getApplicationContext(), "Other User Left", Toast.LENGTH_SHORT).show();
+                        endCall();
+                        Intent intent = new Intent(VideoCallActivity.this,Videocall_Joining.class);
+                        intent.putExtra("VideoEnd",true);
+                        intent.putExtra("uid2",getIntent().getStringExtra("uid2"));
+                        startActivity(intent);
                         finish();
 
                     }
@@ -230,15 +243,10 @@ public class VideoCallActivity extends AppCompatActivity {
                 Sendlog();
             }
         };
-
+        Sendlog();
+        getRemotename();
         initEngineAndJoinChannel();
-        if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_REQ_ID) &&
-                checkSelfPermission(REQUESTED_PERMISSIONS[1], PERMISSION_REQ_ID) &&
-                checkSelfPermission(REQUESTED_PERMISSIONS[2], PERMISSION_REQ_ID)) {
 
-            Sendlog();
-
-        }
 
     }
 
@@ -267,6 +275,8 @@ public class VideoCallActivity extends AppCompatActivity {
         mCallBtn = findViewById(R.id.btn_call);
         mMuteBtn = findViewById(R.id.btn_mute);
         mSwitchCameraBtn = findViewById(R.id.btn_switch_camera);
+        rName = findViewById(R.id.rl_name);
+
 //        mLogView = findViewById(R.id.log_recycler_view);
 
 
@@ -280,45 +290,9 @@ public class VideoCallActivity extends AppCompatActivity {
 //        mLogView.logE("You can also use this to show errors");
     }
 
-    private boolean checkSelfPermission(String permission, int requestCode) {
-        if (ContextCompat.checkSelfPermission(this, permission) !=
-                PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, REQUESTED_PERMISSIONS, requestCode);
-            return false;
-        }
 
-        return true;
-    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == PERMISSION_REQ_ID) {
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED ||
-                    grantResults[1] != PackageManager.PERMISSION_GRANTED ||
-                    grantResults[2] != PackageManager.PERMISSION_GRANTED) {
-                showLongToast("Please Grant the permissions required for better Experience.");
-                final ProgressDialog pd = new ProgressDialog(this);
-                pd.setCancelable(false);
-                pd.setMessage("Exiting.....");
-                pd.show();
-                new android.os.Handler().postDelayed(
-                        new Runnable() {
-                            public void run() {
-                                pd.dismiss();
-                                finish();
-                            }
-                        },
-                        5000);
 
-                return;
-            }
-
-            // Here we continue only if all permissions are granted.
-            // The permissions can also be granted in the system settings manually.
-            initEngineAndJoinChannel();
-        }
-    }
 
     private void showLongToast(final String msg) {
         this.runOnUiThread(new Runnable() {
@@ -336,6 +310,7 @@ public class VideoCallActivity extends AppCompatActivity {
         setupVideoConfig();
         setupLocalVideo();
         joinChannel();
+        
     }
 
     private void initializeEngine() {
@@ -417,6 +392,7 @@ public class VideoCallActivity extends AppCompatActivity {
         RtcEngine.destroy();
     }
 
+
     private void leaveChannel() {
         mRtcEngine.leaveChannel();
     }
@@ -441,8 +417,8 @@ public class VideoCallActivity extends AppCompatActivity {
         ImageView iv = (ImageView) view;
 
         iv.setImageResource(mVideoMuted ? R.drawable.btn_camera_off : R.drawable.btn_camera);
-
     }
+
 
 
     public void onCallClicked(View view) {
@@ -519,4 +495,40 @@ public class VideoCallActivity extends AppCompatActivity {
         handler.removeCallbacks(runnable);
         finish();
     }
+    public void getRemotename(){
+        RequestQueue queue = Volley.newRequestQueue(VideoCallActivity.this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.Url + "/users/" + getIntent().getStringExtra("uid2") + "?format=json", new com.android.volley.Response.Listener<String>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(String response) {
+                try {
+                    Log.e("response7890", response);
+//                    JSONArray jsonArray = new JSONArray(response);
+//                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    JSONObject jsonObject = new JSONObject(response);
+                    rName.setText(jsonObject.getString("firstName")+" "+jsonObject.getString("lastName"));
+
+                } catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+getIntent().getStringExtra("uid2"));
+                headers.put("Authorization", getIntent().getStringExtra("uid2"));
+                return headers;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
 }

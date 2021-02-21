@@ -237,13 +237,21 @@
                                 android:translationY="140dp" />
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="true"
                                 android:layout_centerInParent="true"
                                 android:layout_margin="16dp"
                                 android:gravity="start"
                                 android:orientation="vertical">
+                                <ImageView
+                                    android:id="@+id/EventIImageIDDetail"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="200dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_margin="16dp"
+                                    android:src="@color/black" />
 
                                 <com.nith.appteam.nimbus2021.Utils.GradientTextView
                                     android:id="@+id/NameIDDetEventsI"
@@ -256,11 +264,11 @@
                                     android:maxLines="2"
 
                                     app:autoSizeMinTextSize="12sp"
-                                    app:autoSizeMaxTextSize="70sp"
+                                    app:autoSizeMaxTextSize="30sp"
                                     android:text="event name"
                                     android:textAllCaps="true"
                                     android:textColor="@color/blueLight"
-                                    android:textSize="55sp" />
+                                    android:textSize="30sp" />
 
                                 <TextView
                                     android:id="@+id/DateDetEventsI"
@@ -282,7 +290,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/psb"
                                     android:gravity="start"
-                                    android:maxLines="1"
+                                    android:maxLines="2"
                                     android:text="venue"
                                     android:textAllCaps="true"
                                     android:textColor="@color/white"
@@ -303,7 +311,6 @@
                         android:layout_marginEnd="32dp"
                         android:fontFamily="@font/psregular"
                         android:text="info"
-                        android:textAllCaps="true"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 

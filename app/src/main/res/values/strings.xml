@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">Nimbus2021</string>
-    <string name="baseUrl">http://13.71.16.202:8000</string>
+    <string name="baseUrl">https://api.festnimbus.com</string>
 
     <string name="defaultImageUrl">https://res.cloudinary.com/ddl3sdojc/image/upload/v1612033257/default_profile_pic_kri0jq.png</string>
     <string name="defaultImage">https://res.cloudinary.com/duutozrvz/image/upload/v1581182611/ab_a2o64d.png</string>

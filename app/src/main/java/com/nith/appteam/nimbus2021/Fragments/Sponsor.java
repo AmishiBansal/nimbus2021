@@ -35,8 +35,7 @@ public class Sponsor extends Fragment {
     Context context;
     private IResult mResultCallback;
 
-    public Sponsor(Context context) {
-        this.context = context;
+    public Sponsor() {
     }
 
     @Nullable
@@ -106,7 +105,7 @@ public class Sponsor extends Fragment {
                         try {
                             obj = jsonArray.getJSONObject(i);
                             String sponsorName = obj.getString("name");
-                            String sponsor_logo = context.getResources().getString(R.string.defaultImageUrl);
+                            String sponsor_logo = getActivity().getResources().getString(R.string.defaultImageUrl);
                             if (obj.has("image")) sponsor_logo = obj.getString("image");
                             mSponsorList.add(new com.nith.appteam.nimbus2021.Models.Sponsor(sponsorName, sponsor_logo));
                             mSponsorsAdapter.notifyDataSetChanged();

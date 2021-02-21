@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.SnapHelper;
 import com.android.volley.VolleyError;
 import com.nith.appteam.nimbus2021.Adapters.DiscoverAdapter;
 import com.nith.appteam.nimbus2021.Fragments.Dashboard;
+import com.nith.appteam.nimbus2021.Fragments.Gallery;
 import com.nith.appteam.nimbus2021.Fragments.Sponsor;
 import com.nith.appteam.nimbus2021.Models.DiscoverModel;
 import com.nith.appteam.nimbus2021.R;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     DiscoverAdapter mDiscoverAdapter;
     List<DiscoverModel> mDiscoverModelList;
-    TextView dashboardTab, sponsorTab, teamTab;
+    TextView dashboardTab, sponsorTab, teamTab, galleryTab;
     Typeface psbi, psi;
     private IResult mResultCallback;
     private Button quiz, sponsor, profile, campusA, workshops, talks, events, qr, exhibition, schedule, contributors, coreTeam;
@@ -235,12 +236,14 @@ public class MainActivity extends AppCompatActivity {
                 dashboardTab.setTypeface(psbi);
                 sponsorTab.setTypeface(psi);
                 teamTab.setTypeface(psi);
+                galleryTab.setTypeface(psi);
 
                 dashboardTab.setTextColor(getResources().getColor(R.color.black));
                 sponsorTab.setTextColor(getResources().getColor(R.color.lightGray));
                 teamTab.setTextColor(getResources().getColor(R.color.lightGray));
+                galleryTab.setTextColor(getResources().getColor(R.color.lightGray));
 
-                Dashboard dashboard = new Dashboard(MainActivity.this);
+                Dashboard dashboard = new Dashboard();
                 FragmentManager fm = getSupportFragmentManager();
                 fm.beginTransaction()
                         .replace(R.id.fragment_holder, dashboard)
@@ -254,11 +257,13 @@ public class MainActivity extends AppCompatActivity {
                 dashboardTab.setTypeface(psi);
                 sponsorTab.setTypeface(psbi);
                 teamTab.setTypeface(psi);
+                galleryTab.setTypeface(psi);
 
                 sponsorTab.setTextColor(getResources().getColor(R.color.black));
                 dashboardTab.setTextColor(getResources().getColor(R.color.lightGray));
                 teamTab.setTextColor(getResources().getColor(R.color.lightGray));
-                Sponsor sponsorFragment = new Sponsor(MainActivity.this);
+                galleryTab.setTextColor(getResources().getColor(R.color.lightGray));
+                Sponsor sponsorFragment = new Sponsor();
                 FragmentManager fm = getSupportFragmentManager();
                 fm.beginTransaction()
                         .replace(R.id.fragment_holder, sponsorFragment)
@@ -283,6 +288,25 @@ public class MainActivity extends AppCompatActivity {
 //                        .commit();
 //            }
 //        });
+
+                galleryTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                galleryTab.setTypeface(psbi);
+                sponsorTab.setTypeface(psi);
+                dashboardTab.setTypeface(psi);
+
+                galleryTab.setTextColor(getResources().getColor(R.color.black));
+                sponsorTab.setTextColor(getResources().getColor(R.color.lightGray));
+                dashboardTab.setTextColor(getResources().getColor(R.color.lightGray));
+
+                Gallery gallery = new Gallery(MainActivity.this);
+                FragmentManager fm = getSupportFragmentManager();
+                fm.beginTransaction()
+                        .replace(R.id.fragment_holder, gallery)
+                        .commit();
+            }
+        });
 
         dashboardTab.performClick();
     }
@@ -364,6 +388,7 @@ public class MainActivity extends AppCompatActivity {
     private void getUI() {
         dashboardTab = findViewById(R.id.dashboard_tab);
         sponsorTab = findViewById(R.id.sponsor_tab);
+        galleryTab = findViewById(R.id.gallery_tab);
         teamTab = findViewById(R.id.team_tab);
         quiz = findViewById(R.id.quiz);
         sponsor = findViewById(R.id.sponsors);
