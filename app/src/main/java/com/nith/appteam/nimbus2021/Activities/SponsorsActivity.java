@@ -66,7 +66,7 @@ public class SponsorsActivity extends AppCompatActivity {
         mSponsorList.clear();
         loadwall.setVisibility(View.VISIBLE);
 
-        initVolleyCallback();
+//        initVolleyCallback();
 
         final VolleyService mVolleyService = new VolleyService(mResultCallback, this);
 
@@ -76,65 +76,65 @@ public class SponsorsActivity extends AppCompatActivity {
     }
 
 
-    void initVolleyCallback() {
-        mResultCallback = new IResult() {
-            JSONObject obj;
-
-            @Override
-            public void notifySuccess(String requestType, JSONObject response,
-                                      JSONArray jsonArray) {
-
-
-                if (response != null) {
-                    loadwall.setVisibility(View.GONE);
-
-                    try {
-                        obj = response;
-                        String sponsorName = obj.getString("name");
-                        String sponsor_logo = getResources().getString(R.string.defaultImageUrl);
-                        if (obj.has("image")) sponsor_logo = obj.getString("image");
-//                                String  = json.getString("event_time");
-                        mSponsorList.add(new Sponsor(sponsorName, sponsor_logo));
-                        mSponsorsAdapter.notifyDataSetChanged();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    Log.e("Hellcatt", response.toString());
-
-                } else {
-                    Log.e("zHell", jsonArray.toString());
-
-                    loadwall.setVisibility(View.GONE);
-
-
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        try {
-                            obj = jsonArray.getJSONObject(i);
-                            String sponsorName = obj.getString("name");
-                            String sponsor_logo = getResources().getString(
-                                    R.string.defaultImageUrl);
-                            if (obj.has("image")) sponsor_logo = obj.getString("image");
-                            mSponsorList.add(new Sponsor(sponsorName, sponsor_logo));
-                            mSponsorsAdapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                    mSponsorsAdapter.notifyDataSetChanged();
-
-                }
-            }
-
-
-            @Override
-            public void notifyError(String requestType, VolleyError error) {
-                Log.i("error", error.toString());
-            }
-        };
+//    void initVolleyCallback() {
+//        mResultCallback = new IResult() {
+//            JSONObject obj;
+//
+//            @Override
+//            public void notifySuccess(String requestType, JSONObject response,
+//                                      JSONArray jsonArray) {
+//
+//
+//                if (response != null) {
+//                    loadwall.setVisibility(View.GONE);
+//
+//                    try {
+//                        obj = response;
+//                        String sponsorName = obj.getString("name");
+//                        String sponsor_logo = getResources().getString(R.string.defaultImageUrl);
+//                        if (obj.has("image")) sponsor_logo = obj.getString("image");
+////                                String  = json.getString("event_time");
+//                        mSponsorList.add(new Sponsor(sponsorName, sponsor_logo));
+//                        mSponsorsAdapter.notifyDataSetChanged();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//
+//                    Log.e("Hellcatt", response.toString());
+//
+//                } else {
+//                    Log.e("zHell", jsonArray.toString());
+//
+//                    loadwall.setVisibility(View.GONE);
+//
+//
+//                    for (int i = 0; i < jsonArray.length(); i++) {
+//
+//                        try {
+//                            obj = jsonArray.getJSONObject(i);
+//                            String sponsorName = obj.getString("name");
+//                            String sponsor_logo = getResources().getString(
+//                                    R.string.defaultImageUrl);
+//                            if (obj.has("image")) sponsor_logo = obj.getString("image");
+//                            mSponsorList.add(new Sponsor(sponsorName, sponsor_logo));
+//                            mSponsorsAdapter.notifyDataSetChanged();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                    mSponsorsAdapter.notifyDataSetChanged();
+//
+//                }
+//            }
+//
+//
+//            @Override
+//            public void notifyError(String requestType, VolleyError error) {
+//                Log.i("error", error.toString());
+//            }
+//        };
 
     }
-}
+
