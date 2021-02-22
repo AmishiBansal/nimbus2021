@@ -4,10 +4,12 @@ public class Sponsor {
 
     String name;
     String imageUrl;
+    String link;
 
-    public Sponsor(String name, String imageUrl) {
+    public Sponsor(String name, String imageUrl,String link) {
         this.name = name;
         this.imageUrl = imageUrl;
+        this.link = link;
     }
 
     public String getName() {
@@ -24,5 +26,13 @@ public class Sponsor {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }
