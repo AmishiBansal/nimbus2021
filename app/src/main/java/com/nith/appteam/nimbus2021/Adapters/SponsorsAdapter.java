@@ -48,8 +48,7 @@ public class SponsorsAdapter extends RecyclerView.Adapter<SponsorsAdapter.Sponso
         {
             Glide.with(mActivity).load(sponsor.getImageUrl()).apply(new RequestOptions().override(80, 80)).into(holder.sponsorImageView);
         }
-        if(sponsor.getLink().isEmpty())
-
+        if(!sponsor.getLink().isEmpty() && !sponsor.getLink().contains("null")){
             holder.sponsorCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -58,6 +57,7 @@ public class SponsorsAdapter extends RecyclerView.Adapter<SponsorsAdapter.Sponso
                         mActivity.startActivity(intent);
                 }
             });
+        }
         }
 
 

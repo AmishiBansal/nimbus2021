@@ -195,7 +195,7 @@ public class Add_institute_Activity_Detail extends AppCompatActivity {
             venueDetEventsI.setText(instituteEvent.getVenueIEVE());
             dateDetEventsI.setText(instituteEvent.getDateIEVE());
             //  tupeWo.setText(workshopModel.getTypeWor());
-             Picasso.with(getApplicationContext()).load(instituteEvent.getImageIEVE().replace("http", "https"))
+             Picasso.with(getApplicationContext()).load(instituteEvent.getImageIEVE().replace("http://", "https://"))
              .placeholder(R.drawable.black_round_corner).into(imgDetEventsI);
         }
 
