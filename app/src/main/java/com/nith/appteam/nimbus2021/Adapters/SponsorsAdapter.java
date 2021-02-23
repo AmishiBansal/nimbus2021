@@ -3,6 +3,7 @@ package com.nith.appteam.nimbus2021.Adapters;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,11 +44,11 @@ public class SponsorsAdapter extends RecyclerView.Adapter<SponsorsAdapter.Sponso
     public void onBindViewHolder(@NonNull SponsorsViewHolder holder, int position) {
 
         final Sponsor sponsor = mSponsorList.get(position);
-        holder.sponsorTextView.setText(sponsor.getName());
+        if(!sponsor.getName().isEmpty() && !sponsor.getName().contains("null"))
+            holder.sponsorTextView.setText(sponsor.getName());
 //        if (!sponsor.getImageUrl().isEmpty())
-        {
-            Glide.with(mActivity).load(sponsor.getImageUrl()).apply(new RequestOptions().override(80, 80)).into(holder.sponsorImageView);
-        }
+        Glide.with(mActivity).load(sponsor.getImageUrl()).placeholder(R.drawable.noimageplaceholder).apply(new RequestOptions().override(80, 80)).into(holder.sponsorImageView);
+        Log.e("imageUrl",sponsor.getImageUrl());
         if(!sponsor.getLink().isEmpty() && !sponsor.getLink().contains("null")){
             holder.sponsorCardView.setOnClickListener(new View.OnClickListener() {
                 @Override

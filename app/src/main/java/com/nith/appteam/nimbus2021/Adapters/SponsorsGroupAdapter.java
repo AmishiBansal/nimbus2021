@@ -67,8 +67,9 @@ public class SponsorsGroupAdapter extends RecyclerView.Adapter<SponsorsGroupAdap
                         if(jsonArray.getJSONObject(i).get("position").equals(spon_title.get(position))){
                             spn.add(new Sponsor(String.valueOf(jsonObject.get("name")),String.valueOf(jsonObject.get("image")),String.valueOf(jsonObject.get("link"))));
                         }
-                        sponsorsAdapter.notifyDataSetChanged();
+
                     }
+                    sponsorsAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
