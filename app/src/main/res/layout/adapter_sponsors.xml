@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:layout_margin="16dp"
+    android:id="@+id/card_sponsor"
     app:cardBackgroundColor="@color/black"
     app:cardCornerRadius="@dimen/cardCornerRadius"
     app:cardElevation="0dp"
@@ -34,13 +35,14 @@
 
         <TextView
             android:id="@+id/sponsorTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/psb"
+            android:textAlignment="center"
             android:padding="8dp"
-            android:text="SPONSOR"
+            android:text=""
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="15sp" />

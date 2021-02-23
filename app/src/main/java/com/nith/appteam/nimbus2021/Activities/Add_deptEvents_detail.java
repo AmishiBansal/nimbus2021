@@ -198,7 +198,7 @@ public class Add_deptEvents_detail extends AppCompatActivity {
             dateDetEventsD.setText(dept.getDateDEVE());
             //  typeWo.setText(workshopModel.getTypeWor());
             Log.d("TAG", "getMovDetails: "+dept.getImageDEVE());
-             Picasso.with(getApplicationContext()).load(dept.getImageDEVE().replace("http", "https")).placeholder
+             Picasso.with(getApplicationContext()).load(dept.getImageDEVE().replace("http://", "https://")).placeholder
              (R.drawable.black_round_corner).into(imgDetEventsD);
         }
 
