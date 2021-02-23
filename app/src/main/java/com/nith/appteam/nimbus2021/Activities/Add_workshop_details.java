@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.nith.appteam.nimbus2021.Models.WorkshopModel;
 import com.nith.appteam.nimbus2021.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.Random;
 
@@ -30,7 +31,7 @@ public class Add_workshop_details extends AppCompatActivity {
 
         ImageView round_big = findViewById(R.id.e_n);
         ImageView round_small = findViewById(R.id.e_k);
-
+        imgDetWor = findViewById(R.id.workshopImageIDDetail);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.fast_anim_v1);
         Random rand = new Random();
@@ -80,8 +81,8 @@ public class Add_workshop_details extends AppCompatActivity {
             venueDetWor.setText(workshopModel.getVenueWor());
             dateDetWor.setText(workshopModel.getDateWor());
             // tupeWor.setText(workshopModel.getTypeWor());
-            //  Picasso.with(getApplicationContext()).load(workshopModel.getImageWor())
-            //  .placeholder(android.R.drawable.ic_btn_speak_now).into(imgDetWor);
+              Picasso.with(getApplicationContext()).load(workshopModel.getImageWor().replace("http://", "https://"))
+              .placeholder(R.drawable.black_round_corner).into(imgDetWor);
         }
 
 

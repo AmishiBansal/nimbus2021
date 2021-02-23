@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.nith.appteam.nimbus2021.Models.TalkModel;
 import com.nith.appteam.nimbus2021.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.Random;
 
@@ -30,7 +31,7 @@ public class Add_talk_details extends AppCompatActivity {
 
         ImageView round_big = findViewById(R.id.e_n);
         ImageView round_small = findViewById(R.id.e_k);
-
+        imgDet = findViewById(R.id.talkImageIDDetail);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.fast_anim_v1);
         Random rand = new Random();
@@ -79,8 +80,8 @@ public class Add_talk_details extends AppCompatActivity {
             infoDet.setText(talkModel.getInfo());
             venueDet.setText(talkModel.getVenue());
             dateDet.setText(talkModel.getDate());
-            // Picasso.with(getApplicationContext()).load(talkModel.getImage()).placeholder
-            // (android.R.drawable.ic_btn_speak_now).into(imgDet);
+             Picasso.with(getApplicationContext()).load(talkModel.getImage().replace("http://", "https://")).placeholder
+             (R.drawable.black_round_corner).into(imgDet);
         }
 
 
