@@ -42,7 +42,7 @@
             android:fontFamily="@font/psb"
             android:textAlignment="center"
             android:padding="8dp"
-            android:text="SPONSOR"
+            android:text=""
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="15sp" />
