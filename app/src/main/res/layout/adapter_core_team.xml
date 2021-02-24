@@ -84,7 +84,7 @@
         android:text="Position"
         android:layout_below="@+id/card_view_core_team"
         android:layout_centerHorizontal="true"
-        android:lines="2"
+        android:lines="3"
         android:layout_marginVertical="4dp"
         android:gravity="end"
         android:textAlignment="center"
