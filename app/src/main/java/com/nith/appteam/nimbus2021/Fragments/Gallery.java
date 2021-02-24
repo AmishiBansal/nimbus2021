@@ -112,7 +112,7 @@ public class Gallery extends Fragment {
                         int club_id = 0;
                         if(mapClubs.get(talkObj.getString("name").toLowerCase())!=null)
                             club_id = mapClubs.get(talkObj.getString("name").toLowerCase());
-                        ClubDetail cDetail = new ClubDetail(talkObj.getString("name"),talkObj.getString("image").replace("http","https"),club_id);
+                        ClubDetail cDetail = new ClubDetail(talkObj.getString("name"),talkObj.getString("image").replace("http://","https://"),club_id);
                         clubList.add(cDetail);
                         galleryAdapter.notifyDataSetChanged();
 

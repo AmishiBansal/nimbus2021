@@ -324,7 +324,7 @@ public class ProfileNew extends AppCompatActivity {
                         else
                             {
                                 Log.e("VOLLEY", error.toString());
-                                Toast.makeText(ProfileNew.this, error.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                     }

@@ -91,9 +91,10 @@ public class CoreTeamActivity extends AppCompatActivity {
                         obj = response;
                         String name = obj.getString("name");
                         String position = obj.getString("position");
+                        String[] designations = position.split("-");
                         String image = getResources().getString(R.string.defaultImageUrl);
                         if (obj.has("image")) image = obj.getString("image");
-                        mCoreTeamModelList.add(new CoreTeamModel(name, image, position));
+                        mCoreTeamModelList.add(new CoreTeamModel(name, image, designations));
                         mCoreTeamAdapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -114,9 +115,10 @@ public class CoreTeamActivity extends AppCompatActivity {
                             obj = jsonArray.getJSONObject(i);
                             String name = obj.getString("name");
                             String position = obj.getString("position");
+                            String pos[] = position.split("-");
                             String image = getResources().getString(R.string.defaultImageUrl);
                             if (obj.has("image")) image = obj.getString("image");
-                            mCoreTeamModelList.add(new CoreTeamModel(name, image, position));
+                            mCoreTeamModelList.add(new CoreTeamModel(name, image, pos));
                             mCoreTeamAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();

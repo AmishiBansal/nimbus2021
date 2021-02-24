@@ -31,7 +31,7 @@ public class CoreTeamAdapter extends RecyclerView.Adapter<CoreTeamAdapter.CoreTe
     public CoreTeamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_our_team, parent, false);
+                .inflate(R.layout.adapter_core_team, parent, false);
         return new CoreTeamViewHolder(view);
     }
 
@@ -63,9 +63,9 @@ public class CoreTeamAdapter extends RecyclerView.Adapter<CoreTeamAdapter.CoreTe
 
         public CoreTeamViewHolder(@NonNull View itemView) {
             super(itemView);
-            coreTeamImageView = itemView.findViewById(R.id.team_image);
-            coreTeamName = itemView.findViewById(R.id.name);
-            coreTeamPos = itemView.findViewById(R.id.designation);
+            coreTeamImageView = itemView.findViewById(R.id.coreTeamImageView);
+            coreTeamName = itemView.findViewById(R.id.coreTeamName);
+            coreTeamPos = itemView.findViewById(R.id.coreTeamPos);
             coreTeamImageView.setClipToOutline(true);
         }
     }

@@ -9,10 +9,10 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:fontFamily="@font/psbitalic"
+        android:fontFamily="@font/psb"
         android:textAlignment="center"
         android:padding="8sp"
-        android:textSize="18sp"/>
+        android:textSize="20sp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
