@@ -58,8 +58,7 @@ public class Events_D_RecyclerViewAdapter extends
         holder.datEVED.setText(Devents.getDateDEVE());
         holder.venueEVED.setText(Devents.getVenueDEVE());
         holder.nameEVED.setText(Devents.getNameDEVE());
-        Picasso.with(context).load(imageLinkEVED).placeholder(
-                android.R.drawable.ic_btn_speak_now).into(holder.imgEVEVD);
+        Picasso.with(context.getApplicationContext()).load(imageLinkEVED.replace("http", "https")).resize(90, 90).into(holder.imgEVEVD);
     }
 
     @Override

@@ -60,7 +60,7 @@ public class ExhibitionRecyclerViewAdapter extends
         holder.date.setText(exhibitions.getDateExh());
         holder.venue.setText(exhibitions.getVenueExh());
         holder.name.setText(exhibitions.getNameExh());
-        Picasso.with(context).load(imageLink).placeholder(android.R.drawable.ic_btn_speak_now).into(
+        Picasso.with(context.getApplicationContext()).load(imageLink.replace("http", "https")).resize(90, 90).into(
                 holder.imgExh);
 
 

@@ -40,13 +40,38 @@
                 android:tint="@color/black"
                 android:translationX="-50dp" />
 
-            <ImageView
-                android:id="@+id/speakerImageID"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:background="@drawable/round_outline"
-                android:scaleType="fitXY"
-                android:visibility="gone" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:cardBackgroundColor="@color/blueLightEx"
+                app:cardCornerRadius="45dp"
+                app:cardElevation="0dp"
+                android:layout_centerVertical="true"
+                app:cardPreventCornerOverlap="true">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/blueLightEx"
+                    app:cardCornerRadius="45dp"
+                    android:layout_gravity="center"
+                    app:cardElevation="0dp"
+                    android:layout_margin="2dp"
+                    app:cardPreventCornerOverlap="true">
+
+                    <ImageView
+                        android:id="@+id/speakerImageID"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY"
+                        android:src="@color/white" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"

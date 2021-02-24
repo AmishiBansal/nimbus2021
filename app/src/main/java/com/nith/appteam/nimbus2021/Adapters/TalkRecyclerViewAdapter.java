@@ -59,7 +59,7 @@ public class TalkRecyclerViewAdapter extends
         holder.date.setText(talks.getDate());
         holder.venue.setText(talks.getVenue());
         holder.name.setText(talks.getName());
-        Picasso.with(context).load(imageLink).into(
+        Picasso.with(context.getApplicationContext()).load(imageLink.replace("http", "https")).resize(90, 90).into(
                 holder.imgSpkr);
 
 

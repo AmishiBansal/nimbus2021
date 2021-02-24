@@ -21,8 +21,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.Random;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class EventIRecyclerViewAdapter extends
         RecyclerView.Adapter<EventIRecyclerViewAdapter.ViewHolder> {
     private Context context;
@@ -59,8 +57,7 @@ public class EventIRecyclerViewAdapter extends
         holder.datEVEI.setText(Ievents.getDateIEVE());
         holder.venueEVEI.setText(Ievents.getVenueIEVE());
         holder.nameEVEI.setText(Ievents.getNameIEVE());
-        Picasso.with(context).load(imageLinkEVE).placeholder(
-                android.R.drawable.ic_btn_speak_now).into(holder.imgEVEVi);
+        Picasso.with(context.getApplicationContext()).load(imageLinkEVE.replace("http", "https")).resize(90, 90).into(holder.imgEVEVi);
 
     }
 
@@ -72,8 +69,7 @@ public class EventIRecyclerViewAdapter extends
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView nameEVEI, datEVEI, infoEVEI, regUrlEVEI, venueEVEI;
-        CircleImageView imgEVEVi;
-        ImageView round_big, round_small;
+        ImageView round_big, round_small, imgEVEVi;
 
         public ViewHolder(@NonNull View itemView, final Context ctx) {
             super(itemView);
