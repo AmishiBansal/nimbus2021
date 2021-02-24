@@ -1,50 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="0dp"
-    app:cardUseCompatPadding="true">
+    android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.cardview.widget.CardView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/card_view_core_team"
         android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="#AEE5EC"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:scaleX="2.3"
+                android:scaleY="2.3"
+                android:src="@drawable/bg_round_dark"
+                android:translationY="48dp" />
+
+            <ImageView
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:scaleX="2"
+                android:scaleY="2"
+                android:src="@drawable/bg_round_light"
+                android:translationY="48dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/coreTeamImageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="16dp"
+                android:src="@mipmap/ic_launcher_round"
+                app:civ_border_color="#ffffff"
+                app:civ_border_width="2dp"
+                android:layout_centerHorizontal="true"
+                tools:src="@mipmap/ic_launcher_round"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/coreTeamName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/psb"
+                android:padding="8dp"
+                android:text="Name"
+                android:gravity="center_horizontal"
+                android:textAllCaps="true"
+                android:textColor="#AEE5EC"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/coreTeamPos"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_gravity="bottom|center"
+        android:padding="8dp"
+        android:fontFamily="@font/psregular"
+        android:text="Position"
+        android:layout_below="@+id/card_view_core_team"
+        android:layout_centerHorizontal="true"
+        android:lines="2"
+        android:layout_marginVertical="4dp"
+        android:gravity="end"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/greyLight"
+        android:textSize="15sp"
+        tools:ignore="RtlCompat" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/coreTeamImageView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:padding="8dp"
-            android:src="@mipmap/ic_launcher_round"
-            app:civ_border_color="#000000"
-            app:civ_border_width="2dp"
-            tools:src="@mipmap/ic_launcher_round"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/coreTeamName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:padding="16dp"
-            android:text="Name"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/coreTeamPos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:padding="16dp"
-            android:text="Position"
-            android:textSize="24sp" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-</androidx.cardview.widget.CardView>
+</RelativeLayout>
