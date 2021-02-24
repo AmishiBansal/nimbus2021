@@ -82,10 +82,11 @@ public class Sponsor extends Fragment {
 
                                 mSponsorList.add(String.valueOf(jsonArray.getJSONObject(i).get("position")));
                             }
-                            mSponsorsAdapter.notifyDataSetChanged();
+
                             Log.e("abcdefg",String.valueOf(mSponsorList));
                         }
                     }
+                    mSponsorsAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
