@@ -4,9 +4,9 @@ public class CoreTeamModel {
 
     String name;
     String imageUrl;
-    String position;
+    String[] position;
 
-    public CoreTeamModel(String name, String imageUrl, String position) {
+    public CoreTeamModel(String name, String imageUrl, String[] position) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.position = position;
@@ -29,10 +29,12 @@ public class CoreTeamModel {
     }
 
     public String getPosition() {
-        return position;
+        String designation = "";
+        designation = position[0] + "\n" + position[1];
+        return designation;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(String[] position) {
         this.position = position;
     }
 }
