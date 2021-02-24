@@ -47,7 +47,7 @@ public class SponsorsAdapter extends RecyclerView.Adapter<SponsorsAdapter.Sponso
         if(!sponsor.getName().isEmpty() && !sponsor.getName().contains("null"))
             holder.sponsorTextView.setText(sponsor.getName());
 //        if (!sponsor.getImageUrl().isEmpty())
-        Glide.with(mActivity).load(sponsor.getImageUrl()).placeholder(R.drawable.noimageplaceholder).apply(new RequestOptions().override(80, 80)).into(holder.sponsorImageView);
+        Glide.with(mActivity).load(sponsor.getImageUrl()).placeholder(R.color.black).apply(new RequestOptions().override(80, 80)).into(holder.sponsorImageView);
         Log.e("imageUrl",sponsor.getImageUrl());
         if(!sponsor.getLink().isEmpty() && !sponsor.getLink().contains("null")){
             holder.sponsorCardView.setOnClickListener(new View.OnClickListener() {
