@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nith.appteam.nimbus2021.Models.ScheduleModel;
 import com.nith.appteam.nimbus2021.R;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Random;
@@ -38,11 +40,11 @@ public class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRe
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         holder.container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.item_animation));
         ScheduleModel scheduleModel = scheduleList.get(position);
-        //    String imageLink=scheduleModel.getImage();
+        String imageLink=scheduleModel.getImagSch();
         //holder.regUrl.setText(talks.getRegURL());
         //holder.info.setText(talks.getInfo());
         holder.deptNAme.setText(scheduleModel.getDeptSch());
@@ -56,7 +58,18 @@ public class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRe
         animation1.setDuration(rand.nextInt(2000) + 2000);
         holder.round_big.startAnimation(animation1);
         holder.round_small.startAnimation(animation);
-        // Picasso.with(context).load(imageLink).placeholder(android.R.drawable.ic_btn_speak_now).into(holder.imgSpkr);
+        Picasso.with(context.getApplicationContext()).load(imageLink.replace("http", "https")).resize(90, 90)
+                 .into(holder.imgSpkr, new Callback() {
+                     @Override
+                     public void onSuccess() {
+
+                     }
+
+                     @Override
+                     public void onError() {
+                        holder.imgSpkr.setImageResource(R.drawable.nimbus_logo);
+                     }
+                 });
     }
 
 
@@ -68,7 +81,7 @@ public class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRe
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name, date, venue, deptNAme;
         RelativeLayout container;
-        ImageView round_big, round_small;
+        ImageView round_big, round_small, imgSpkr;
 
         public ViewHolder(@NonNull View itemView, final Context ctx) {
             super(itemView);
@@ -80,6 +93,7 @@ public class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRe
             date = itemView.findViewById(R.id.EventSchDate);
             round_big = itemView.findViewById(R.id.round_big);
             round_small = itemView.findViewById(R.id.round_small);
+            imgSpkr = itemView.findViewById(R.id.scheduleEventImageID);
             //   info=(TextView) itemView.findViewById(R.id.speakerInfoID);
             //  regUrl=(TextView) itemView.findViewById(R.id.regURL);
 //            itemView.setOnClickListener(new View.OnClickListener() {

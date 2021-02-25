@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nith.appteam.nimbus2021.Activities.Add_workshop_details;
 import com.nith.appteam.nimbus2021.Models.WorkshopModel;
 import com.nith.appteam.nimbus2021.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class WorkshopRecyclerViewAdapter extends
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         Animation animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.fast_anim_v1);
         Random rand = new Random();
@@ -61,7 +62,18 @@ public class WorkshopRecyclerViewAdapter extends
         holder.venueWor.setText(workshop.getVenueWor());
         holder.nameWor.setText(workshop.getNameWor());
         //holder.typeWor.setText(workshop.getTypeWor());
-        Picasso.with(context).load(imageLinkWor).placeholder(android.R.drawable.ic_btn_speak_now).into(holder.imgSpkrWork);
+        Picasso.with(context.getApplicationContext()).load(imageLinkWor.replace("http", "https"))
+                .resize(90, 90).into(holder.imgSpkrWork, new Callback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError() {
+                holder.imgSpkrWork.setImageResource(R.drawable.nimbus_logo);
+            }
+        });
     }
 
 

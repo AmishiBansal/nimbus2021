@@ -13,7 +13,6 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -22,6 +21,7 @@ import androidx.cardview.widget.CardView;
 
 import com.nith.appteam.nimbus2021.Models.instituteEvent;
 import com.nith.appteam.nimbus2021.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.Random;
@@ -196,7 +196,17 @@ public class Add_institute_Activity_Detail extends AppCompatActivity {
             dateDetEventsI.setText(instituteEvent.getDateIEVE());
             //  tupeWo.setText(workshopModel.getTypeWor());
              Picasso.with(getApplicationContext()).load(instituteEvent.getImageIEVE().replace("http://", "https://"))
-             .placeholder(R.drawable.black_round_corner).into(imgDetEventsI);
+             .into(imgDetEventsI, new Callback() {
+                 @Override
+                 public void onSuccess() {
+
+                 }
+
+                 @Override
+                 public void onError() {
+                    imgDetEventsI.setImageResource(R.drawable.nimbus_logo);
+                 }
+             });
         }
 
 
