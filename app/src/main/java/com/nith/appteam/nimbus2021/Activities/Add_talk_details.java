@@ -8,14 +8,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.nith.appteam.nimbus2021.Models.TalkModel;
 import com.nith.appteam.nimbus2021.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.Random;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 public class Add_talk_details extends AppCompatActivity {
     private TalkModel talkModel;
@@ -80,8 +81,17 @@ public class Add_talk_details extends AppCompatActivity {
             infoDet.setText(talkModel.getInfo());
             venueDet.setText(talkModel.getVenue());
             dateDet.setText(talkModel.getDate());
-             Picasso.with(getApplicationContext()).load(talkModel.getImage().replace("http://", "https://")).placeholder
-             (R.drawable.black_round_corner).into(imgDet);
+             Picasso.with(getApplicationContext()).load(talkModel.getImage().replace("http://", "https://"))
+                 .into(imgDet, new Callback() {
+                     @Override
+                     public void onSuccess() {
+
+                     }
+                     @Override
+                     public void onError() {
+                        imgDet.setImageResource(R.drawable.nimbus_logo);
+                     }
+                 });
         }
 
 

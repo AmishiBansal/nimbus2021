@@ -109,6 +109,7 @@ public class Schedule extends AppCompatActivity {
                             sch.setTimeSch(date.getFormattedDate());
                             sch.setVenueSch(schObj.getString("venue"));
                             sch.setDeptSch(schObj.getString("department"));
+                            sch.setImagSch(schObj.getString("image"));
                             scheduleModelList.add(sch);
                         }
                         scheduleRecyclerViewAdapter.notifyDataSetChanged();

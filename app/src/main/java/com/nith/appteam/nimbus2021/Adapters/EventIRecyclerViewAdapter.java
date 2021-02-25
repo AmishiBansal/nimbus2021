@@ -16,12 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nith.appteam.nimbus2021.Activities.Add_institute_Activity_Detail;
 import com.nith.appteam.nimbus2021.Models.instituteEvent;
 import com.nith.appteam.nimbus2021.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Random;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EventIRecyclerViewAdapter extends
         RecyclerView.Adapter<EventIRecyclerViewAdapter.ViewHolder> {
@@ -44,7 +43,7 @@ public class EventIRecyclerViewAdapter extends
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Animation animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.fast_anim_v1);
         Random rand = new Random();
         animation.setDuration(rand.nextInt(2000) + 2000);
@@ -59,8 +58,18 @@ public class EventIRecyclerViewAdapter extends
         holder.datEVEI.setText(Ievents.getDateIEVE());
         holder.venueEVEI.setText(Ievents.getVenueIEVE());
         holder.nameEVEI.setText(Ievents.getNameIEVE());
-        Picasso.with(context).load(imageLinkEVE).placeholder(
-                android.R.drawable.ic_btn_speak_now).into(holder.imgEVEVi);
+        Picasso.with(context.getApplicationContext()).load(imageLinkEVE.replace("http", "https"))
+                .resize(90, 90).into(holder.imgEVEVi, new Callback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError() {
+                holder.imgEVEVi.setImageResource(R.drawable.nimbus_logo);
+            }
+        });
 
     }
 
@@ -72,8 +81,7 @@ public class EventIRecyclerViewAdapter extends
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView nameEVEI, datEVEI, infoEVEI, regUrlEVEI, venueEVEI;
-        CircleImageView imgEVEVi;
-        ImageView round_big, round_small;
+        ImageView round_big, round_small, imgEVEVi;
 
         public ViewHolder(@NonNull View itemView, final Context ctx) {
             super(itemView);

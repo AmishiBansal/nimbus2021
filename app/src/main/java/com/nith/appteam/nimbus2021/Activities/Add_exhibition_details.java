@@ -8,14 +8,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.nith.appteam.nimbus2021.Models.ExhibitionModel;
 import com.nith.appteam.nimbus2021.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.Random;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 public class Add_exhibition_details extends AppCompatActivity {
     private ExhibitionModel exhibitionModel;
@@ -82,7 +83,17 @@ public class Add_exhibition_details extends AppCompatActivity {
             dateDetExh.setText(exhibitionModel.getDateExh());
             //  tupeWo.setText(workshopModel.getTypeWor());
              Picasso.with(getApplicationContext()).load(exhibitionModel.getImageExh().replace("http://", "https://"))
-             .placeholder(R.drawable.black_round_corner).into(imgDetExh);
+             .into(imgDetExh, new Callback() {
+                 @Override
+                 public void onSuccess() {
+
+                 }
+
+                 @Override
+                 public void onError() {
+                    imgDetExh.setImageResource(R.drawable.nimbus_logo);
+                 }
+             });
         }
 
 
