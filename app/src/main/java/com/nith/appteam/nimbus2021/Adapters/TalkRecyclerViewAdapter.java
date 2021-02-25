@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nith.appteam.nimbus2021.Activities.Add_talk_details;
 import com.nith.appteam.nimbus2021.Models.TalkModel;
 import com.nith.appteam.nimbus2021.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class TalkRecyclerViewAdapter extends
 
     @Override
 
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Animation animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.fast_anim_v1);
         Random rand = new Random();
         animation.setDuration(rand.nextInt(2000) + 2000);
@@ -59,8 +60,18 @@ public class TalkRecyclerViewAdapter extends
         holder.date.setText(talks.getDate());
         holder.venue.setText(talks.getVenue());
         holder.name.setText(talks.getName());
-        Picasso.with(context.getApplicationContext()).load(imageLink.replace("http", "https")).resize(90, 90).into(
-                holder.imgSpkr);
+        Picasso.with(context.getApplicationContext()).load(imageLink.replace("http", "https"))
+                .resize(90, 90).into(holder.imgSpkr, new Callback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError() {
+                holder.imgSpkr.setImageResource(R.drawable.nimbus_logo);
+            }
+        });
 
 
     }

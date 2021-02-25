@@ -3,7 +3,7 @@ package com.nith.appteam.nimbus2021.Models;
 import java.io.Serializable;
 
 public class ScheduleModel implements Serializable {
-    private String nameSch, venueSch, timeSch, deptSch;
+    private String nameSch, venueSch, timeSch, deptSch, imagSch;
 
     public ScheduleModel() {
     }
@@ -38,5 +38,13 @@ public class ScheduleModel implements Serializable {
 
     public void setDeptSch(String deptSch) {
         this.deptSch = deptSch;
+    }
+
+    public String getImagSch() {
+        return imagSch;
+    }
+
+    public void setImagSch(String imagSch) {
+        this.imagSch = imagSch;
     }
 }

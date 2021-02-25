@@ -21,6 +21,7 @@ import androidx.cardview.widget.CardView;
 
 import com.nith.appteam.nimbus2021.Models.departmentEvent;
 import com.nith.appteam.nimbus2021.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.Random;
@@ -197,8 +198,18 @@ public class Add_deptEvents_detail extends AppCompatActivity {
             dateDetEventsD.setText(dept.getDateDEVE());
             //  typeWo.setText(workshopModel.getTypeWor());
             Log.d("TAG", "getMovDetails: "+dept.getImageDEVE());
-             Picasso.with(getApplicationContext()).load(dept.getImageDEVE().replace("http://", "https://")).placeholder
-             (R.drawable.black_round_corner).into(imgDetEventsD);
+             Picasso.with(getApplicationContext()).load(dept.getImageDEVE().replace("http://", "https://"))
+                     .into(imgDetEventsD, new Callback() {
+                         @Override
+                         public void onSuccess() {
+
+                         }
+
+                         @Override
+                         public void onError() {
+                            imgDetEventsD.setImageResource(R.drawable.nimbus_logo);
+                         }
+                     });
         }
 
 

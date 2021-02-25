@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nith.appteam.nimbus2021.Activities.Add_deptEvents_detail;
 import com.nith.appteam.nimbus2021.Models.departmentEvent;
 import com.nith.appteam.nimbus2021.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class Events_D_RecyclerViewAdapter extends
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         Animation animation = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.fast_anim_v1);
         Random rand = new Random();
@@ -58,7 +59,18 @@ public class Events_D_RecyclerViewAdapter extends
         holder.datEVED.setText(Devents.getDateDEVE());
         holder.venueEVED.setText(Devents.getVenueDEVE());
         holder.nameEVED.setText(Devents.getNameDEVE());
-        Picasso.with(context.getApplicationContext()).load(imageLinkEVED.replace("http", "https")).resize(90, 90).into(holder.imgEVEVD);
+        Picasso.with(context.getApplicationContext()).load(imageLinkEVED.replace("http", "https"))
+                .resize(90, 90).into(holder.imgEVEVD, new Callback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError() {
+                holder.imgEVEVD.setImageResource(R.drawable.nimbus_logo);
+            }
+        });
     }
 
     @Override
