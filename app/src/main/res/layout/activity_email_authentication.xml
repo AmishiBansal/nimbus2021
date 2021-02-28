@@ -136,4 +136,16 @@
             android:visibility="gone" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/forgotpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password ?"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="16dp">
+
+    </TextView>
 </LinearLayout>
