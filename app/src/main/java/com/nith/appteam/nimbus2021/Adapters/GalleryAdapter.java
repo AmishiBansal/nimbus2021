@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,20 +13,18 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nith.appteam.nimbus2021.Activities.ClubsGallery;
-import com.nith.appteam.nimbus2021.Models.ClubDetail;
-import com.nith.appteam.nimbus2021.Models.TeamMember;
+import com.nith.appteam.nimbus2021.Models.GalleryDetail;
 import com.nith.appteam.nimbus2021.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ClubViewHolder> {
-    List<ClubDetail> mClubList;
+    List<GalleryDetail> mdataList;
     Activity mActivity;
 
-    public GalleryAdapter(List<ClubDetail> clubList, FragmentActivity activity) {
-        mClubList = clubList;
+    public GalleryAdapter(List<GalleryDetail> dataList, FragmentActivity activity) {
+        mdataList = dataList;
         mActivity = activity;
     }
 
@@ -40,8 +37,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ClubView
 
     @Override
     public void onBindViewHolder(@NonNull GalleryAdapter.ClubViewHolder holder, int position) {
-        final ClubDetail club = mClubList.get(position);
-        holder.name.setText(club.getName());
+        final GalleryDetail data = mdataList.get(position);
+        holder.name.setText(data.getName());
 //        if (!club.getImageUrl().isEmpty()) {
 //            Picasso.with(mActivity).load(club.getImageUrl()).resize(80, 80).centerCrop().into(
 //                    holder.imageView);
@@ -50,7 +47,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ClubView
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, ClubsGallery.class);
-                intent.putExtra("club_id",club.getClub_id());
+                intent.putExtra("year",data.getYear());
                 mActivity.startActivity(intent);
             }
         });
@@ -59,7 +56,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ClubView
 
     @Override
     public int getItemCount() {
-        return mClubList.size();
+        return mdataList.size();
     }
 
     public class ClubViewHolder extends RecyclerView.ViewHolder {

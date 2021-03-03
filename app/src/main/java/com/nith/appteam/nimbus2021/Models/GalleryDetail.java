@@ -1,18 +1,18 @@
 package com.nith.appteam.nimbus2021.Models;
 
-public class ClubDetail {
+public class GalleryDetail {
 
     String name;
     String imageUrl;
-    int club_id;
-    public ClubDetail(String name, String imageUrl,int club_id) {
+    int year;
+    public GalleryDetail(String name, String imageUrl, int year) {
         this.name = name;
         this.imageUrl = imageUrl;
-        this.club_id = club_id;
+        this.year = year;
     }
-    public ClubDetail(String name,int club_id) {
+    public GalleryDetail(String name, int year) {
         this.name = name;
-        this.club_id = club_id;
+        this.year = year;
     }
 
     public String getName() {
@@ -31,11 +31,11 @@ public class ClubDetail {
         this.imageUrl = imageUrl;
     }
 
-    public int getClub_id() {
-        return club_id;
+    public int getYear() {
+        return year;
     }
 
-    public void setClub_id(int club_id) {
-        this.club_id = club_id;
+    public void setYear(int year) {
+        this.year = year;
     }
 }
