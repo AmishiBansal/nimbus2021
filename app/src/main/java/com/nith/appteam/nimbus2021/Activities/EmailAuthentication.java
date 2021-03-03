@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -40,6 +41,7 @@ public class EmailAuthentication extends AppCompatActivity {
     private String email;
     private FirebaseAuth auth;
     private ProgressDialog pd;
+    private TextView forgotpass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +77,7 @@ public class EmailAuthentication extends AppCompatActivity {
                     {
                         mpass.setVisibility(View.VISIBLE);
                         done.setVisibility(View.VISIBLE);
+                        forgotpass.setVisibility(View.VISIBLE);
                         memail.setErrorEnabled(false);
                         memail.getEditText().setFocusable(false);
                     }
@@ -133,6 +136,12 @@ public class EmailAuthentication extends AppCompatActivity {
                         }
                     }
                 }
+            }
+        });
+        forgotpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EmailAuthentication.this,ForgotPass.class));
             }
         });
     }
@@ -236,6 +245,7 @@ public class EmailAuthentication extends AppCompatActivity {
         next = findViewById(R.id.login_next);
         done = findViewById(R.id.login_done);
         auth = FirebaseAuth.getInstance();
+        forgotpass = findViewById(R.id.forgotpass);
     }
 
     @Override

@@ -12,11 +12,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -40,18 +46,19 @@ public class ClubsGallery extends AppCompatActivity {
     private Handler sliderHandler = new Handler();
     private String uid;
     private SliderAdapter adapter;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clubs_gallery);
         viewPager2 = findViewById(R.id.viewpager);
+        progressBar = findViewById(R.id.progress_bar);
         SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
         uid = sharedPreferences.getString("firebaseUid", null);
 
         final int club_id = getIntent().getIntExtra("club_id",0);
         Log.e("clubId",""+club_id);
         SliderItemsList = new ArrayList<>();
-
         RequestQueue queue = Volley.newRequestQueue(ClubsGallery.this);
         StringRequest request = new StringRequest(Request.Method.GET, getString(R.string.baseUrl) + "/gallery?dept_id="+club_id, new Response.Listener<String>() {
             @Override
@@ -66,15 +73,51 @@ public class ClubsGallery extends AppCompatActivity {
                         Log.e("url", String.valueOf(SliderItemsList.get(i).getImage()));
                     }
                     adapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("error",e.toString());
+
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("VolleyError",error.toString());
+                progressBar.setVisibility(View.GONE);
+                String message = null;
+                if (error instanceof NetworkError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                    Log.e("error", message);
+                    finish();
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                    Log.e("error", message);
+                    finish();
+                } else if (error instanceof AuthFailureError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                    Log.e("error", message);
+                    finish();
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                    Log.e("error", message);
+                    finish();
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                    Log.e("error", message);
+                    finish();
+                }
+                else
+                {
+                    Log.e("VOLLEY", error.toString());
+                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         })
         {

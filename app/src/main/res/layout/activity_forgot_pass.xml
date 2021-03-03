@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".Activities.ForgotPass">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_above="@+id/forgotpass_email"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:text="We will send a link to the email provided by you below (Provide your official college email) through which you can reset your password"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+    </TextView>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/forgotpass_email"
+        android:layout_marginTop="8dp"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/white"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/send_mail_forgotpass"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/email_auth_button"
+        android:layout_marginTop="20dp"
+        android:padding="8dp"
+        android:layout_below="@+id/forgotpass_email"
+        android:layout_centerHorizontal="true"
+        android:text="Send mail"/>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/send_mail_forgotpass"
+        android:layout_below="@+id/forgotpass_email"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone">
+
+    </ProgressBar>
+</RelativeLayout>

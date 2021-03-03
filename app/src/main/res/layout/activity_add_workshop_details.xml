@@ -233,14 +233,37 @@
                                 android:layout_margin="16dp"
                                 android:gravity="start"
                                 android:orientation="vertical">
-                                <ImageView
-                                    android:id="@+id/workshopImageIDDetail"
+
+                                <androidx.cardview.widget.CardView
                                     android:layout_width="match_parent"
-                                    android:layout_height="200dp"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_centerVertical="true"
+                                    android:layout_height="wrap_content"
                                     android:layout_margin="16dp"
-                                    android:src="@color/black" />
+                                    app:cardBackgroundColor="@color/white"
+                                    app:cardCornerRadius="@dimen/cardCornerRadius"
+                                    app:cardElevation="0dp"
+                                    app:cardPreventCornerOverlap="true">
+
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        app:cardBackgroundColor="@color/white"
+                                        app:cardCornerRadius="@dimen/cardCornerRadius"
+                                        app:cardElevation="0dp"
+                                        android:layout_margin="4dp"
+                                        app:cardPreventCornerOverlap="true">
+
+                                        <ImageView
+                                            android:id="@+id/workshopImageIDDetail"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="200dp"
+                                            android:layout_alignParentLeft="true"
+                                            android:layout_centerVertical="true"
+                                            android:scaleType="fitXY"
+                                            android:src="@color/black" />
+
+                                    </androidx.cardview.widget.CardView>
+
+                                </androidx.cardview.widget.CardView>
 
                                 <com.nith.appteam.nimbus2021.Utils.GradientTextView
                                     android:id="@+id/NameIDDetWor"

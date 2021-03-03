@@ -195,18 +195,18 @@ public class Add_institute_Activity_Detail extends AppCompatActivity {
             venueDetEventsI.setText(instituteEvent.getVenueIEVE());
             dateDetEventsI.setText(instituteEvent.getDateIEVE());
             //  tupeWo.setText(workshopModel.getTypeWor());
-            Picasso.with(getApplicationContext()).load(instituteEvent.getImageIEVE().replace("http://", "https://"))
-                    .into(imgDetEventsI, new Callback() {
-                        @Override
-                        public void onSuccess() {
+             Picasso.with(getApplicationContext()).load(instituteEvent.getImageIEVE().replace("http://", "https://"))
+             .into(imgDetEventsI, new Callback() {
+                 @Override
+                 public void onSuccess() {
 
-                        }
+                 }
 
-                        @Override
-                        public void onError() {
-                            imgDetEventsI.setImageResource(R.drawable.nimbus_logo);
-                        }
-                    });
+                 @Override
+                 public void onError() {
+                    imgDetEventsI.setImageResource(R.drawable.nimbus_logo);
+                 }
+             });
         }
 
 
