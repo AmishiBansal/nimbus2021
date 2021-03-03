@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +24,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.nith.appteam.nimbus2021.Adapters.Events_D_RecyclerViewAdapter;
 import com.nith.appteam.nimbus2021.Adapters.GalleryAdapter;
-import com.nith.appteam.nimbus2021.Adapters.OurTeamAdapter;
-import com.nith.appteam.nimbus2021.Models.ClubDetail;
-import com.nith.appteam.nimbus2021.Models.TeamMember;
-import com.nith.appteam.nimbus2021.Models.departmentEvent;
+import com.nith.appteam.nimbus2021.Models.GalleryDetail;
 import com.nith.appteam.nimbus2021.R;
 import com.nith.appteam.nimbus2021.Utils.Constant;
 
@@ -38,7 +33,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +44,7 @@ public class Gallery extends Fragment {
     private Context context;
     private RequestQueue requestQueueClubs;
     GalleryAdapter galleryAdapter;
-    List<ClubDetail> clubList = new ArrayList<>();
+    List<GalleryDetail> clubList = new ArrayList<>();
     Map<String,Integer> mapClubs=new HashMap<String,Integer>();
     public Gallery(Context context) {this.context = context; }
 
@@ -88,10 +82,10 @@ public class Gallery extends Fragment {
 
 //        clubList.add(new ClubDetail("Hermetica","https://scontent.fslv1-2.fna.fbcdn.net/v/t1.0-9/84570307_2600774863478544_2688631209260482560_n.jpg?_nc_cat=101&ccb=3&_nc_sid=85a577&_nc_ohc=yKo1sioroQYAX8HJ2vg&_nc_ht=scontent.fslv1-2.fna&oh=b16c5ee401f1fa74bacac1dbb145eb26&oe=605389DD",3));
 //        clubList.add(new ClubDetail("App Team","https://avatars.githubusercontent.com/u/17087131?s=200&v=4",12));
-        clubList.add(new ClubDetail("2k16",9));
-        clubList.add(new ClubDetail("2k17",9));
-        clubList.add(new ClubDetail("2k18",9));
-        clubList.add(new ClubDetail("2k19",9));
+        clubList.add(new GalleryDetail("2k16",2016));
+        clubList.add(new GalleryDetail("2k17",2017));
+        clubList.add(new GalleryDetail("2k18",2018));
+        clubList.add(new GalleryDetail("2k19",2019));
         galleryAdapter = new GalleryAdapter(clubList, getActivity());
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
@@ -115,7 +109,7 @@ public class Gallery extends Fragment {
                         int club_id = 0;
                         if(mapClubs.get(talkObj.getString("name").toLowerCase())!=null)
                             club_id = mapClubs.get(talkObj.getString("name").toLowerCase());
-                        ClubDetail cDetail = new ClubDetail(talkObj.getString("name"),talkObj.getString("image").replace("http://","https://"),club_id);
+                        GalleryDetail cDetail = new GalleryDetail(talkObj.getString("name"),talkObj.getString("image").replace("http://","https://"),club_id);
                         clubList.add(cDetail);
                         galleryAdapter.notifyDataSetChanged();
 
