@@ -42,10 +42,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ClubView
     public void onBindViewHolder(@NonNull GalleryAdapter.ClubViewHolder holder, int position) {
         final ClubDetail club = mClubList.get(position);
         holder.name.setText(club.getName());
-        if (!club.getImageUrl().isEmpty()) {
-            Picasso.with(mActivity).load(club.getImageUrl()).resize(80, 80).centerCrop().into(
-                    holder.imageView);
-        }
+//        if (!club.getImageUrl().isEmpty()) {
+//            Picasso.with(mActivity).load(club.getImageUrl()).resize(80, 80).centerCrop().into(
+//                    holder.imageView);
+//        }
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,13 +63,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ClubView
     }
 
     public class ClubViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+//        ImageView imageView;
         TextView name;
         CardView cv;
 
         public ClubViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.club_image);
+//            imageView = itemView.findViewById(R.id.club_image);
             name = itemView.findViewById(R.id.name);
             cv = itemView.findViewById(R.id.clubs_cardview);
         }

@@ -10,6 +10,10 @@ public class ClubDetail {
         this.imageUrl = imageUrl;
         this.club_id = club_id;
     }
+    public ClubDetail(String name,int club_id) {
+        this.name = name;
+        this.club_id = club_id;
+    }
 
     public String getName() {
         return name;

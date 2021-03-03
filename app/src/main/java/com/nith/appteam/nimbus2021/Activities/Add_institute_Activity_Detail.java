@@ -119,7 +119,7 @@ public class Add_institute_Activity_Detail extends AppCompatActivity {
 
                         @Override
                         public boolean shouldOverrideUrlLoading(WebView view,
-                                WebResourceRequest request) {
+                                                                WebResourceRequest request) {
                             view.loadUrl(myPdfUrl);
                             if (!pd.isShowing()) {
                                 pd.show();
