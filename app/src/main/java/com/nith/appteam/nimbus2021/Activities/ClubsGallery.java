@@ -56,11 +56,11 @@ public class ClubsGallery extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
         uid = sharedPreferences.getString("firebaseUid", null);
 
-        final int club_id = getIntent().getIntExtra("club_id",0);
-        Log.e("clubId",""+club_id);
+        final int year = getIntent().getIntExtra("year",0);
+        Log.e("year",""+year);
         SliderItemsList = new ArrayList<>();
         RequestQueue queue = Volley.newRequestQueue(ClubsGallery.this);
-        StringRequest request = new StringRequest(Request.Method.GET, getString(R.string.baseUrl) + "/gallery?dept_id="+club_id, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.GET, getString(R.string.baseUrl) + "/gallery?year="+year, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e("responseimg",response);

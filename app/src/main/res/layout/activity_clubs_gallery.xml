@@ -21,7 +21,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="288dp"
+        android:layout_height="240dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
         android:layout_centerHorizontal="true"
