@@ -8,6 +8,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,14 +40,63 @@ public class EmailAuthentication extends AppCompatActivity {
 
     private TextInputLayout memail,mpass,merror,mrepass;
     private Button next,done;
-    private String email;
+    private String email,pass,repass;
     private FirebaseAuth auth;
     private ProgressDialog pd;
     private TextView forgotpass;
+    private TextWatcher mrepasstextwatcher,mpasstextwatcher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_authentication);
+        mrepasstextwatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(!s.toString().equals(pass))
+                {
+                    Log.e("watcher",s.toString());
+                    mrepass.setError("Password Does Not Match");
+                }
+                else
+                    {
+                        mrepass.setErrorEnabled(false);
+                    }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        };
+        mpasstextwatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(!s.toString().equals(repass) && repass!=null)
+                {
+                    Log.e("watcher",s.toString());
+                    mrepass.setError("Password Does Not Match");
+                }
+                else
+                {
+                    mrepass.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
         initViews();
         setOnClick();
     }
@@ -89,11 +140,63 @@ public class EmailAuthentication extends AppCompatActivity {
                         mpass.setHint("Create Password");
                         memail.setErrorEnabled(false);
                         memail.getEditText().setFocusable(false);
+
+                        mpass.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                            @Override
+                            public void onFocusChange(View v, boolean hasFocus) {
+                                pass = mpass.getEditText().getText().toString();
+                                mpass.setErrorEnabled(false);
+                                if(!hasFocus)
+                                {
+                                    if(pass.isEmpty())
+                                    {
+                                        mpass.setError("Required Field");
+                                    }
+                                    else if(pass.length()<6)
+                                    {
+                                        mpass.setError("Password Length must be greater than or equals 6");
+                                    }
+                                }
+                                else
+                                {
+                                    mpass.getEditText().addTextChangedListener(mpasstextwatcher);
+                                }
+                            }
+                        });
+                        mrepass.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                            @Override
+                            public void onFocusChange(View v, boolean hasFocus) {
+                                repass = mrepass.getEditText().getText().toString();
+                                if(!hasFocus)
+                                {
+                                    mrepass.setErrorEnabled(false);
+                                    Log.e("focus","not has focus");
+                                    if(repass.isEmpty())
+                                    {
+                                        mrepass.setError("Field Required");
+                                    }
+                                    else if(!repass.equals(pass))
+                                    {
+                                        mrepass.setError("Password Does Not Match");
+                                    }
+                                }
+                                else
+                                {
+                                    Log.e("focus","has focus");
+                                    if(!repass.equals(pass))
+                                    {
+                                        mrepass.setError("Password Does Not Match");
+                                    }
+                                    mrepass.getEditText().addTextChangedListener(mrepasstextwatcher);
+                                }
+                            }
+                        });
                     }
 
                 }
             }
         });
+
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
