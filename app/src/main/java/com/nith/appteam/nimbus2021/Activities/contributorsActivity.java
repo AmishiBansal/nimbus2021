@@ -45,8 +45,8 @@ public class contributorsActivity extends AppCompatActivity {
         // super final year
         TeamMembers.add(new TeamMember("Kartik Saxena", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338002/kartiksir_bqs6yf.jpg",
                 "Mentor"));
-//        TeamMembers.add(new TeamMember("Muskan Jhunjhunwalla", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338004/muskan_q6pwkl.jpg",
-//                "Mentor"));
+        TeamMembers.add(new TeamMember("Muskan Jhunjhunwalla", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338004/muskan_q6pwkl.jpg",
+                "Mentor"));
 //        TeamMembers.add(new TeamMember("Bharat Shah", "https://res.cloudinary.com/duutozrvz/image/upload/c_scale,w_120/v1583177302/personal/bharat_jnycze.jpg",
 //                "Mentor"));
 //        TeamMembers.add(new TeamMember("Anubhaw Bhalotia", "https://res.cloudinary.com/duutozrvz/image/upload/c_scale,w_120/v1583176373/personal/anubhav_pdbqdy.jpg",
