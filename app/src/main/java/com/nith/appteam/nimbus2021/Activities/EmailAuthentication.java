@@ -81,7 +81,7 @@ public class EmailAuthentication extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(!s.toString().equals(repass) && repass!=null)
+                if(!s.toString().equals(mrepass.getEditText().getText().toString()) && !mrepass.getEditText().getText().toString().isEmpty())
                 {
                     Log.e("watcher",s.toString());
                     mrepass.setError("Password Does Not Match");
