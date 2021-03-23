@@ -85,7 +85,7 @@ public class contributorsActivity extends AppCompatActivity {
         TeamMembers.add(new TeamMember("Ayush Kaushal", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338000/ayush_dew6ea_lzgs8u.jpg",
                 "Mentor"));
         TeamMembers.add(new TeamMember("Chandan Sitlani", "https://avatars.githubusercontent.com/u/40667874?s=460&v=4",
-                "ChandanSitlani"));
+                "Mentor"));
         TeamMembers.add(new TeamMember("Shreya Agarwal", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338005/shreya_hebdh9.png",
                 "Mentor"));
         TeamMembers.add(new TeamMember("Amishi Bansal","https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611337999/amishi_fuxwcu.jpg",

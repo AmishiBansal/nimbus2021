@@ -2,20 +2,22 @@ package com.nith.appteam.nimbus2021.Activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,19 +28,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.nith.appteam.nimbus2021.R;
 import com.nith.appteam.nimbus2021.Utils.Constant;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Videocall_Joining extends AppCompatActivity {
 
@@ -98,37 +102,118 @@ public class Videocall_Joining extends AppCompatActivity {
 
         videoJoin = findViewById(R.id.video_join);
         requestQueue = Volley.newRequestQueue(Videocall_Joining.this);
-        if(getIntent().hasExtra("uid2"))
+        if(getIntent().hasExtra("uid2") && getIntent().hasExtra("channel"))
         {
-            new AlertDialog.Builder(Videocall_Joining.this)
-                    .setTitle("Report")
-                    .setMessage("Wanna Report Previous User ?")
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            RequestQueue queue =  Volley.newRequestQueue(Videocall_Joining.this);
-                            StringRequest request = new StringRequest(Request.Method.GET, Constant.Url + "/omegle_clone/report/" + getIntent().getStringExtra("uid2"), new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    Log.e("ReportResponse",response);
-                                }
-                            }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.e("Error",error.toString());
-                                }
-                            });
-                            queue.add(request);
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Log.e("onclick","No");
-                        }
-                    })
-                    .show();
+            ViewGroup viewGroup = findViewById(R.id.content);
+            final View dialogView = LayoutInflater.from(Videocall_Joining.this).inflate(R.layout.custom_dialog_report, viewGroup, false);
+
+            Button report_true = dialogView.findViewById(R.id.button_report_yes);
+            Button report_false = dialogView.findViewById(R.id.button_report_no);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(dialogView);
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            alertDialog.show();
+
+            report_true.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    EditText reason_edit = alertDialog.findViewById(R.id.edit_report_reason);
+                    final String reason_for_reporting = reason_edit.getText().toString().trim();
+
+                    if (!reason_for_reporting.isEmpty() && reason_for_reporting.length() != 0) {
+                        RequestQueue requestQueue = Volley.newRequestQueue(Videocall_Joining.this);
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.Url + "omegle_clone/report/", new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.e("Report", response);
+                                Toast.makeText(getApplicationContext(), "Previous user reported successfully", Toast.LENGTH_SHORT).show();
+                                alertDialog.dismiss();
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("Error report", error.toString());
+                                Toast.makeText(getApplicationContext(), "Report unsuccessful", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                sharedPref = getSharedPreferences("app", MODE_PRIVATE);
+                                uid = sharedPref.getString("firebaseUid","");
+
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("channel", getIntent().getStringExtra("channel"));
+                                params.put("reporter", uid);
+                                params.put("reported", getIntent().getStringExtra("uid2"));
+                                params.put("reason", reason_for_reporting);
+                                Log.e("report data", params.toString());
+                                return params;
+                            }
+
+                            @Override
+                            public Map<String, String> getHeaders() {
+                                sharedPref = getSharedPreferences("app", MODE_PRIVATE);
+                                uid = sharedPref.getString("firebaseUid","");
+                                HashMap<String, String> headers = new HashMap<String, String>();
+                                headers.put("Authorization", uid);
+                                Log.d(Videocall_Joining.class.getSimpleName(), "getHeaders: " + uid);
+                                return headers;
+                            }
+                        };
+                        stringRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
+                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+                        ));
+                        requestQueue.add(stringRequest);
+                    } else {
+                        reason_edit.setError("Please give reason to report the user");
+                        reason_edit.setText(" ");
+                    }
+
+                }
+            });
+
+
+            report_false.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+//            new AlertDialog.Builder(Videocall_Joining.this)
+//                    .setTitle("Report")
+//                    .setMessage("Wanna Report Previous User ?")
+//                    .setIcon(android.R.drawable.ic_dialog_alert)
+//                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            RequestQueue queue =  Volley.newRequestQueue(Videocall_Joining.this);
+//                            StringRequest request = new StringRequest(Request.Method.GET, Constant.Url + "/omegle_clone/report/" + getIntent().getStringExtra("uid2"), new Response.Listener<String>() {
+//                                @Override
+//                                public void onResponse(String response) {
+//                                    Log.e("ReportResponse",response);
+//                                }
+//                            }, new Response.ErrorListener() {
+//                                @Override
+//                                public void onErrorResponse(VolleyError error) {
+//                                    Log.e("Error",error.toString());
+//                                }
+//                            });
+//                            queue.add(request);
+//                        }
+//                    })
+//                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            Log.e("onclick","No");
+//                        }
+//                    })
+//                    .show();
         }
         videoJoin.setOnClickListener(new View.OnClickListener() {
             @Override
