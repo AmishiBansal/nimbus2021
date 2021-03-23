@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -125,7 +126,7 @@ public class Videocall_Joining extends AppCompatActivity {
 
                     if (!reason_for_reporting.isEmpty() && reason_for_reporting.length() != 0) {
                         RequestQueue requestQueue = Volley.newRequestQueue(Videocall_Joining.this);
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.Url + "omegle_clone/report/", new Response.Listener<String>() {
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://13.71.16.202:8000/omegle_clone/report/", new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 Log.e("Report", response);
@@ -135,11 +136,17 @@ public class Videocall_Joining extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e("Error report", error.toString());
+                                Log.e("Error report", String.valueOf(error.getMessage()));
                                 Toast.makeText(getApplicationContext(), "Report unsuccessful", Toast.LENGTH_SHORT).show();
 
                             }
                         }) {
+                            @Override
+                            public String getBodyContentType() {
+                                return "application/x-www-form-urlencoded; charset=UTF-8";
+                            }
+
+
                             @Override
                             protected Map<String, String> getParams() {
                                 sharedPref = getSharedPreferences("app", MODE_PRIVATE);
@@ -155,12 +162,12 @@ public class Videocall_Joining extends AppCompatActivity {
                             }
 
                             @Override
-                            public Map<String, String> getHeaders() {
+                            public Map<String, String> getHeaders() throws AuthFailureError {
                                 sharedPref = getSharedPreferences("app", MODE_PRIVATE);
                                 uid = sharedPref.getString("firebaseUid","");
                                 HashMap<String, String> headers = new HashMap<String, String>();
                                 headers.put("Authorization", uid);
-                                Log.d(Videocall_Joining.class.getSimpleName(), "getHeaders: " + uid);
+                                Log.d("get_headers", "getHeaders: " + uid);
                                 return headers;
                             }
                         };
