@@ -47,12 +47,12 @@ public class Quiz extends AppCompatActivity {
     Button option2;
     Button option3;
     String result = "";
+    int a;
     Button option4;
     RequestQueue requestQueue;
     List<QuestionData> questions = new ArrayList<>();
     int counter = 0;
     CountDownTimer timer = null;
-    int a[] = {10,15,20,25};
     JSONArray mJSONArray;
     ProgressDialog progressDialog;
 
@@ -128,6 +128,7 @@ public class Quiz extends AppCompatActivity {
                 try {
                     jsonObject.put("questionId", questions.get(counter).getQuestionid());
                     jsonObject.put("answerId", questions.get(counter).getOptionid_1());
+                    jsonObject.put("timeTaken",String.valueOf(a));
                     mJSONArray.put(jsonObject);
 
                 } catch (JSONException e) {
@@ -147,6 +148,7 @@ public class Quiz extends AppCompatActivity {
                 try {
                     jsonObject.put("questionId", questions.get(counter).getQuestionid());
                     jsonObject.put("answerId", questions.get(counter).getOptionid_2());
+                    jsonObject.put("timeTaken",String.valueOf(a));
                     mJSONArray.put(jsonObject);
 
                 } catch (JSONException e) {
@@ -163,6 +165,7 @@ public class Quiz extends AppCompatActivity {
                 try {
                     jsonObject.put("questionId", questions.get(counter).getQuestionid());
                     jsonObject.put("answerId", questions.get(counter).getOptionid_3());
+                    jsonObject.put("timeTaken",String.valueOf(a));
                     mJSONArray.put(jsonObject);
 
                 } catch (JSONException e) {
@@ -179,6 +182,7 @@ public class Quiz extends AppCompatActivity {
                 try {
                     jsonObject.put("questionId", questions.get(counter).getQuestionid());
                     jsonObject.put("answerId", questions.get(counter).getOptionid_4());
+                    jsonObject.put("timeTaken",String.valueOf(a));
                     mJSONArray.put(jsonObject);
 
                 } catch (JSONException e) {
@@ -282,6 +286,7 @@ public class Quiz extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
                 timeview.setText(millisUntilFinished / 1000 + "s");
+                a = (int) (questions.get(counter).getTimeLimit()-millisUntilFinished/1000);
                 if(timeview.getText().toString().equals("0")){
                     timer.onFinish();
                 }
@@ -296,6 +301,7 @@ public class Quiz extends AppCompatActivity {
                     try {
                         jsonObject.put("questionId", questions.get(counter).getQuestionid());
                         jsonObject.put("answerId", questions.get(counter).getOption_chosen());
+                        jsonObject.put("timeTaken",questions.get(counter).getTimeLimit());
                         mJSONArray.put(jsonObject);
                     } catch (JSONException e) {
                         e.printStackTrace();
