@@ -9,10 +9,13 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -21,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.nith.appteam.nimbus2021.Models.QuestionData;
 import com.nith.appteam.nimbus2021.R;
 import com.nith.appteam.nimbus2021.Utils.Constant;
@@ -37,6 +41,8 @@ import java.util.Map;
 
 public class Quiz extends AppCompatActivity {
     TextView questionView, questionnumber, timeview;
+    ImageView quesImg,opt1img,opt2img,opt3img,opt4img;
+    CardView c1,c2,c3,c4;
     Button option1;
     Button option2;
     Button option3;
@@ -45,7 +51,8 @@ public class Quiz extends AppCompatActivity {
     RequestQueue requestQueue;
     List<QuestionData> questions = new ArrayList<>();
     int counter = 0;
-    CountDownTimer timer;
+    CountDownTimer timer = null;
+    int a[] = {10,15,20,25};
     JSONArray mJSONArray;
     ProgressDialog progressDialog;
 
@@ -55,7 +62,7 @@ public class Quiz extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
         mJSONArray = new JSONArray();
         //  Objects.requireNonNull(getSupportActionBar()).hide();
-        timer = new CountDownTimer(15000, 1000) {
+        timer = new CountDownTimer(15*1000, 1000) {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
                 timeview.setText(millisUntilFinished / 1000 + "s");
@@ -99,6 +106,16 @@ public class Quiz extends AppCompatActivity {
         option2 = findViewById(R.id.option2);
         option3 = findViewById(R.id.option3);
         option4 = findViewById(R.id.option4);
+        quesImg = findViewById(R.id.quesImg);
+        opt1img = findViewById(R.id.optionimg1);
+        opt2img = findViewById(R.id.optionimg2);
+        opt3img = findViewById(R.id.optionimg3);
+        opt4img = findViewById(R.id.optionimg4);
+        c1 = findViewById(R.id.cimg1);
+        c2 = findViewById(R.id.cimg2);
+        c3 = findViewById(R.id.cimg3);
+        c4 = findViewById(R.id.cimg4);
+
         requestQueue = Volley.newRequestQueue(this);
         getQuestions();
 
@@ -175,14 +192,129 @@ public class Quiz extends AppCompatActivity {
     }
 
     private void updateQuestion() {
+        c1.setVisibility(View.GONE);
+        c2.setVisibility(View.GONE);
+        c3.setVisibility(View.GONE);
+        c4.setVisibility(View.GONE);
+        quesImg.setVisibility(View.GONE);
         questionView.setText(questions.get(counter).getQuestion());
-        option1.setText(questions.get(counter).getOption_1());
-        option2.setText(questions.get(counter).getOption_2());
-        option3.setText(questions.get(counter).getOption_3());
-        option4.setText(questions.get(counter).getOption_4());
+        if(!questions.get(counter).getQuesImage().contains("null") && !questions.get(counter).getQuesImage().isEmpty()){
+            quesImg.setVisibility(View.VISIBLE);
+            Glide.with(Quiz.this).load(questions.get(counter).getQuesImage()).placeholder(R.color.black).into(quesImg);
+        }
+
+//        option1.setText(questions.get(counter).getOption_1());
+//        option2.setText(questions.get(counter).getOption_2());
+//        option3.setText(questions.get(counter).getOption_3());
+//        option4.setText(questions.get(counter).getOption_4());
+        if(questions.get(counter).getOptionCount()==2){
+            option3.setVisibility(View.GONE);
+            option4.setVisibility(View.GONE);
+            option1.setText(questions.get(counter).getOption_1());
+            option2.setText(questions.get(counter).getOption_2());
+            if(!questions.get(counter).getOptionimg_1().contains("null") && !questions.get(counter).getOptionimg_1().isEmpty()){
+                c1.setVisibility(View.VISIBLE);
+                option1.setText("Option 1");
+
+                Glide.with(Quiz.this).load(questions.get(counter).getOptionimg_1()).placeholder(R.color.black).into(opt1img);
+            }
+            if(!questions.get(counter).getOptionimg_2().contains("null") && !questions.get(counter).getOptionimg_2().isEmpty()){
+                c2.setVisibility(View.VISIBLE);
+                option2.setText("Option 2");
+
+                Glide.with(Quiz.this).load(questions.get(counter).getOptionimg_2()).placeholder(R.color.black).into(opt2img);
+            }
+        }
+        else if(questions.get(counter).getOptionCount()==3){
+            option3.setVisibility(View.VISIBLE);
+            option4.setVisibility(View.GONE);
+            option1.setText(questions.get(counter).getOption_1());
+            option2.setText(questions.get(counter).getOption_2());
+            option3.setText(questions.get(counter).getOption_3());
+            if(!questions.get(counter).getOptionimg_1().contains("null") && !questions.get(counter).getOptionimg_1().isEmpty()){
+                c1.setVisibility(View.VISIBLE);
+                option1.setText("Option 1");
+                Glide.with(Quiz.this).load(questions.get(counter).getOptionimg_1()).placeholder(R.color.black).into(opt1img);
+            }
+            if(!questions.get(counter).getOptionimg_2().contains("null") && !questions.get(counter).getOptionimg_2().isEmpty()){
+                c2.setVisibility(View.VISIBLE);
+                option2.setText("Option 2");
+                Glide.with(Quiz.this).load(questions.get(counter).getOptionimg_2()).placeholder(R.color.black).into(opt2img);
+            }
+            if(!questions.get(counter).getOptionimg_3().contains("null") && !questions.get(counter).getOptionimg_3().isEmpty()){
+                c3.setVisibility(View.VISIBLE);
+                option3.setText("Option 3");
+                Glide.with(Quiz.this).load(questions.get(counter).getOptionimg_2()).placeholder(R.color.black).into(opt3img);
+            }
+        }
+        else if(questions.get(counter).getOptionCount()==4){
+            option3.setVisibility(View.VISIBLE);
+            option4.setVisibility(View.VISIBLE);
+            option1.setText(questions.get(counter).getOption_1());
+            option2.setText(questions.get(counter).getOption_2());
+            option3.setText(questions.get(counter).getOption_3());
+            option4.setText(questions.get(counter).getOption_4());
+            if(!questions.get(counter).getOptionimg_1().contains("null") && !questions.get(counter).getOptionimg_1().isEmpty()){
+                c1.setVisibility(View.VISIBLE);
+                Glide.with(Quiz.this).load(questions.get(counter).getOptionimg_1()).placeholder(R.color.black).into(opt1img);
+                option1.setText("Option 1");
+            }
+            if(!questions.get(counter).getOptionimg_2().contains("null") && !questions.get(counter).getOptionimg_2().isEmpty()){
+                c2.setVisibility(View.VISIBLE);
+                Glide.with(Quiz.this).load(questions.get(counter).getOptionimg_2()).placeholder(R.color.black).into(opt2img);
+                option2.setText("Option 2");
+            }
+            if(!questions.get(counter).getOptionimg_3().contains("null") && !questions.get(counter).getOptionimg_3().isEmpty()){
+                c3.setVisibility(View.VISIBLE);
+                Glide.with(Quiz.this).load(questions.get(counter).getOptionimg_2()).placeholder(R.color.black).into(opt3img);
+                option3.setText("Option 3");
+            }
+            if(!questions.get(counter).getOptionimg_4().contains("null") && !questions.get(counter).getOptionimg_4().isEmpty()){
+                c4.setVisibility(View.VISIBLE);
+                Glide.with(Quiz.this).load(questions.get(counter).getOptionimg_4()).placeholder(R.color.black).into(opt4img);
+                option4.setText("Option 4");
+            }
+        }
         questionnumber.setText("Q" + (counter + 1));
         questions.get(counter).setOption_chosen(30000);
+        timer.cancel();
+        timer = new CountDownTimer(questions.get(counter).getTimeLimit()*1000, 1000) {
+            @SuppressLint("SetTextI18n")
+            public void onTick(long millisUntilFinished) {
+                timeview.setText(millisUntilFinished / 1000 + "s");
+                if(timeview.getText().toString().equals("0")){
+                    timer.onFinish();
+                }
+            }
+
+
+            public void onFinish() {
+
+                if (questions.get(counter).getOption_chosen() == 30000) {
+
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("questionId", questions.get(counter).getQuestionid());
+                        jsonObject.put("answerId", questions.get(counter).getOption_chosen());
+                        mJSONArray.put(jsonObject);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                counter++;
+                if (counter < questions.size() && questions.size() > 0) {
+                    updateQuestion();
+                } else {
+
+                    Log.e("else", "else");
+
+                    getscore();
+                }
+            }
+        };
         timer.start();
+
 
     }
 
@@ -202,8 +334,9 @@ public class Quiz extends AppCompatActivity {
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     QuestionData question = new QuestionData(
-                            jsonArray.getJSONObject(i).getString("id"),
+
                             jsonArray.getJSONObject(i).getString("text"),
+                            jsonArray.getJSONObject(i).getString("id"),
                             jsonArray.getJSONObject(i).getJSONObject("option1").getString("text"),
                             jsonArray.getJSONObject(i).getJSONObject("option2").getString("text"),
                             jsonArray.getJSONObject(i).getJSONObject("option3").getString("text"),
@@ -211,7 +344,14 @@ public class Quiz extends AppCompatActivity {
                             jsonArray.getJSONObject(i).getJSONObject("option1").getString("id"),
                             jsonArray.getJSONObject(i).getJSONObject("option2").getString("id"),
                             jsonArray.getJSONObject(i).getJSONObject("option3").getString("id"),
-                            jsonArray.getJSONObject(i).getJSONObject("option4").getString("id"));
+                            jsonArray.getJSONObject(i).getJSONObject("option4").getString("id"),
+                            jsonArray.getJSONObject(i).getJSONObject("option1").getString("image"),
+                            jsonArray.getJSONObject(i).getJSONObject("option2").getString("image"),
+                            jsonArray.getJSONObject(i).getJSONObject("option3").getString("image"),
+                            jsonArray.getJSONObject(i).getJSONObject("option4").getString("image"),
+                            jsonArray.getJSONObject(i).getString("image"),
+                            jsonArray.getJSONObject(i).getInt("optionCount"),
+                            jsonArray.getJSONObject(i).getInt("timeLimit"));
                     questions.add(question);
 
 
@@ -311,7 +451,8 @@ public class Quiz extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 SharedPreferences sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
-                String UID = sharedPreferences.getString("firebaseUid","");
+//                String UID = sharedPreferences.getString("firebaseUid","");
+                String UID = "123456";
                 HashMap<String, String> headers = new HashMap<String, String>();
                 Log.d("TAG", "getHeaders: "+UID);
                 headers.put("Authorization", UID);
