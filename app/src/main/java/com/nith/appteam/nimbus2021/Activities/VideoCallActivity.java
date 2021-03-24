@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
@@ -36,7 +35,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.agora.rtc.IRtcEngineEventHandler;
-import io.agora.rtc.RtcChannel;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
 import io.agora.rtc.video.VideoEncoderConfiguration;
@@ -167,6 +165,7 @@ public class VideoCallActivity extends AppCompatActivity {
                         Intent intent = new Intent(VideoCallActivity.this,Videocall_Joining.class);
                         intent.putExtra("VideoEnd",true);
                         intent.putExtra("uid2",getIntent().getStringExtra("uid2"));
+                        intent.putExtra("channel", getIntent().getStringExtra("channel"));
                         startActivity(intent);
                         finish();
 
@@ -236,27 +235,27 @@ public class VideoCallActivity extends AppCompatActivity {
         // This is just an example set of permissions. Other permissions
         // may be needed, and please refer to our online documents.
 
-        handler = new Handler();
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                Sendlog();
-            }
-        };
-        Sendlog();
+//        handler = new Handler();
+//        runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                sendLog();
+//            }
+//        };
+//        sendLog();
         getRemotename();
         initEngineAndJoinChannel();
 
 
     }
 
-    private void Sendlog() {
+    private void sendLog() {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         StringRequest request = new StringRequest(Request.Method.GET, getString(R.string.baseUrl)+"/omegle_clone/log/"+channelName, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("Response456",response);
-                handler.postDelayed(runnable, 5000);
+                Log.e("sent_log", response);
+//                handler.postDelayed(runnable, 5000);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -379,7 +378,7 @@ public class VideoCallActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (!mCallEnd) {
-            handler.removeCallbacks(runnable);
+//            handler.removeCallbacks(runnable);
             leaveChannel();
             finish();
         }
@@ -432,6 +431,7 @@ public class VideoCallActivity extends AppCompatActivity {
             Intent intent = new Intent(VideoCallActivity.this,Videocall_Joining.class);
             intent.putExtra("VideoEnd",true);
             intent.putExtra("uid2",getIntent().getStringExtra("uid2"));
+            intent.putExtra("channel",getIntent().getStringExtra("channel"));
             startActivity(intent);
             finish();
         }
@@ -445,6 +445,8 @@ public class VideoCallActivity extends AppCompatActivity {
     }
 
     private void endCall() {
+        // sending log when the call ends
+        sendLog();
         removeFromParent(mLocalVideo);
         mLocalVideo = null;
         removeFromParent(mRemoteVideo);

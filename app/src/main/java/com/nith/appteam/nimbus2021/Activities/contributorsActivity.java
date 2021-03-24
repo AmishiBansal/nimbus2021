@@ -1,3 +1,4 @@
+
 package com.nith.appteam.nimbus2021.Activities;
 
 import android.os.Bundle;
@@ -67,8 +68,10 @@ public class contributorsActivity extends AppCompatActivity {
                 "Mentor"));
         TeamMembers.add(new TeamMember("Daniyaal Khan", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338001/daniyaal_aofghr.jpg",
                 "Mentor"));
-//        TeamMembers.add(new TeamMember("Aakanksha Tewari", "aakankshaa23.png",
-//                        "aakankshaa23"));
+        TeamMembers.add(new TeamMember("Aakanksha Tewari", "https://res.cloudinary.com/ddl3sdojc/image/upload/v1615096713/pdtzucgr9acxpqw7mudk.jpg",
+                "Mentor"));
+        TeamMembers.add(new TeamMember("Arjun Anand", "https://res.cloudinary.com/ddl3sdojc/image/upload/v1615096713/ceentwwdhrnkcxhpbmvv.jpg",
+                "Mentor"));
 
         // 3rd year
         TeamMembers.add(new TeamMember("Pawan Harariya", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338005/pawan_ajkqtu.png",
@@ -81,9 +84,8 @@ public class contributorsActivity extends AppCompatActivity {
                 "Mentor"));
         TeamMembers.add(new TeamMember("Ayush Kaushal", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338000/ayush_dew6ea_lzgs8u.jpg",
                 "Mentor"));
-//        TeamMembers.add(
-//                new TeamMember("Chandan Sitlani", "ChandanSitlani.png",
-//                        "ChandanSitlani"));
+        TeamMembers.add(new TeamMember("Chandan Sitlani", "https://avatars.githubusercontent.com/u/40667874?s=460&v=4",
+                "Mentor"));
         TeamMembers.add(new TeamMember("Shreya Agarwal", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338005/shreya_hebdh9.png",
                 "Mentor"));
         TeamMembers.add(new TeamMember("Amishi Bansal","https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611337999/amishi_fuxwcu.jpg",
@@ -94,8 +96,8 @@ public class contributorsActivity extends AppCompatActivity {
                 "Mentor"));
         TeamMembers.add(new TeamMember("Moulik Bhardwaj", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338003/mouliksir_sp4q5g.jpg",
                 "Mentor"));
-        TeamMembers.add(new TeamMember("Pranjal Dureja", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338005/pranjal_spqauz.jpg",
-                "Mentor"));
+//        TeamMembers.add(new TeamMember("Pranjal Dureja", "https://res.cloudinary.com/ddl3sdojc/image/upload/c_scale,w_120/v1611338005/pranjal_spqauz.jpg",
+//                "Mentor"));
 
 
         // 2nd year
