@@ -126,7 +126,7 @@ public class Videocall_Joining extends AppCompatActivity {
 
                     if (!reason_for_reporting.isEmpty() && reason_for_reporting.length() != 0) {
                         RequestQueue requestQueue = Volley.newRequestQueue(Videocall_Joining.this);
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://13.71.16.202:8000/omegle_clone/report/", new Response.Listener<String>() {
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.Url + "omegle_clone/report/", new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 Log.e("Report", response);
