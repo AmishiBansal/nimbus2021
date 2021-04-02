@@ -1,5 +1,6 @@
 package com.nith.appteam.nimbus2021.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,8 +38,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,7 +131,19 @@ public class Exhhibition extends AppCompatActivity {
                         exhibition.setVenueExh("Venue: " + exhObj.getString("venue"));
 //                         Log.d("Talk",talk.getName());
 //                       Log.d("date",talk.getDate());
-                        if(!exhObj.getString("end").equals("null") && !ZonedDateTime.parse(exhObj.getString("end")).isBefore(ZonedDateTime.now())){
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ");
+
+                        Date myDate = null;
+                        Date d2 = null;
+                        Date date = new Date(System.currentTimeMillis());
+                        try {
+                            myDate = dateFormat.parse(exhObj.getString("end"));
+                            d2 = dateFormat.parse(exhObj.getString("end"));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("date", String.valueOf(myDate.before(date)));
+                        if(!exhObj.getString("end").equals("null") && !myDate.before(date)){
                             exhibitionList.add(exhibition);
                             exhibitionRecyclerViewAdapter.notifyDataSetChanged();
                         }else if(exhObj.getString("end").equals("null")){
