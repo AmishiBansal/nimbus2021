@@ -1,5 +1,6 @@
 package com.nith.appteam.nimbus2021.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -38,8 +39,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,10 +142,20 @@ public class DepartmentEvents extends Fragment {
                         eventD.setAbstractDEVE(talkObj.getString("abstract"));
 
 
-                        // Log.d("Talk",talk.getName());
-                        //Log.d("date",talk.getDate());
-                        if(!talkObj.getString("end").equals("null") && !ZonedDateTime.parse(talkObj.getString("end")).isBefore(ZonedDateTime.now())){
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ");
 
+                        Date myDate = null;
+                        Date d2 = null;
+                        Date date = new Date(System.currentTimeMillis());
+                        try {
+                            myDate = dateFormat.parse(talkObj.getString("end"));
+                            d2 = dateFormat.parse(talkObj.getString("end"));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("date", String.valueOf(myDate.before(date)));
+
+                        if(!talkObj.getString("end").equals("null") && !myDate.before(date)){
                             eventlistD.add(eventD);
                         events_d_recyclerViewAdapter.notifyDataSetChanged();
                         }else if(talkObj.getString("end").equals("null")){
