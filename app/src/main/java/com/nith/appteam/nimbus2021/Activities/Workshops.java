@@ -1,5 +1,6 @@
 package com.nith.appteam.nimbus2021.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -37,10 +38,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.ChronoZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -130,7 +135,20 @@ public class Workshops extends AppCompatActivity {
                         workshop.setTypeWor("Type:" + workshopObj.getString("Type"));
                         // Log.d("Talk",talk.getName());
 //                       Log.d("date",talk.getDate());
-                        if(!workshopObj.getString("end").equals("null") && !ZonedDateTime.parse(workshopObj.getString("end")).isBefore(ZonedDateTime.now()))
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ");
+
+                        Date myDate = null;
+                        Date d2 = null;
+                        Date date = new Date(System.currentTimeMillis());
+                        try {
+                            myDate = dateFormat.parse(workshopObj.getString("end"));
+                            d2 = dateFormat.parse(workshopObj.getString("end"));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Log.e("date", String.valueOf(myDate.before(date)));
+
+                        if(!workshopObj.getString("end").equals("null") && !myDate.before(date))
                         {
                             workshopList.add(workshop);
                             workshopRecyclerViewAdapter.notifyDataSetChanged();

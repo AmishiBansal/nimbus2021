@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,12 +42,17 @@ public class LeaderboardOverall extends AppCompatActivity {
     List<LeaderboardModel> mLeaderboardModelList;
     String quizId;
     String image;
+    SharedPreferences sharedPreferences;
+    String UID;
     RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard_overall);
+
+        sharedPreferences = getSharedPreferences("app", MODE_PRIVATE);
+        UID = sharedPreferences.getString("firebaseUid","");
 
         TextView back;
         back = findViewById(R.id.back1);
@@ -81,7 +87,7 @@ public class LeaderboardOverall extends AppCompatActivity {
         loadwall.setVisibility(View.VISIBLE);
 
         StringRequest stringRequest = new StringRequest(
-                Request.Method.GET,  Constant.Url +"/quiz/leaderboard/results/?format=json",
+                Request.Method.GET,  Constant.Url +"/quiz/leaderboard/results/?department="+getIntent().getStringExtra("depname"),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -89,7 +95,7 @@ public class LeaderboardOverall extends AppCompatActivity {
                         try {
 //                            JSONObject jsonObject = new JSONObject(response);
                             JSONArray players = new JSONArray(response);
-                            Log.e("response", response);
+                            Log.e("response", Constant.Url +"quiz/leaderboard/results/?department="+getIntent().getStringExtra("depname"));
 //                                JSONObject player = players.getJSONObject(1);
 //                            JSONArray players = jsonObject.getJSONArray("id");
                             Log.e("Tag", String.valueOf(players.length()));
@@ -140,6 +146,17 @@ public class LeaderboardOverall extends AppCompatActivity {
             @Override
             public String getBodyContentType() {
                 return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+
+                HashMap<String, String> headers = new HashMap<String, String>();
+                Log.d("TAG", "getHeaders: "+UID);
+                headers.put("Authorization", UID);
+                return headers;
+
             }
 
             @Override

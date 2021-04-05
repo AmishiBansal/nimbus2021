@@ -77,6 +77,7 @@ public class QuizInstructionsActivity extends AppCompatActivity {
                 " multiple-choice questions.You are allowed to attempt the quiz only once.Keep the following in mind:\n\n" +
                 "1. You will have only one attempts for this quiz\n\n" +
                 "2. Time given will be according to the question\n\n" +
+                "3. Time taken for each question will effect the score as follows.\nExtra marks for time = Time Limit - Time Taken\n\n"+
                 "To start, click the \"Play Now\" button.");
 
         response = getIntent().getStringExtra("questions");
@@ -104,23 +105,32 @@ public class QuizInstructionsActivity extends AppCompatActivity {
               String aT = getIntent().getStringExtra("startTime");
               String bT = getIntent().getStringExtra("endTime");
 
-                ZonedDateTime zdt = ZonedDateTime.now();
-                ZonedDateTime zdt1 = ZonedDateTime.parse(aT);
-                ZonedDateTime zdt2 = ZonedDateTime.parse(bT);
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ");
 
-                if(zdt.compareTo(zdt1)>0 && zdt.compareTo(zdt2)<0){
-                    Log.e("Time Checking","Time is right");
+                Date start = null;
+                Date end = null;
+                Date date = new Date(System.currentTimeMillis());
+                try {
+                    start = dateFormat.parse(aT);
+                    end = dateFormat.parse(bT);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Log.e("date", String.valueOf(start.before(date)));
+                if(date.after(start) && date.before(end)){
                     flag = true;
                 }
                 else{
-                    Toast.makeText(QuizInstructionsActivity.this, "Not Right Time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuizInstructionsActivity.this, String.valueOf(start.compareTo(date)), Toast.LENGTH_SHORT).show();
                     new AlertDialog.Builder(QuizInstructionsActivity.this)
                                 .setTitle("Not right time!")
-                                .setMessage("Start time: " + zdt1 + "\n" + "End time: " + zdt2)
+                                .setMessage("Start time: " + start + "\n" + "End time: " + end)
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
                     flag = false;
+                    Log.e("Time Checking", String.valueOf(start.after(date)));
                 }
+
 
 
                 getUserId();
