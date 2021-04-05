@@ -66,6 +66,16 @@ public class DepartmentQuiz extends AppCompatActivity {
                 overridePendingTransition(R.anim.ease_in, R.anim.ease_out);
             }
         });
+        TextView lb;
+        lb = findViewById(R.id.leaderB);
+        lb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i10 = new Intent(DepartmentQuiz.this,LeaderboardOverall.class);
+                i10.putExtra("depname",getIntent().getStringExtra("departmentname"));
+                startActivity(i10);
+            }
+        });
 
         loadwall = findViewById(R.id.loadwall);
 
@@ -141,11 +151,11 @@ public class DepartmentQuiz extends AppCompatActivity {
         progressDialog.show();
         loadwall.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                Constant.Url + "/quiz/question/"+id+"/?format=json", new Response.Listener<String>() {
+                Constant.Url + "quiz/question/"+id+"/?picture=true", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 loadwall.setVisibility(View.GONE);
-                Log.e("hi", "onResponse: " + response);
+                Log.e("hi", Constant.Url + "quiz/question/"+quiztypes.get(position).getId()+"/?picture=true");
                 boolean flag = true;
 
                 JSONObject jsonObject = null;

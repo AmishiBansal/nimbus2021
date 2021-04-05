@@ -66,14 +66,7 @@ public class QuizMainActivity extends AppCompatActivity {
             }
         });
 
-        TextView lb;
-        lb = findViewById(R.id.leaderB);
-        lb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(QuizMainActivity.this,LeaderboardOverall.class));
-            }
-        });
+
 
         quizrecyclerView = findViewById(R.id.quizrecyclerview);
         queue = Volley.newRequestQueue(QuizMainActivity.this);
