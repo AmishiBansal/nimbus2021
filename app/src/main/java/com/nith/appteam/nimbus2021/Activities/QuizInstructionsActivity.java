@@ -77,6 +77,7 @@ public class QuizInstructionsActivity extends AppCompatActivity {
                 " multiple-choice questions.You are allowed to attempt the quiz only once.Keep the following in mind:\n\n" +
                 "1. You will have only one attempts for this quiz\n\n" +
                 "2. Time given will be according to the question\n\n" +
+                "3. Time taken for each question will effect the score as follows.\nExtra marks for time = Time Limit - Time Taken\n\n"+
                 "To start, click the \"Play Now\" button.");
 
         response = getIntent().getStringExtra("questions");
